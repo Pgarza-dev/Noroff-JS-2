@@ -9,7 +9,19 @@ const options = {
 };
 
 export const getAllPosts = async () => {
-  const response = await fetch(`${baseUrl}/social/posts`, options);
-  const posts = await response.json();
-  return posts;
+  try {
+    const response = await fetch(`${baseUrl}/social/posts`, options);
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch posts: ${response.status}, ${response.statusText}`
+      );
+    }
+
+    const posts = await response.json();
+    return posts;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
