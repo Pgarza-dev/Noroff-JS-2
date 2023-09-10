@@ -1,6 +1,6 @@
 // Let's put all the fetch requests here :)
 
-const baseUrl = "";
+const baseUrl = "https://api.noroff.dev/api/v1";
 const options = {
   headers: {
     "Content-Type": "application/json",
