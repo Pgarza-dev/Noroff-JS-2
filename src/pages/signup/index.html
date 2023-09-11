@@ -16,5 +16,37 @@
         <li><a href="/index.html">Feed</a></li>
       </ul>
     </nav>
+    <main>
+      <form action="/index.html" method="POST" id="signup-form">
+        <div>
+          <label for="username">Username</label>
+          <input type="text" name="username" id="signup-username" autocomplete="name" />
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="email" name="email" id="signup-email" autocomplete="email" />
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="signup-password"
+            autocomplete="current-password"
+          />
+        </div>
+        <div>
+          <label for="repeat-password">Repeat Password</label>
+          <input
+            type="password"
+            name="repeat-password"
+            id="signup-repeat-password"
+            autocomplete="current-password"
+          />
+        </div>
+
+        <button type="submit" id="signup-btn">sign up</button>
+      </form>
+    </main>
   </body>
 </html>
