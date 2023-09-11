@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Social</title>
+    <title>Social | Log In</title>
     <script type="module" src="../../lib/main.js"></script>
   </head>
   <body>
@@ -16,5 +16,20 @@
         <li><a href="/index.html">Feed</a></li>
       </ul>
     </nav>
+    <main>
+      <form action="/index.html" method="POST" id="login">
+        <div>
+          <label for="email">Email</label>
+          <input type="email" name="email" id="login-email" />
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input type="password" name="password" id="login-password" />
+        </div>
+
+        <button type="submit" id="login-btn">Login</button>
+      </form>
+      <a href="/pages/signup/index.html">sign up</a>
+    </main>
   </body>
 </html>
