@@ -14,7 +14,10 @@ export default {
     hot: true,
   },
   build: {
+    // pass the flag --emptyOutDir to vite to empty dist dir before building
+
     outDir: path.resolve(__dirname, "dist"),
+    emptyOutDir: true,
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, "src/index.html"),
