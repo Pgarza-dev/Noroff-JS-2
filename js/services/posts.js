@@ -10,29 +10,7 @@ const updateSinglePost = `${API_BASE_URL}/social/posts/${singlePostId}`;
 const deleteSinglePost = `${API_BASE_URL}/social/posts/${singlePostId}`;
 const reactSinglePost = `${API_BASE_URL}/social/posts/${singlePostId}/react`;
 
-async function getAllPosts(userData) {
-  try {
-    console.log(userData);
-    const token = localStorage.getItem("accessToken");
-    console.log(token);
-    const fetchOptions = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const response = await fetch(userData, fetchOptions);
-    console.log(response);
-    const json = await response.json();
-    console.log(json);
-  } catch (error) {
-    console.log(error);
-  }
-}
-getAllPosts(allPostsUrl);
-
-async function getSinglePost(userData) {
+async function getAllPosts(allPostsUrl) {
   try {
     const token = localStorage.getItem("accessToken");
     const fetchOptions = {
@@ -42,16 +20,15 @@ async function getSinglePost(userData) {
         Authorization: `Bearer ${token}`,
       },
     };
-    const response = await fetch(userData, fetchOptions);
+    const response = await fetch(allPostsUrl, fetchOptions);
     const json = await response.json();
-    console.log(json);
+    return json;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
-getSinglePost(singlePostUrl);
 
-async function getFollowersPosts(userData) {
+async function getSinglePost(getSinglePostUrl) {
   try {
     const token = localStorage.getItem("accessToken");
     const fetchOptions = {
@@ -61,16 +38,40 @@ async function getFollowersPosts(userData) {
         Authorization: `Bearer ${token}`,
       },
     };
-    const response = await fetch(userData, fetchOptions);
+    const response = await fetch(getSinglePostUrl, fetchOptions);
     const json = await response.json();
-    console.log(json);
+    return json;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
-getFollowersPosts(allFollowersPosts);
 
-async function createPost(userData) {
+async function getFollowersPosts(allFollowersPosts) {
+  try {
+    const token = localStorage.getItem("accessToken");
+    const fetchOptions = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(allFollowersPosts, fetchOptions);
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+const newPostData = {
+  title: "New Title",
+  body: "New Body Text",
+  tags: ["tag1", "tag2"],
+  media: "",
+};
+
+async function createPost(createPostUrl, newPostData) {
   try {
     const token = localStorage.getItem("accessToken");
     const fetchOptions = {
@@ -79,22 +80,24 @@ async function createPost(userData) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        title: "string",
-        body: "string",
-        tags: ["string"],
-      }),
+      body: JSON.stringify(newPostData),
     };
-    const response = await fetch(userData, fetchOptions);
+    const response = await fetch(createPostUrl, fetchOptions);
     const json = await response.json();
-    console.log(json);
+    return json;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
-createPost(createPostUrl);
 
-async function updatePost(userData) {
+const updatedPostData = {
+  title: "Updated Title",
+  body: "Updated Body Text",
+  tags: ["tag3", "tag4"],
+  media: "",
+};
+
+async function updatePost(updateSinglePost, updatedPostData) {
   try {
     const token = localStorage.getItem("accessToken");
     const fetchOptions = {
@@ -103,23 +106,17 @@ async function updatePost(userData) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        title: "string",
-        body: "string",
-        tags: ["string"],
-        media: "",
-      }),
+      body: JSON.stringify(updatedPostData),
     };
-    const response = await fetch(userData, fetchOptions);
+    const response = await fetch(updateSinglePost, fetchOptions);
     const json = await response.json();
-    console.log(json);
+    return json;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
-updatePost(updateSinglePost);
 
-async function deletePost(userData) {
+async function deletePost(deleteSinglePost) {
   try {
     const token = localStorage.getItem("accessToken");
     const fetchOptions = {
@@ -129,16 +126,15 @@ async function deletePost(userData) {
         Authorization: `Bearer ${token}`,
       },
     };
-    const response = await fetch(userData, fetchOptions);
+    const response = await fetch(deleteSinglePost, fetchOptions);
     const json = await response.json();
-    console.log(json);
+    return json;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
-deletePost(deleteSinglePost);
 
-async function reactPost(userData) {
+async function reactPost(reactSinglePost) {
   try {
     const token = localStorage.getItem("accessToken");
     const fetchOptions = {
@@ -148,11 +144,10 @@ async function reactPost(userData) {
         Authorization: `Bearer ${token}`,
       },
     };
-    const response = await fetch(userData, fetchOptions);
+    const response = await fetch(reactSinglePost, fetchOptions);
     const json = await response.json();
-    console.log(json);
+    return json;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
-reactPost(reactSinglePost);
