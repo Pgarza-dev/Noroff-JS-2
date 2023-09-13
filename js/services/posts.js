@@ -1,16 +1,18 @@
 import { API_BASE_URL } from "../consts.js";
+
+// Define API URLs
 const allPostsUrl = `${API_BASE_URL}/social/posts`;
 const singlePostUrl = `${API_BASE_URL}/social/posts/820`;
-const allFollowersPosts = `${API_BASE_URL}/social/posts/following`;
+const followersPostsUrl = `${API_BASE_URL}/social/posts/following`;
 const createPostUrl = `${API_BASE_URL}/social/posts`;
 
 const urlParams = new URLSearchParams(window.location.search);
 const singlePostId = urlParams.get("id");
-const updateSinglePost = `${API_BASE_URL}/social/posts/${singlePostId}`;
-const deleteSinglePost = `${API_BASE_URL}/social/posts/${singlePostId}`;
-const reactSinglePost = `${API_BASE_URL}/social/posts/${singlePostId}/react`;
+const updateSinglePostUrl = `${API_BASE_URL}/social/posts/${singlePostId}`;
+const deleteSinglePostUrl = `${API_BASE_URL}/social/posts/${singlePostId}`;
+const reactSinglePostUrl = `${API_BASE_URL}/social/posts/${singlePostId}/react`;
 
-async function getAllPosts(allPostsUrl) {
+export async function getAllPosts() {
   try {
     const token = localStorage.getItem("accessToken");
     const fetchOptions = {
@@ -28,7 +30,7 @@ async function getAllPosts(allPostsUrl) {
   }
 }
 
-async function getSinglePost(getSinglePostUrl) {
+export async function getSinglePost() {
   try {
     const token = localStorage.getItem("accessToken");
     const fetchOptions = {
@@ -38,7 +40,7 @@ async function getSinglePost(getSinglePostUrl) {
         Authorization: `Bearer ${token}`,
       },
     };
-    const response = await fetch(getSinglePostUrl, fetchOptions);
+    const response = await fetch(singlePostUrl, fetchOptions);
     const json = await response.json();
     return json;
   } catch (error) {
@@ -46,7 +48,7 @@ async function getSinglePost(getSinglePostUrl) {
   }
 }
 
-async function getFollowersPosts(allFollowersPosts) {
+export async function getFollowersPosts() {
   try {
     const token = localStorage.getItem("accessToken");
     const fetchOptions = {
@@ -56,7 +58,7 @@ async function getFollowersPosts(allFollowersPosts) {
         Authorization: `Bearer ${token}`,
       },
     };
-    const response = await fetch(allFollowersPosts, fetchOptions);
+    const response = await fetch(followersPostsUrl, fetchOptions);
     const json = await response.json();
     return json;
   } catch (error) {
@@ -71,7 +73,7 @@ const newPostData = {
   media: "",
 };
 
-async function createPost(createPostUrl, newPostData) {
+export async function createPost() {
   try {
     const token = localStorage.getItem("accessToken");
     const fetchOptions = {
@@ -97,7 +99,7 @@ const updatedPostData = {
   media: "",
 };
 
-async function updatePost(updateSinglePost, updatedPostData) {
+export async function updatePost() {
   try {
     const token = localStorage.getItem("accessToken");
     const fetchOptions = {
@@ -108,7 +110,7 @@ async function updatePost(updateSinglePost, updatedPostData) {
       },
       body: JSON.stringify(updatedPostData),
     };
-    const response = await fetch(updateSinglePost, fetchOptions);
+    const response = await fetch(updateSinglePostUrl, fetchOptions);
     const json = await response.json();
     return json;
   } catch (error) {
@@ -116,7 +118,7 @@ async function updatePost(updateSinglePost, updatedPostData) {
   }
 }
 
-async function deletePost(deleteSinglePost) {
+export async function deletePost() {
   try {
     const token = localStorage.getItem("accessToken");
     const fetchOptions = {
@@ -126,7 +128,7 @@ async function deletePost(deleteSinglePost) {
         Authorization: `Bearer ${token}`,
       },
     };
-    const response = await fetch(deleteSinglePost, fetchOptions);
+    const response = await fetch(deleteSinglePostUrl, fetchOptions);
     const json = await response.json();
     return json;
   } catch (error) {
@@ -134,7 +136,7 @@ async function deletePost(deleteSinglePost) {
   }
 }
 
-async function reactPost(reactSinglePost) {
+export async function reactPost() {
   try {
     const token = localStorage.getItem("accessToken");
     const fetchOptions = {
@@ -144,7 +146,7 @@ async function reactPost(reactSinglePost) {
         Authorization: `Bearer ${token}`,
       },
     };
-    const response = await fetch(reactSinglePost, fetchOptions);
+    const response = await fetch(reactSinglePostUrl, fetchOptions);
     const json = await response.json();
     return json;
   } catch (error) {
