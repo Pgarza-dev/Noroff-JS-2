@@ -22,7 +22,9 @@
       </ul>
     </nav>
     <main>
-      <div class="mt-72 flex justify-center py-6 text-4xl">
+      <div
+        class="flex justify-center py-6 pt-60 text-2xl font-bold uppercase sm:text-5xl lg:text-9xl"
+      >
         <h1>Register</h1>
       </div>
 
@@ -30,74 +32,66 @@
         action="/index.html"
         method="POST"
         id="signup-form"
-        class="mx-auto flex w-1/3 min-w-max flex-col items-center rounded-xl border p-8 xl:container"
+        class="mx-auto flex w-1/3 max-w-lg flex-col items-center gap-8 rounded-xl border p-8"
       >
-        <div class="relative">
-          <div class="mb-8">
-            <input
-              type="username"
-              id="username"
-              name="username"
-              class="peer mt-1 h-10 w-full rounded-full border bg-primary-900 px-3 py-2 text-white focus:outline-none"
-              placeholder="username"
-            />
-            <label
-              for="username"
-              class="peer absolute -top-5 left-0 text-sm transition-all placeholder-shown:-top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-primary-900 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-white"
-              >Username</label
-            >
-          </div>
+        <div class="relative w-full">
+          <input
+            type="username"
+            id="username"
+            name="username"
+            class="peer mt-1 h-10 w-full rounded-full border bg-primary-900 px-3 py-2 text-white focus:outline-none"
+            placeholder="username"
+          />
+          <label
+            for="username"
+            class="peer absolute -top-5 left-0 text-sm transition-all placeholder-shown:-top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-primary-900 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-white"
+            >Username</label
+          >
         </div>
 
-        <div class="relative">
-          <div class="mb-8">
-            <input
-              type="email"
-              id="email"
-              name="email"
-              class="peer mt-1 h-10 w-full rounded-full border bg-primary-900 px-3 py-2 text-white focus:outline-none"
-              placeholder="Email"
-            />
-            <label
-              for="email"
-              class="peer absolute -top-5 left-0 text-sm transition-all placeholder-shown:-top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-primary-900 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-white"
-              >Email</label
-            >
-          </div>
+        <div class="relative w-full">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="peer mt-1 h-10 w-full rounded-full border bg-primary-900 px-3 py-2 text-white focus:outline-none"
+            placeholder="Email"
+          />
+          <label
+            for="email"
+            class="peer absolute -top-5 left-0 text-sm transition-all placeholder-shown:-top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-primary-900 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-white"
+            >Email</label
+          >
         </div>
 
-        <div class="relative">
-          <div class="mb-8">
-            <input
-              type="password"
-              id="password"
-              name="password"
-              class="peer mt-1 h-10 w-full rounded-full border bg-primary-900 px-3 py-2 text-white focus:outline-none"
-              placeholder="Enter your password"
-            />
-            <label
-              for="password"
-              class="peer absolute -top-5 left-0 text-sm transition-all placeholder-shown:-top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-primary-900 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-white"
-              >Enter your password</label
-            >
-          </div>
+        <div class="relative w-full">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="peer mt-1 h-10 w-full rounded-full border bg-primary-900 px-3 py-2 text-white focus:outline-none"
+            placeholder="Enter your password"
+          />
+          <label
+            for="password"
+            class="peer absolute -top-5 left-0 text-sm transition-all placeholder-shown:-top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-primary-900 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-white"
+            >Enter your password</label
+          >
         </div>
 
-        <div class="relative">
-          <div class="mb-8">
-            <input
-              type="password"
-              id="password"
-              name="password"
-              class="peer mt-1 h-10 w-full rounded-full border bg-primary-900 px-3 py-2 text-white focus:outline-none"
-              placeholder="Repeat password"
-            />
-            <label
-              for="password"
-              class="peer absolute -top-5 left-0 text-sm transition-all placeholder-shown:-top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-primary-900 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-white"
-              >Repeat password</label
-            >
-          </div>
+        <div class="relative w-full">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="peer mt-1 h-10 w-full rounded-full border bg-primary-900 px-3 py-2 text-white focus:outline-none"
+            placeholder="Repeat password"
+          />
+          <label
+            for="password"
+            class="peer absolute -top-5 left-0 text-sm transition-all placeholder-shown:-top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-primary-900 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-white"
+            >Repeat password</label
+          >
         </div>
 
         <button
