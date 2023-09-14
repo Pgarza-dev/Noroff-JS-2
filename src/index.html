@@ -41,16 +41,13 @@
     </nav>
     <main class="flex w-full justify-center">
       <section class="m-4 max-w-5xl">
-        <div class="rounded-2xl border p-8" id="post">
+        <div
+          class="rounded-2xl border border-white border-opacity-30 p-8"
+          id="post"
+        >
           <div class="flex flex-row leading-5" id="post-header">
-            <div>
-              <img
-                class="rounded-full"
-                src="./images/IMG_5076.jpeg"
-                alt="avatar"
-                width="50"
-                height="50"
-              />
+            <div class="h-12 w-12 overflow-hidden rounded-full">
+              <img class="w-full" src="./images/IMG_5076.jpeg" alt="avatar" />
             </div>
             <div class="pl-4">
               <span>username</span>
@@ -69,21 +66,45 @@
               consequuntur quam numquam dignissimos modi!
             </p>
           </div>
-          <hr class="pb-2" />
+          <hr class="pb-2 opacity-50" />
           <div class="flex justify-between pt-4">
-            <div class="flex rounded-md border-2 p-1 pl-3 pr-3">
-              <button id="add-comment-btn">
+            <div class="flex gap-2 rounded-md border-2 px-3 py-1">
+              <button id="add-comment-btn ">
                 <i class="fa-regular fa-message"></i>
               </button>
-              <div class="pl-2 pr-2">
-                <i class="fa-solid fa-ellipsis-vertical"></i>
+              <div class="">
+                <svg width="1" height="24" xmlns="http://www.w3.org/2000/svg">
+                  <line
+                    x1="0.5"
+                    y1="0"
+                    x2="0.5"
+                    y2="24"
+                    stroke="white"
+                    stroke-width="1"
+                  />
+                </svg>
               </div>
               <button id="view-comments-btn">17</button>
             </div>
-            <div class="flex rounded-md border-2 p-1 pl-3 pr-3">
-              <button id="view-reactions-btn">12</button>
-              <div class="pl-2 pr-2">
-                <i class="fa-solid fa-ellipsis-vertical"></i>
+            <div class="flex gap-2 rounded-md border-2 px-3 py-1">
+              <button
+                class="opacity-50 hover:opacity-100"
+                id="view-reactions-btn"
+              >
+                12
+              </button>
+              <div class="">
+                <svg width="1" height="24" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Draw a vertical line -->
+                  <line
+                    x1="0.5"
+                    y1="0"
+                    x2="0.5"
+                    y2="24"
+                    stroke="white"
+                    stroke-width="1"
+                  />
+                </svg>
               </div>
               <button id="add-reaction-btn">
                 <i class="fa-regular fa-plus"></i>
