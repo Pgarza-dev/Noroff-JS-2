@@ -68,10 +68,12 @@
           </div>
           <hr class="pb-2 opacity-50" />
           <div class="flex justify-between pt-4">
-            <div class="flex items-center rounded-md border-2">
+            <div
+              class="flex items-center rounded-md border-2 opacity-50 transition-opacity duration-500 hover:opacity-100"
+            >
               <button
                 id="add-comment-btn"
-                class="h-full px-2 transition-colors duration-500 hover:bg-gray-600"
+                class="h-full rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
               >
                 <i class="fa-regular fa-message"></i>
               </button>
@@ -89,14 +91,16 @@
               </div>
               <button
                 id="view-comments-btn"
-                class="h-full px-2 transition-colors duration-500 hover:bg-gray-600"
+                class="h-full rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
               >
                 17
               </button>
             </div>
-            <div class="flex gap-2 rounded-md border-2 px-3 py-1">
+            <div
+              class="flex items-center rounded-md border-2 opacity-50 transition-opacity duration-500 hover:opacity-100"
+            >
               <button
-                class="opacity-50 hover:opacity-100"
+                class="h-full rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
                 id="view-reactions-btn"
               >
                 12
@@ -114,7 +118,10 @@
                   />
                 </svg>
               </div>
-              <button id="add-reaction-btn">
+              <button
+                class="h-full rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
+                id="add-reaction-btn"
+              >
                 <i class="fa-regular fa-plus"></i>
               </button>
             </div>
