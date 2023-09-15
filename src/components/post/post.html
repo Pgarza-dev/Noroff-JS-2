@@ -1,0 +1,103 @@
+<div class="rounded-2xl border border-white border-opacity-30 p-8" id="post">
+  <div class="flex flex-row leading-5" id="post-header">
+    <div class="h-12 w-12 overflow-hidden rounded-full">
+      <img class="w-full" src="/images/IMG_5076.jpeg" alt="avatar" />
+    </div>
+    <div class="pl-4">
+      <a id="author-link" href="#">
+        <span id="author" class="font-medium"> username</span>
+      </a>
+      <div class="text-sm text-gray-300">
+        <span id="time">8:06 AM</span>
+        <span>·</span>
+        <span id="date"></span>
+      </div>
+    </div>
+  </div>
+  <div class="pb-6 pt-6">
+    <p id="post-body">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae,
+      voluptates rem, libero rerum nostrum error molestias voluptas expedita
+      sunt voluptatibus deserunt delectus animi fuga sequi consequuntur quam
+      numquam dignissimos modi!
+    </p>
+  </div>
+  <hr class="pb-2 opacity-50" />
+  <div class="flex justify-between pt-4">
+    <div
+      class="flex items-center rounded-md border-2 opacity-50 transition-opacity duration-500 hover:opacity-100"
+    >
+      <button
+        id="add-comment-btn"
+        class="h-full w-8 rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
+      >
+        <i class="fa-regular fa-message"></i>
+      </button>
+      <div>
+        <svg width="1" height="24" xmlns="http://www.w3.org/2000/svg">
+          <line
+            x1="0.5"
+            y1="0"
+            x2="0.5"
+            y2="24"
+            stroke="white"
+            stroke-width="1"
+          />
+        </svg>
+      </div>
+      <button
+        id="view-comments-btn"
+        class="h-full w-8 rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
+      >
+        17
+      </button>
+    </div>
+    <div
+      class="flex items-center rounded-md border-2 opacity-50 transition-opacity duration-500 hover:opacity-100"
+    >
+      <button
+        class="h-full w-8 rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
+        id="view-reactions-btn"
+      >
+        12
+      </button>
+      <div class="">
+        <svg width="1" height="24" xmlns="http://www.w3.org/2000/svg">
+          <!-- Draw a vertical line -->
+          <line
+            x1="0.5"
+            y1="0"
+            x2="0.5"
+            y2="24"
+            stroke="white"
+            stroke-width="1"
+          />
+        </svg>
+      </div>
+      <button
+        class="h-full w-8 rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
+        id="add-reaction-btn"
+      >
+        <i class="fa-regular fa-plus"></i>
+      </button>
+    </div>
+  </div>
+  <div id="comments" class="flex flex-col"></div>
+  <form id="input-comment" class="relative pt-8" method="post">
+    <div class="relative">
+      <textarea
+        class="w-full rounded-md border border-stone-700 bg-black px-3 py-4 text-xl"
+        type="text"
+        name=""
+        id=""
+      ></textarea>
+      <button
+        class="absolute right-0 top-1/2 -translate-y-1/2 p-2 leading-none"
+        id="submit-comment-btn"
+        type="submit"
+      >
+        Send
+      </button>
+    </div>
+  </form>
+</div>
