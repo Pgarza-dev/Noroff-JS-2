@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Social</title>
     <script type="module" src="../../lib/main.js"></script>
+    <script type="module" src="../../lib/page_scripts/signup.js"></script>
   </head>
   <body class="bg-primary-900 text-gray-50">
     <nav class="p-2 text-gray-400">
@@ -44,10 +45,10 @@
           />
           <label
             for="username"
-            required
             class="peer absolute -top-5 left-0 text-sm text-white transition-all duration-500 placeholder-shown:-top-2 peer-placeholder-shown:text-base peer-placeholder-shown:opacity-0 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-white peer-focus:opacity-100"
             >Username</label
           >
+          <div id="username-error"></div>
         </div>
 
         <div class="relative w-full">
@@ -60,42 +61,44 @@
           />
           <label
             for="email"
-            required
             class="peer absolute -top-5 left-0 text-sm text-white transition-all duration-500 placeholder-shown:-top-2 peer-placeholder-shown:text-base peer-placeholder-shown:opacity-0 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-white peer-focus:opacity-100"
             >Email</label
           >
+          <div id="email-error"></div>
         </div>
 
         <div class="relative w-full">
           <input
             type="password"
-            required
             id="password"
             name="password"
             class="peer h-10 w-full rounded-full border bg-primary-900 px-3 py-2 text-white focus:outline-none"
             placeholder="Enter your password"
+            minlength="8"
           />
           <label
             for="password"
             class="peer absolute -top-5 left-0 text-sm text-white transition-all duration-500 placeholder-shown:-top-2 peer-placeholder-shown:text-base peer-placeholder-shown:opacity-0 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-white peer-focus:opacity-100"
             >Enter your password</label
           >
+          <div id="password-error"></div>
         </div>
 
         <div class="relative w-full">
           <input
             type="password"
-            required
-            id="password"
-            name="password"
+            id="repeatPassword"
+            name="repeatPassword"
             class="peer h-10 w-full rounded-full border bg-primary-900 px-3 py-2 text-white focus:outline-none"
             placeholder="Repeat password"
+            minlength="8"
           />
           <label
-            for="password"
+            for="repeatPassword"
             class="peer absolute -top-5 left-0 text-sm text-white transition-all duration-500 placeholder-shown:-top-2 peer-placeholder-shown:text-base peer-placeholder-shown:opacity-0 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-white peer-focus:opacity-100"
             >Repeat password</label
           >
+          <div id="repeatPassword-error"></div>
         </div>
 
         <button
