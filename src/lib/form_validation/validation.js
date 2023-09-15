@@ -57,7 +57,7 @@ export function isSignupFormValid(form) {
 
   if (!isWhitelistedEmail(email, emailDomainWhiteList)) {
     validationResult.isValid = false;
-    validationResult.errors.email = "Email not whitelisted.";
+    validationResult.errors.email = "not whitelisted.";
   }
 
   if (!isValidPassword(password, passwordMinLength)) {

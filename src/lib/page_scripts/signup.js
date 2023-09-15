@@ -1,5 +1,7 @@
 import { isSignupFormValid } from "@lib/form_validation/validation";
 import { clearErrors, displayErrors } from "../form_validation/handleErrors";
+import { registerUser } from "@lib/services/auth";
+import { doc } from "prettier";
 
 /**
  * @typedef {Object} SignupFormDataObject
@@ -21,7 +23,26 @@ function createFormDataObject(form) {
   return formDataObject;
 }
 
-async function handleSignUp(formDataObject) {}
+async function handleSignUp(formDataObject) {
+  const userData = {
+    name: formDataObject.username,
+    email: formDataObject.email,
+    password: formDataObject.password,
+  };
+  const response = await registerUser(userData);
+  console.log(response);
+  if (response.errors) {
+    console.log(response.errors);
+    const apiErrorElement = document.querySelector("#api-error");
+    response.errors.forEach((error) => {
+      const errorElement = document.createElement("p");
+      errorElement.textContent = error.message;
+      apiErrorElement.appendChild(errorElement);
+    });
+  } else {
+    window.location.href = "/pages/login/index.html";
+  }
+}
 
 const signupForm = document.querySelector("#signup-form");
 
