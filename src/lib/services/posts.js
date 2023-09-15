@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "../consts.js";
+import { API_BASE_URL } from "../constants.js";
 
 // Define API URLs
 const allPostsUrl = `${API_BASE_URL}/social/posts`;
@@ -66,14 +66,7 @@ export async function getFollowersPosts() {
   }
 }
 
-const newPostData = {
-  title: "New Title",
-  body: "New Body Text",
-  tags: ["tag1", "tag2"],
-  media: "",
-};
-
-export async function createPost() {
+export async function createPost(newPostData) {
   try {
     const token = localStorage.getItem("accessToken");
     const fetchOptions = {
@@ -92,14 +85,7 @@ export async function createPost() {
   }
 }
 
-const updatedPostData = {
-  title: "Updated Title",
-  body: "Updated Body Text",
-  tags: ["tag3", "tag4"],
-  media: "",
-};
-
-export async function updatePost() {
+export async function updatePost(updatedPostData) {
   try {
     const token = localStorage.getItem("accessToken");
     const fetchOptions = {

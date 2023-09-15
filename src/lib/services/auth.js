@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "../consts.js";
+import { API_BASE_URL } from "../constants.js";
 const registerUrl = `${API_BASE_URL}/social/auth/register`;
 
 /**
