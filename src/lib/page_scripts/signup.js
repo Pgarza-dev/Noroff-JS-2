@@ -19,8 +19,16 @@ import { doc } from "prettier";
 function createFormDataObject(form) {
   const formData = new FormData(form);
   const formDataObject = Object.fromEntries(formData.entries());
-
   return formDataObject;
+}
+
+function handleApiError(errors) {
+  const apiErrorElement = document.querySelector("#api-error");
+  errors.forEach((error) => {
+    const errorElement = document.createElement("p");
+    errorElement.textContent = error.message;
+    apiErrorElement.appendChild(errorElement);
+  });
 }
 
 async function handleSignUp(formDataObject) {
@@ -30,15 +38,8 @@ async function handleSignUp(formDataObject) {
     password: formDataObject.password,
   };
   const response = await registerUser(userData);
-  console.log(response);
   if (response.errors) {
-    console.log(response.errors);
-    const apiErrorElement = document.querySelector("#api-error");
-    response.errors.forEach((error) => {
-      const errorElement = document.createElement("p");
-      errorElement.textContent = error.message;
-      apiErrorElement.appendChild(errorElement);
-    });
+    handleApiError(response.errors);
   } else {
     window.location.href = "/pages/login/index.html";
   }
@@ -54,8 +55,6 @@ signupForm.addEventListener("submit", (event) => {
   const form = createFormDataObject(signupForm);
 
   const validationResult = isSignupFormValid(form);
-
-  console.log(validationResult);
 
   if (validationResult.isValid) {
     handleSignUp(form);
