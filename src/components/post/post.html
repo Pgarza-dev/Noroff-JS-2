@@ -25,68 +25,68 @@
   <hr class="pb-2 opacity-50" />
   <div class="flex justify-between pt-4">
     <div
-      class="flex items-center rounded-md border-2 opacity-50 transition-opacity duration-500 hover:opacity-100"
+      class="bg-200% rounded-md bg-gradient-to-r from-stone-400 via-stone-600 to-stone-400 bg-left p-[2px] opacity-60 transition-all duration-700 hover:opacity-100 [&:has(#view-comments-btn:hover)]:bg-right"
     >
-      <button
-        id="add-comment-btn"
-        class="h-full w-8 rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
-      >
-        <i class="fa-regular fa-message"></i>
-      </button>
-      <div>
-        <svg width="1" height="24" xmlns="http://www.w3.org/2000/svg">
-          <line
-            x1="0.5"
-            y1="0"
-            x2="0.5"
-            y2="24"
-            stroke="white"
-            stroke-width="1"
-          />
-        </svg>
+      <div class="flex items-center overflow-hidden rounded-md bg-stone-950">
+        <button
+          id="add-comment-btn"
+          class="h-full w-8 rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
+        >
+          <i class="fa-regular fa-message"></i>
+        </button>
+        <div>
+          <svg
+            width="1"
+            height="24"
+            class="stroke-stone-600"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line x1="0.5" y1="0" x2="0.5" y2="24" stroke-width="1" />
+          </svg>
+        </div>
+        <button
+          id="view-comments-btn"
+          class="h-full w-8 rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
+        >
+          17
+        </button>
       </div>
-      <button
-        id="view-comments-btn"
-        class="h-full w-8 rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
-      >
-        17
-      </button>
     </div>
+
     <div
-      class="flex items-center rounded-md border-2 opacity-50 transition-opacity duration-500 hover:opacity-100"
+      class="bg-200% rounded-md bg-gradient-to-l from-stone-400 via-stone-600 to-stone-400 bg-right p-[2px] opacity-60 transition-all duration-700 hover:opacity-100 [&:has(#view-reactions-btn:hover)]:bg-left"
     >
-      <button
-        class="h-full w-8 rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
-        id="view-reactions-btn"
-      >
-        12
-      </button>
-      <div class="">
-        <svg width="1" height="24" xmlns="http://www.w3.org/2000/svg">
-          <!-- Draw a vertical line -->
-          <line
-            x1="0.5"
-            y1="0"
-            x2="0.5"
-            y2="24"
-            stroke="white"
-            stroke-width="1"
-          />
-        </svg>
+      <div class="flex items-center overflow-hidden rounded-md bg-stone-950">
+        <button
+          class="h-full w-8 rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
+          id="view-reactions-btn"
+        >
+          12
+        </button>
+        <div class="">
+          <svg
+            width="1"
+            height="24"
+            class="stroke-stone-600"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line x1="0.5" y1="0" x2="0.5" y2="24" stroke-width="1" />
+          </svg>
+        </div>
+        <button
+          class="h-full w-8 rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
+          id="add-reaction-btn"
+        >
+          <i class="fa-regular fa-plus"></i>
+        </button>
       </div>
-      <button
-        class="h-full w-8 rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
-        id="add-reaction-btn"
-      >
-        <i class="fa-regular fa-plus"></i>
-      </button>
     </div>
   </div>
   <div id="comments" class="flex flex-col"></div>
   <form id="input-comment" class="relative pt-8" method="post">
     <div class="relative">
       <textarea
-        class="w-full rounded-md border border-stone-700 bg-black px-3 py-4 text-xl"
+        class="w-full rounded-md border border-stone-700 bg-black px-3 py-4 text-xl outline-none ring-2 ring-transparent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-800"
         type="text"
         name=""
         id=""

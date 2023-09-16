@@ -3,6 +3,14 @@ export default {
   content: ["./src/**/*.{html,js}"],
   theme: {
     extend: {
+      backgroundSize: {
+        "50%": "50%",
+        "100%": "100%",
+        "200%": "200%",
+        "300%": "300%",
+        "400%": "400%",
+        "500%": "500%",
+      },
       colors: {
         primary: {
           50: "#f4f9f8",
