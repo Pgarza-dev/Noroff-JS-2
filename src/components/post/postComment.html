@@ -1,26 +1,31 @@
-<div id="comment" class="flex w-full items-center border-opacity-30">
+<div
+  id="comment"
+  data-slot="comment"
+  class="flex w-full items-center border-opacity-30"
+>
   <div class="flex w-full flex-col gap-2 px-2">
     <div class="flex items-center gap-2">
       <div class="h-8 w-8 overflow-hidden rounded-full">
         <img src="/images/IMG_5076.jpeg" alt="" />
       </div>
       <div class="flex flex-col justify-center">
-        <a id="author-link" href="#">
+        <a id="author-link" data-slot="authorLink" href="#">
           <span
             class="text-md font-medium leading-none text-gray-100"
             id="author"
+            data-slot="author"
             >username</span
           >
         </a>
         <div class="text-sm text-gray-300">
-          <span id="time">8:06 AM</span>
+          <span id="time" data-slot="time">8:06 AM</span>
           <span>·</span>
-          <span id="date"></span>
+          <span id="date" data-slot="date"></span>
         </div>
       </div>
     </div>
     <div class="flex items-center">
-      <p class="pb-4" id="comment-body">
+      <p class="pb-4" id="comment-body" data-slot="commentBody">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Exercitationem
         eaque sapiente minus quos alias similique necessitatibus inventore
         perspiciatis temporibus, maiores assumenda vero harum aperiam optio
@@ -31,6 +36,7 @@
   <button
     class="py-2 opacity-20 transition-opacity hover:opacity-100"
     id="reply-to-comment-btn"
+    data-slot="replyToCommentBtn"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"

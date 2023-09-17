@@ -1,109 +1,12 @@
 import postHtml from "./post.html?raw";
-import postCommentHtml from "./postComment.html?raw";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import { CustomComponent } from "../customComponent.js";
+import { PostHeader } from "./postHeader.js";
+import { PostButtons } from "./postButtons.js";
+import { PostComment } from "./postComment.js";
+import { PostInputComment } from "./postInputComment.js";
+import { PostCommentList } from "./postCommentList";
 
-dayjs.extend(relativeTime);
-
-class PostComment extends HTMLElement {
-  constructor(author = "", body = "", date = "", parentEl = null) {
-    super();
-    this.author = author;
-    this.body = body;
-    this.date = date;
-    this.root = parentEl;
-  }
-
-  connectedCallback() {
-    this.innerHTML = postCommentHtml;
-    this.classList.add(
-      "border-b",
-      "border-opacity-10",
-      "border-white",
-      "last:border-none",
-    );
-
-    this.setCommentBody(this.body);
-    this.setCommentAuthor(this.author);
-    this.setCommentDate(this.date);
-    this.setAuthorLink(this.author);
-    this.setTimeCreated(this.date);
-    this.handleReplyToCommentBtnClick(this.author);
-  }
-
-  setCommentBody(body) {
-    this.querySelector("#comment-body").textContent = body;
-  }
-
-  setCommentAuthor(author) {
-    this.querySelector("#author").textContent = author;
-  }
-
-  setCommentDate(date) {
-    this.querySelector("#date").textContent = dayjs(date).fromNow();
-  }
-
-  setTimeCreated(date) {
-    this.querySelector("#time").textContent = dayjs(date).format("HH:mm");
-  }
-
-  setAuthorLink(author) {
-    this.querySelector("#author-link").href = `/users/${author}`;
-  }
-
-  handleReplyToCommentBtnClick = (author) => {
-    const replyToCommentBtn = this.querySelector("#reply-to-comment-btn");
-
-    replyToCommentBtn.addEventListener("click", () => {
-      const inputCommentField = this.root.querySelector("#commentField");
-
-      if (inputCommentField.classList.contains("hidden")) {
-        inputCommentField.classList.remove("hidden");
-      }
-
-      inputCommentField.querySelector.focus();
-      inputCommentField.querySelector.value = `@${author} `;
-    });
-  };
-}
-
-customElements.define("post-comment", PostComment);
-const commentsData = [
-  {
-    body: `Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-    Exercitationem eaque sapiente minus quos alias similique
-    necessitatibus inventore perspiciatis temporibus, maiores
-    assumenda vero harum aperiam optio distinctio. Eos animi
-    enim ad?`,
-    replyToId: null,
-    id: 103,
-    postId: 820,
-    owner: "PabloGarza",
-    created: "2023-09-10T14:30:46.406Z",
-    author: {
-      name: "PabloGarza",
-      email: "pabgar91211@stud.noroff.no",
-      avatar: null,
-      banner: null,
-    },
-  },
-  {
-    body: "This is a comment!",
-    replyToId: null,
-    id: 123,
-    postId: 820,
-    owner: "kyrregjerstad",
-    created: "2023-09-15T16:38:36.859Z",
-    author: {
-      name: "kyrregjerstad",
-      email: "kyrgje24554@stud.noroff.no",
-      avatar: null,
-      banner: null,
-    },
-  },
-];
-
-const postData = [
+const postsData = [
   {
     title: "Example of XSS",
     body: '<img src="fake.jpg" onerror="console.error(\'Note: This script is not harmful. It shows an XSS risk. XSS can steal info or redirect users. Always sanitize data before using innerHTML.\');" />',
@@ -167,189 +70,151 @@ const postData = [
   },
 ];
 
-class Post extends HTMLElement {
-  constructor(
-    author = "Test",
-    body = "Hello world!",
-    created = "2023-09-10T14:00:33.457Z",
-  ) {
+/**
+ * Represents a reaction on a post.
+ * @typedef {Object} Reaction
+ * @property {string} symbol - The symbol for the reaction (e.g., "👍").
+ * @property {number} count - The count of this reaction.
+ * @property {number} postId - The ID of the associated post.
+ */
+
+/**
+ * Represents an author of a comment or post.
+ * @typedef {Object} Author
+ * @property {string} name - The name of the author.
+ * @property {string} email - The email of the author.
+ * @property {?string} avatar - The URL to the avatar image.
+ * @property {?string} banner - The URL to the banner image.
+ */
+
+/**
+ * Represents a comment on a post.
+ * @typedef {Object} Comment
+ * @property {string} body - The body text of the comment.
+ * @property {?number} replyToId - The ID of the comment to which this is a reply.
+ * @property {number} id - The ID of the comment.
+ * @property {number} postId - The ID of the associated post.
+ * @property {string} owner - The username of the comment owner.
+ * @property {string} created - The creation date in ISO 8601 format.
+ * @property {Author} author - The author of the comment.
+ */
+
+/**
+ * Represents a post. Expects the _comments, _reactions and _author flags in the API call to be set to true
+ * @typedef {Object} PostData
+ * @property {string} title - The title of the post.
+ * @property {string} body - The body text of the post.
+ * @property {string[]} tags - The tags associated with the post.
+ * @property {?string} media - The URL to any associated media.
+ * @property {Reaction[]} reactions - The reactions to the post.
+ * @property {Comment[]} comments - The comments on the post.
+ * @property {string} created - The creation date in ISO 8601 format.
+ * @property {?string} updated - The last updated date in ISO 8601 format.
+ * @property {number} id - The ID of the post.
+ * @property {Author} author - The author of the post.
+ * @property {Object} _count - Miscellaneous counts.
+ * @property {number} _count.comments - The total number of comments.
+ * @property {number} _count.reactions - The total number of reactions.
+ */
+class Post extends CustomComponent {
+  /**
+   * @param {PostData} postData - The full post data returned from the API, expects the _comments, _reactions and _author flags to be set to true.
+   */
+  constructor(postData) {
     super();
-    this.author = author;
-    this.body = body;
-    this.created = created;
+    this.postData = postData;
   }
 
   connectedCallback() {
     this.innerHTML = postHtml;
 
-    this.queryDomElements();
-    this.populateData();
-    this.addEventListeners();
-  }
-
-  queryDomElements() {
-    this.commentsContainer = this.querySelector("#comments");
-    this.postBody = this.querySelector("#post-body");
-    this.postUsername = this.querySelector("#author");
-    this.commentCount = this.querySelector("#view-comments-btn");
-    this.reactionsCount = this.querySelector("#view-reactions-btn");
-    this.dateCreated = this.querySelector("#date");
-    this.timeCreated = this.querySelector("#time");
-    this.authorLink = this.querySelector("#author-link");
-    this.postMenuBtn = this.querySelector("#post-menu-btn");
-    this.postMenu = this.querySelector("#post-menu-dropdown");
-    this.viewCommentsBtn = this.querySelector("#view-comments-btn");
-    this.addCommentBtn = this.querySelector("#add-comment-btn");
-    this.inputCommentField = this.querySelector("#input-comment-form");
-  }
-
-  populateData() {
-    this.setPostBody(this.body);
-    this.setPostUsername(this.author);
-    this.setDateCreated(this.created);
-    this.setTimeCreated(this.created);
-    this.setAuthorLink(this.author);
-    this.setCommentCount(commentsData.length);
-    this.setReactionsCount(0);
-
-    commentsData.forEach((comment) => {
-      const commentElement = new PostComment(
-        comment.author.name,
-        comment.body,
-        comment.created,
-      );
-      this.commentsContainer.appendChild(commentElement);
+    this.populateData({
+      postHeader: this.setPostHeader(),
+      postBody: this.setPostBody(),
+      postButtons: this.setPostButtons(),
+      postCommentList: this.setPostCommentList(),
+      commentField: this.setPostInputComment(),
     });
+    this.addEventListeners();
   }
 
   addEventListeners() {
     this.addEventListener("submit", this.handleSubmitComment);
-    this.handleViewCommentsBtnClick();
-    this.handleAddCommentBtnClick();
-    this.handlePostMenuBtnClick();
-    this.handleTagUser();
-  }
 
-  setPostBody(body) {
-    this.postBody.textContent = body;
-  }
-
-  setPostUsername(author) {
-    this.postUsername.textContent = author;
-  }
-
-  setCommentCount(count) {
-    this.commentCount.textContent = count;
-  }
-
-  setReactionsCount(count) {
-    this.reactionsCount.textContent = count;
-  }
-
-  setDateCreated(date) {
-    this.dateCreated.textContent = dayjs(date).fromNow();
-  }
-
-  setTimeCreated(date) {
-    this.timeCreated.textContent = dayjs(date).format("HH:mm");
-  }
-
-  setAuthorLink(author) {
-    this.authorLink.href = `/users/${author}`;
-  }
-
-  handlePostMenuBtnClick = () => {
-    this.postMenuBtn.addEventListener("click", (event) => {
-      this.postMenu.classList.toggle("hidden");
-
-      event.stopPropagation();
+    this.onCustomEvent({
+      eventName: "toggleComments",
+      id: this.postData.id,
+      callback: () => this.toggleComments(),
     });
 
-    document.addEventListener("click", (event) => {
-      if (
-        !this.postMenu.contains(event.target) &&
-        !this.postMenuBtn.contains(event.target)
-      ) {
-        this.postMenu.classList.add("hidden");
-      }
+    this.onCustomEvent({
+      eventName: "addComment",
+      id: this.postData.id,
+      callback: () => this.displayCommentField(),
     });
+  }
 
-    // Removes event listener when component is removed from DOM
-    this.addEventListener("disconnectedCallback", () => {
-      document.removeEventListener("click", handlePostMenuBtnClick);
-    });
-  };
+  //using getters to always get the latest version of the DOM element
+  get commentsContainer() {
+    return this.getSlot("comments");
+  }
 
-  handleViewCommentsBtnClick = () => {
-    this.viewCommentsBtn.addEventListener("click", () => {
-      if (this.commentsContainer.classList.contains("hidden")) {
-        this.commentsContainer.classList.remove("hidden");
-        this.inputCommentField.classList.remove("hidden");
-      } else {
-        this.commentsContainer.classList.add("hidden");
-        this.inputCommentField.classList.add("hidden");
-      }
-    });
-  };
+  get inputCommentField() {
+    return this.getSlot("input-comment-form");
+  }
 
-  handleAddCommentBtnClick = () => {
-    this.addCommentBtn.addEventListener("click", () => {
-      if (this.inputCommentField.classList.contains("hidden")) {
-        this.inputCommentField.classList.remove("hidden");
-      }
-
-      this.inputCommentField.querySelector("#commentField").focus();
-    });
-  };
-
-  handleTagUser = () => {
-    // TODO: Add functionality to tag users, this is just a placeholder
-
-    this.inputCommentField.addEventListener("keyup", (event) => {
-      const commentValue = event.target.innerText.trim();
-
-      const usernameRegex = /@(\w+)/g;
-      let match;
-
-      while ((match = usernameRegex.exec(commentValue)) !== null) {
-        console.log(match[1]);
-      }
-    });
-  };
-
-  handleSubmitComment = (event) => {
-    event.preventDefault();
-
-    const commentValue = this.inputCommentField.innerText.trim();
-
-    if (commentValue) {
-      const newComment = {
-        author: this.author,
-        body: commentValue,
-        created: Date.now(),
-      };
-
-      // this.inputCommentField.textContent = "";
-
-      const commentElement = new PostComment(
-        newComment.author,
-        newComment.body,
-        newComment.created,
-        this,
-      );
-
-      if (this.commentsContainer.classList.contains("hidden")) {
-        this.commentsContainer.classList.remove("hidden");
-      }
-
-      this.querySelector("#comments").appendChild(commentElement);
+  commentsOpen = false;
+  toggleComments = () => {
+    if (!this.commentsOpen) {
+      this.displayElement(this.commentsContainer);
+      this.displayElement(this.inputCommentField);
+    } else {
+      this.hideElement(this.commentsContainer);
+      this.hideElement(this.inputCommentField);
     }
+    this.commentsOpen = !this.commentsOpen;
   };
+
+  commentFieldOpen = false;
+  displayCommentField = () => {
+    if (!this.commentFieldOpen) {
+      this.displayElement(this.inputCommentField);
+    } else {
+      this.hideElement(this.inputCommentField);
+    }
+    this.inputCommentField.focus();
+  };
+
+  setPostHeader() {
+    return new PostHeader(this.postData.author.name, this.postData.created);
+  }
+
+  setPostBody() {
+    return this.postData.body;
+  }
+
+  setPostButtons() {
+    return new PostButtons(
+      this,
+      this.postData._count.comments,
+      this.postData._count.reactions,
+      this.postData.id,
+    );
+  }
+
+  setPostCommentList() {
+    console.log(new PostCommentList(this.postData.comments));
+    return new PostCommentList(this.postData.comments);
+  }
+
+  setPostInputComment() {
+    return new PostInputComment(this.postData.author.name);
+  }
 }
 
 customElements.define("app-post", Post);
 
 const postsSection = document.querySelector("#posts");
-postData.forEach((post) => {
-  postsSection.appendChild(new Post(post.author.name, post.body, post.created));
+postsData.forEach((postData) => {
+  postsSection.appendChild(new Post(postData));
 });
