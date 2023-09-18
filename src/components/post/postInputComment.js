@@ -2,20 +2,35 @@ import PostInputCommentHtml from "./PostInputComment.html?raw";
 import { CustomComponent } from "../customComponent.js";
 
 export class PostInputComment extends CustomComponent {
-  constructor(author, created) {
+  constructor(postData) {
     super();
-    this.author = author;
-    this.created = created;
+    this.postData = postData;
   }
 
   connectedCallback() {
+    this.classList.add("hidden");
     this.innerHTML = PostInputCommentHtml;
-
     this.addEventListeners();
   }
 
   addEventListeners() {
     this.addEventListener("submit", this.handleSubmitComment);
+
+    this.onCustomEvent({
+      eventName: "addComment",
+      id: this.postData.id,
+      useDocument: true,
+      callback: () => this.showCommentInput(),
+    });
+  }
+
+  showCommentInput() {
+    this.classList.remove("hidden");
+    this.inputCommentField = this.getSlot("commentField").focus();
+  }
+
+  getInputCommentField() {
+    return this;
   }
 
   handleTagUser = () => {
@@ -42,14 +57,18 @@ export class PostInputComment extends CustomComponent {
 
     if (commentValue) {
       const newComment = {
-        author: this.author,
+        author: this.postData.author.name, // TODO: Replace with active user!
         body: commentValue,
         created: Date.now(),
       };
 
-      console.log(commentValue);
-
       commentField.value = "";
+
+      this.dispatchCustomEvent({
+        eventName: "addCommentOptimistically",
+        id: this.postData.id,
+        detail: newComment,
+      });
 
       // const commentElement = new PostComment(
       //   newComment.author,

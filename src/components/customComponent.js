@@ -63,15 +63,15 @@ export class CustomComponent extends HTMLElement {
       return "primitive";
     }
 
+    if (value instanceof HTMLElement) {
+      return "element";
+    }
+
     if (
       Array.isArray(value) &&
       value.every((el) => el instanceof HTMLElement)
     ) {
       return "elementArray";
-    }
-
-    if (value instanceof HTMLElement) {
-      return "element";
     }
 
     if (typeof value === "object" && value.type === "attribute") {
@@ -136,10 +136,12 @@ export class CustomComponent extends HTMLElement {
    * @param {string} params.eventName - The base name of the event.
    * @param {Function} params.callback - The function to call when the event is triggered.
    * @param {string} [params.id] - Optional. The ID to append to the event name.
+   * @param {boolean} [params.useDocument] - Optional. Whether to listen on the document instead of this element. Useful for listening to events not emitted by a child element.
    */
-  onCustomEvent({ eventName, callback, id = null }) {
+  onCustomEvent({ eventName, callback, id = null, useDocument = false }) {
     const fullEventName = id ? `${eventName}-${id}` : eventName;
-    this.addEventListener(fullEventName, (event) => {
+    const target = useDocument ? document : this;
+    target.addEventListener(fullEventName, (event) => {
       callback(event);
     });
   }

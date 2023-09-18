@@ -1,10 +1,9 @@
-import postHtml from "./post.html?raw";
 import { CustomComponent } from "../customComponent.js";
-import { PostHeader } from "./postHeader.js";
+import postHtml from "./post.html?raw";
 import { PostButtons } from "./postButtons.js";
-import { PostComment } from "./postComment.js";
-import { PostInputComment } from "./postInputComment.js";
 import { PostCommentList } from "./postCommentList";
+import { PostHeader } from "./postHeader.js";
+import { PostInputComment } from "./postInputComment.js";
 
 const postsData = [
   {
@@ -133,57 +132,9 @@ class Post extends CustomComponent {
       postBody: this.setPostBody(),
       postButtons: this.setPostButtons(),
       postCommentList: this.setPostCommentList(),
-      commentField: this.setPostInputComment(),
-    });
-    this.addEventListeners();
-  }
-
-  addEventListeners() {
-    this.addEventListener("submit", this.handleSubmitComment);
-
-    this.onCustomEvent({
-      eventName: "toggleComments",
-      id: this.postData.id,
-      callback: () => this.toggleComments(),
-    });
-
-    this.onCustomEvent({
-      eventName: "addComment",
-      id: this.postData.id,
-      callback: () => this.displayCommentField(),
+      inputComment: this.setPostInputComment(),
     });
   }
-
-  //using getters to always get the latest version of the DOM element
-  get commentsContainer() {
-    return this.getSlot("comments");
-  }
-
-  get inputCommentField() {
-    return this.getSlot("input-comment-form");
-  }
-
-  commentsOpen = false;
-  toggleComments = () => {
-    if (!this.commentsOpen) {
-      this.displayElement(this.commentsContainer);
-      this.displayElement(this.inputCommentField);
-    } else {
-      this.hideElement(this.commentsContainer);
-      this.hideElement(this.inputCommentField);
-    }
-    this.commentsOpen = !this.commentsOpen;
-  };
-
-  commentFieldOpen = false;
-  displayCommentField = () => {
-    if (!this.commentFieldOpen) {
-      this.displayElement(this.inputCommentField);
-    } else {
-      this.hideElement(this.inputCommentField);
-    }
-    this.inputCommentField.focus();
-  };
 
   setPostHeader() {
     return new PostHeader(this.postData.author.name, this.postData.created);
@@ -203,12 +154,14 @@ class Post extends CustomComponent {
   }
 
   setPostCommentList() {
-    console.log(new PostCommentList(this.postData.comments));
-    return new PostCommentList(this.postData.comments);
+    const postCommentList = new PostCommentList(this.postData);
+
+    return postCommentList.getCommentElements();
   }
 
   setPostInputComment() {
-    return new PostInputComment(this.postData.author.name);
+    const postInputComment = new PostInputComment(this.postData);
+    return postInputComment.getInputCommentField();
   }
 }
 

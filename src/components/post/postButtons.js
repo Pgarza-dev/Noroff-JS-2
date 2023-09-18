@@ -39,10 +39,6 @@ export class PostButtons extends CustomComponent {
   }
 
   /**
-   * Populates data into the component.
-   */
-
-  /**
    * Adds necessary event listeners.
    */
   addEventListeners() {

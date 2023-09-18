@@ -12,13 +12,9 @@
   <div data-slot="postButtons"></div>
 
   <div data-slot="comment-section">
-    <div
-      id="comments"
-      data-slot="comments"
-      class="peer flex hidden flex-col gap-5 pt-4"
-    ></div>
+    <div id="comments" data-slot="postCommentList" class=""></div>
     <!-- both flex and hidden are here by purpose -->
-    <div data-slot="postCommentList"></div>
+    <div data-slot="inputComment"></div>
     <!-- <form
       id="input-comment-form"
       data-slot="input-comment-form"

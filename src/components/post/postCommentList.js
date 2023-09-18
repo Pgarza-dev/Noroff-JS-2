@@ -2,29 +2,61 @@ import { CustomComponent } from "../customComponent.js";
 import { PostComment } from "./postComment.js";
 
 export class PostCommentList extends CustomComponent {
-  constructor(comments) {
+  constructor(postData) {
     super();
-    this.comments = comments;
+    this.postData = postData;
+    this.commentsOpen = false;
   }
 
   connectedCallback() {
-    console.log(this.setPostComments());
-    this.innerHTML = this.setPostComments();
-    this.addEventListeners();
+    this.classList.add("peer", "flex", "hidden", "flex-col", "gap-5", "pt-4"); // TODO: Should this be moved to a html file with a div comment-wrapper instead?
+    this.fillCommentList();
+    this.handleOptimisticCommentUpdate();
+
+    this.onCustomEvent({
+      eventName: "toggleComments",
+      id: this.postData.id,
+      useDocument: true,
+      callback: () => this.toggleComments(),
+    });
   }
 
-  addEventListeners() {}
+  toggleComments() {
+    if (!this.commentsOpen) {
+      this.classList.remove("hidden");
+    } else {
+      this.classList.add("hidden");
+    }
+    this.commentsOpen = !this.commentsOpen;
+  }
 
-  setPostComments() {
-    return this.comments.reduce((acc, comment) => {
-      const commentElement = new PostComment(
+  fillCommentList() {
+    const commentElements = this.postData.comments.map((comment) => {
+      return new PostComment(
         comment.author.name,
         comment.body,
         comment.created,
       );
-      acc.push(commentElement);
-      return acc;
-    }, []);
+    });
+
+    commentElements.forEach((el) => this.appendChild(el));
+  }
+
+  handleOptimisticCommentUpdate() {
+    this.onCustomEvent({
+      eventName: "addCommentOptimistically",
+      id: this.postData.id,
+      useDocument: true,
+      callback: (event) => {
+        const { author, body } = event.detail;
+        const comment = new PostComment(author, body, new Date());
+        this.appendChild(comment);
+      },
+    });
+  }
+
+  getCommentElements() {
+    return this;
   }
 }
 
