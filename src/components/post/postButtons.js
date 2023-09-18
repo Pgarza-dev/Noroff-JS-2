@@ -20,9 +20,6 @@ export class PostButtons extends CustomComponent {
     this.reactionsCount = this.postData.reactions.length;
   }
 
-  /**
-   * Lifecycle method called when the element is connected to the DOM.
-   */
   connectedCallback() {
     this.innerHTML = postButtons;
     this.populateData({
@@ -33,24 +30,15 @@ export class PostButtons extends CustomComponent {
     this.handleOptimisticCommentUpdate();
   }
 
-  /**
-   * Adds necessary event listeners.
-   */
   addEventListeners() {
     this.handleViewCommentsBtnClick();
     this.handleAddCommentBtnClick();
   }
 
-  /**
-   * Adds click event listener for viewing comments.
-   */
   handleViewCommentsBtnClick = () => {
     this.onClick("viewCommentsBtn", () => this.dispatchToggleCommentsEvent());
   };
 
-  /**
-   * Dispatches a custom event to toggle comments.
-   */
   dispatchToggleCommentsEvent = () => {
     this.dispatchCustomEvent({
       eventName: "toggleComments",
@@ -58,16 +46,10 @@ export class PostButtons extends CustomComponent {
     });
   };
 
-  /**
-   * Adds click event listener for adding a comment.
-   */
   handleAddCommentBtnClick = () => {
     this.onClick("addCommentBtn", () => this.dispatchAddCommentEvent());
   };
 
-  /**
-   * Dispatches a custom event to add a comment.
-   */
   dispatchAddCommentEvent = () => {
     this.dispatchCustomEvent({
       eventName: "addComment",
