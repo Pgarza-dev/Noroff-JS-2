@@ -44,8 +44,8 @@ export class PostCommentList extends CustomComponent {
       id: this.postData.id,
       useDocument: true,
       callback: (event) => {
-        const { author, body } = event.detail;
-        const comment = new PostComment(author, body, new Date());
+        const newComment = event.detail;
+        const comment = new PostComment(newComment);
         this.appendChild(comment);
       },
     });

@@ -40,31 +40,17 @@ export class PostComment extends CustomComponent {
       },
     });
 
-    this.onClick("replyToCommentBtn", () =>
+    this.onClick("replyToCommentBtn", () => {
+      console.log("clicked");
       this.dispatchCustomEvent({
         eventName: "replyToComment",
         id: this.postId,
         detail: {
           author: this.comment.author,
         },
-      }),
-    );
+      });
+    });
   }
-
-  /**
-   * Handle reply to comment button click.
-   */
-  handleReplyToCommentBtnClick = () => {
-    const inputCommentField = this.getSlot("commentField");
-
-    if (this.isHidden(inputCommentField)) {
-      this.displayElement(inputCommentField);
-    }
-
-    const field = inputCommentField.querySelector("input"); // TODO: fix this
-    field.focus();
-    field.value = `@${this.author} `;
-  };
 }
 
 customElements.define("post-comment", PostComment);

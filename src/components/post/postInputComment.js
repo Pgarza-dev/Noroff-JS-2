@@ -39,17 +39,19 @@ export class PostInputComment extends CustomComponent {
       eventName: "replyToComment",
       id: this.postData.id,
       useDocument: true,
-      callback: (event) => {
-        this.classList.remove("hidden");
-        this.getSlot("commentField").focus();
-        this.getSlot("commentField").value = `@${event.detail.author.name} `;
-      },
+      callback: (event) => this.handleReplyToComment(event),
     });
   }
 
   getInputCommentField() {
     return this;
   }
+
+  handleReplyToComment = (event) => {
+    this.classList.remove("hidden");
+    this.getSlot("commentField").focus();
+    this.getSlot("commentField").value = `@${event.detail.author.name} `;
+  };
 
   handleTagUser = () => {
     // TODO: Add functionality to tag users, this is just a placeholder
@@ -75,7 +77,7 @@ export class PostInputComment extends CustomComponent {
 
     if (commentValue) {
       const newComment = {
-        author: this.postData.author.name, // TODO: Replace with active user!
+        author: this.postData.author, // TODO: Replace with active user!
         body: commentValue,
         created: Date.now(),
       };
@@ -87,19 +89,6 @@ export class PostInputComment extends CustomComponent {
         id: this.postData.id,
         detail: newComment,
       });
-
-      // const commentElement = new PostComment(
-      //   newComment.author,
-      //   newComment.body,
-      //   newComment.created,
-      //   this,
-      // );
-
-      // if (this.commentsContainer.classList.contains("hidden")) {
-      //   this.commentsContainer.classList.remove("hidden");
-      // }
-
-      // this.populateSlot("comments", commentElement);
     }
   };
 }
