@@ -12,19 +12,13 @@ export class PostComment extends CustomComponent {
    * @param {string} author - Author of the comment.
    * @param {string} body - Body of the comment.
    * @param {string} date - Date the comment was created.
-   * @param {Element} parentEl - Parent element.
    */
-  constructor(author = "", body = "", date = "", parentEl = null) {
+  constructor(comment, postId) {
     super();
-    this.author = author;
-    this.body = body;
-    this.date = date;
-    this.parentEl = parentEl;
+    this.comment = comment;
+    this.postId = postId;
   }
 
-  /**
-   * Lifecycle method called when the element is connected to the DOM.
-   */
   connectedCallback() {
     this.innerHTML = postCommentHtml;
     this.classList.add(
@@ -35,19 +29,25 @@ export class PostComment extends CustomComponent {
     );
 
     this.populateData({
-      commentBody: this.body,
-      author: this.author,
-      date: this.formatDateFromNow(this.date),
-      time: this.formatDate(this.date, "HH:mm"),
+      commentBody: this.comment.body,
+      author: this.comment.author.name,
+      date: this.formatDateFromNow(this.comment.date),
+      time: this.formatDate(this.comment.date, "HH:mm"),
       authorLink: {
         type: "attribute",
         attrName: "href",
-        attrValue: `/users/${this.author}`,
+        attrValue: `/users/${this.comment.author.name}`,
       },
     });
 
     this.onClick("replyToCommentBtn", () =>
-      this.handleReplyToCommentBtnClick(),
+      this.dispatchCustomEvent({
+        eventName: "replyToComment",
+        id: this.postId,
+        detail: {
+          author: this.comment.author,
+        },
+      }),
     );
   }
 

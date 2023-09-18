@@ -32,11 +32,7 @@ export class PostCommentList extends CustomComponent {
 
   fillCommentList() {
     const commentElements = this.postData.comments.map((comment) => {
-      return new PostComment(
-        comment.author.name,
-        comment.body,
-        comment.created,
-      );
+      return new PostComment(comment, this.postData.id);
     });
 
     commentElements.forEach((el) => this.appendChild(el));

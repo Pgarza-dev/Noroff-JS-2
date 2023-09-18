@@ -20,13 +20,31 @@ export class PostInputComment extends CustomComponent {
       eventName: "addComment",
       id: this.postData.id,
       useDocument: true,
-      callback: () => this.showCommentInput(),
+      callback: () => {
+        this.classList.remove("hidden");
+        this.getSlot("commentField").focus();
+      },
     });
-  }
 
-  showCommentInput() {
-    this.classList.remove("hidden");
-    this.inputCommentField = this.getSlot("commentField").focus();
+    this.onCustomEvent({
+      eventName: "toggleComments",
+      id: this.postData.id,
+      useDocument: true,
+      callback: () => {
+        this.classList.remove("hidden");
+      },
+    });
+
+    this.onCustomEvent({
+      eventName: "replyToComment",
+      id: this.postData.id,
+      useDocument: true,
+      callback: (event) => {
+        this.classList.remove("hidden");
+        this.getSlot("commentField").focus();
+        this.getSlot("commentField").value = `@${event.detail.author.name} `;
+      },
+    });
   }
 
   getInputCommentField() {
