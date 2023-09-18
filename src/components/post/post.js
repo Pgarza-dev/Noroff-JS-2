@@ -145,12 +145,7 @@ class Post extends CustomComponent {
   }
 
   setPostButtons() {
-    return new PostButtons(
-      this,
-      this.postData._count.comments,
-      this.postData._count.reactions,
-      this.postData.id,
-    );
+    return new PostButtons(this.postData);
   }
 
   setPostCommentList() {

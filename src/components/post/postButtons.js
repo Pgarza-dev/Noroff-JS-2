@@ -13,17 +13,11 @@ export class PostButtons extends CustomComponent {
    * @param {number} reactionsCount - Count of reactions.
    * @param {string} postId - ID of the post.
    */
-  constructor(
-    parentEl = null,
-    commentsCount = 0,
-    reactionsCount = 0,
-    postId = null,
-  ) {
+  constructor(postData) {
     super();
-    this.parentEl = parentEl;
-    this.commentsCount = commentsCount;
-    this.reactionsCount = reactionsCount;
-    this.postId = postId;
+    this.postData = postData;
+    this.commentsCount = this.postData.comments.length;
+    this.reactionsCount = this.postData.reactions.length;
   }
 
   /**
@@ -36,6 +30,7 @@ export class PostButtons extends CustomComponent {
       viewReactionsBtn: this.reactionsCount,
     });
     this.addEventListeners();
+    this.handleOptimisticCommentUpdate();
   }
 
   /**
@@ -59,7 +54,7 @@ export class PostButtons extends CustomComponent {
   dispatchToggleCommentsEvent = () => {
     this.dispatchCustomEvent({
       eventName: "toggleComments",
-      id: this.postId,
+      id: this.postData.id,
     });
   };
 
@@ -76,9 +71,21 @@ export class PostButtons extends CustomComponent {
   dispatchAddCommentEvent = () => {
     this.dispatchCustomEvent({
       eventName: "addComment",
-      id: this.postId,
+      id: this.postData.id,
     });
   };
+
+  handleOptimisticCommentUpdate() {
+    this.onCustomEvent({
+      eventName: "addCommentOptimistically",
+      id: this.postData.id,
+      useDocument: true,
+      callback: () => {
+        this.commentsCount++;
+        this.getSlot("viewCommentsBtn").textContent = this.commentsCount;
+      },
+    });
+  }
 }
 
 customElements.define("post-buttons", PostButtons);

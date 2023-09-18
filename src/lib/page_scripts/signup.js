@@ -1,7 +1,6 @@
 import { isSignupFormValid } from "@lib/form_validation/validation";
 import { clearErrors, displayErrors } from "../form_validation/handleErrors";
 import { registerUser } from "@lib/services/auth";
-import { doc } from "prettier";
 
 /**
  * @typedef {Object} SignupFormDataObject
