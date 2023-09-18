@@ -72,3 +72,26 @@ export function isSignupFormValid(form) {
 
   return validationResult;
 }
+
+// SIGN UP FORM VALIDATION
+export function isLoginFormValid(form) {
+  const { email, password } = form;
+
+  const passwordMinLength = 8;
+  const emailDomainWhiteList = ["@noroff.no", "@stud.noroff.no"];
+
+  const loginValidationResults = {
+    isValid: true,
+    errors: {},
+  };
+
+  if (!isWhitelistedEmail(email, emailDomainWhiteList)) {
+    loginValidationResults.isValid = false;
+    loginValidationResults.errors.email = "Invalid email.";
+  }
+  if (!isValidPassword(password, passwordMinLength)) {
+    loginValidationResults.isValid = false;
+    loginValidationResults.errors.password = "Invalid password.";
+  }
+  return loginValidationResults;
+}
