@@ -1,8 +1,5 @@
 import * as DateUtils from "@lib/utils/dateUtils";
 import * as DomUtils from "@lib/utils/domUtils";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-dayjs.extend(relativeTime);
 
 export class CustomComponent extends HTMLElement {
   constructor() {
@@ -207,6 +204,6 @@ export class CustomComponent extends HTMLElement {
    * @return {string} - The formatted time string.
    */
   formatDate(date, format) {
-    return dayjs(date).format(format);
+    return DateUtils.formatDate(date, format);
   }
 }

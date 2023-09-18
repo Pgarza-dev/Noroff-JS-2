@@ -5,4 +5,7 @@ dayjs.extend(relativeTime);
 export const formatDateFromNow = (date) => {
   return dayjs(date).fromNow();
 };
-// ... Other date-related methods
+
+export const formatDate = (date, format) => {
+  return dayjs(date).format(format);
+};
