@@ -1,5 +1,5 @@
-import { isSignupFormValid } from "@lib/form_validation/validation";
-import { clearErrors, displayErrors } from "../forms/handleErrors";
+import { isSignupFormValid } from "@lib/forms/validation";
+import { clearErrors, displayErrors } from "@lib/forms/handleErrors";
 import { registerUser } from "@lib/services/auth";
 import { createFormDataObject } from "@lib/forms/utils";
 import { handleFormApiError } from "@lib/forms/handleErrors";
