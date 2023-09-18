@@ -13,3 +13,12 @@ export function clearErrors() {
     element.textContent = "";
   });
 }
+
+export function handleFormApiError(errors) {
+  const apiErrorElement = document.querySelector("#api-error");
+  errors.forEach((error) => {
+    const errorElement = document.createElement("p");
+    errorElement.textContent = error.message;
+    apiErrorElement.appendChild(errorElement);
+  });
+}

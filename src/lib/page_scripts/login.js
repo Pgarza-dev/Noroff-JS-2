@@ -1,21 +1,8 @@
-import { isLoginFormValid } from "@lib/form_validation/validation";
-import { clearErrors, displayErrors } from "../form_validation/handleErrors";
+import { isLoginFormValid } from "@lib/forms/validation";
+import { clearErrors, displayErrors } from "../forms/handleErrors";
 import { loginUser } from "@lib/services/auth";
-
-function createFormDataObject(form) {
-  const formData = new FormData(form);
-  const formDataObject = Object.fromEntries(formData.entries());
-  return formDataObject;
-}
-
-function handleLoginApiError(errors) {
-  const apiErrorElement = document.querySelector("#api-login-error");
-  errors.forEach((error) => {
-    const errorElement = document.createElement("p");
-    errorElement.textContent = error.message;
-    apiErrorElement.appendChild(errorElement);
-  });
-}
+import { createFormDataObject } from "@lib/forms/utils";
+import { handleFormApiError } from "@lib/forms/handleErrors";
 
 async function handleLogin(formDataObject) {
   const userData = {
@@ -24,7 +11,7 @@ async function handleLogin(formDataObject) {
   };
   const response = await loginUser(userData);
   if (response.errors) {
-    handleLoginApiError(response.errors);
+    handleFormApiError(response.errors);
   } else {
     window.location.href = "/pages/profile/index.html";
   }
@@ -47,5 +34,3 @@ loginForm.addEventListener("submit", (event) => {
     displayErrors(loginValidationResult.errors);
   }
 });
-
-console.log("login.js loaded");
