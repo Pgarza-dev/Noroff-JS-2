@@ -14,8 +14,8 @@ export class PostCommentList extends CustomComponent {
   }
 
   connectedCallback() {
-    this.classList.add("peer", "flex", "hidden", "flex-col", "gap-5", "pt-4"); // TODO: Should this be moved to a html file with a div comment-wrapper instead?
-    this.fillCommentList();
+    this.applyInitialStyles();
+    this.fillCommentList(this.postData.comments);
     this.handleOptimisticCommentUpdate();
 
     this.onCustomEvent({
@@ -24,6 +24,10 @@ export class PostCommentList extends CustomComponent {
       useDocument: true,
       callback: () => this.toggleComments(),
     });
+  }
+
+  applyInitialStyles() {
+    this.classList.add("peer", "flex", "hidden", "flex-col", "gap-5", "pt-4");
   }
 
   toggleComments() {
@@ -35,20 +39,30 @@ export class PostCommentList extends CustomComponent {
     this.commentsOpen = !this.commentsOpen;
   }
 
-  fillCommentList() {
-    const temporaryComment = document.createElement("div");
-
-    temporaryComment.innerHTML = tempPostCommentHtml;
-
-    if (this.postData.comments.length === 0) {
-      // console.log(this.postData.comments.length);
-      this.appendChild(temporaryComment);
+  fillCommentList(comments) {
+    if (!comments.length) {
+      this.showTemporaryComment();
     } else {
-      const commentElements = this.postData.comments.map((comment) => {
-        return new PostComment(comment, this.postData.id);
-      });
-      commentElements.forEach((el) => this.appendChild(el));
+      this.clearComments();
+      this.renderComments(comments);
     }
+  }
+
+  showTemporaryComment() {
+    const temporaryComment = document.createElement("div");
+    temporaryComment.innerHTML = tempPostCommentHtml;
+    this.appendChild(temporaryComment);
+  }
+
+  clearComments() {
+    this.innerHTML = "";
+  }
+
+  renderComments(comments) {
+    const commentElements = comments.map(
+      (comment) => new PostComment(comment, this.postData.id),
+    );
+    commentElements.forEach((el) => this.appendChild(el));
   }
 
   handleOptimisticCommentUpdate() {
@@ -58,8 +72,8 @@ export class PostCommentList extends CustomComponent {
       useDocument: true,
       callback: (event) => {
         const newComment = event.detail;
-        const comment = new PostComment(newComment);
-        this.appendChild(comment);
+        this.postData.comments = [...this.postData.comments, newComment];
+        this.fillCommentList(this.postData.comments);
       },
     });
   }
