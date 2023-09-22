@@ -18,6 +18,11 @@ export class PostInputComment extends CustomComponent {
 
   addEventListeners() {
     this.addEventListener("submit", this.handleSubmitComment);
+    this.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !event.shiftKey) {
+        this.handleSubmitComment(event);
+      }
+    });
 
     this.onCustomEvent({
       eventName: "addComment",
