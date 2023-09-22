@@ -31,7 +31,7 @@ export class Post extends CustomComponent {
   }
 
   setPostBody() {
-    return this.postData.body || "";
+    return this.postData.body || ""; // TODO: Add support for images
   }
 
   setPostButtons() {
