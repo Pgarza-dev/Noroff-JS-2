@@ -30,8 +30,7 @@ export class PostComment extends CustomComponent {
     this.populateData({
       commentBody: this.comment.body,
       author: this.comment.author.name,
-      date: this.formatDateFromNow(this.comment.date),
-      time: this.formatDate(this.comment.date, "HH:mm"),
+      time: this.formatDateFromNow(this.comment.date),
       authorLink: {
         type: "attribute",
         attrName: "href",
