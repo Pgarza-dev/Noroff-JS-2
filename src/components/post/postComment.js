@@ -9,9 +9,8 @@ import { CustomComponent } from "../customComponent.js";
 export class PostComment extends CustomComponent {
   /**
    * Create a PostComment component.
-   * @param {string} author - Author of the comment.
-   * @param {string} body - Body of the comment.
-   * @param {string} date - Date the comment was created.
+   * @param {CommentData} comment - The comment data.
+   * @param {number} postId - The id of the post the comment belongs to.
    */
   constructor(comment, postId) {
     super();

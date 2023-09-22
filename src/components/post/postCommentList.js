@@ -1,7 +1,12 @@
 import { CustomComponent } from "../customComponent.js";
 import { PostComment } from "./postComment.js";
+import tempPostCommentHtml from "./postCommentTemp.html?raw";
 
 export class PostCommentList extends CustomComponent {
+  /**
+   * @param {PostDataComplete} postData - The full post data returned from the API, expects the _comments, _reactions and _author flags to be set to true.
+   * @param {boolean} commentsOpen - Whether the comments are open or not.
+   */
   constructor(postData) {
     super();
     this.postData = postData;
@@ -31,11 +36,19 @@ export class PostCommentList extends CustomComponent {
   }
 
   fillCommentList() {
-    const commentElements = this.postData.comments.map((comment) => {
-      return new PostComment(comment, this.postData.id);
-    });
+    const temporaryComment = document.createElement("div");
 
-    commentElements.forEach((el) => this.appendChild(el));
+    temporaryComment.innerHTML = tempPostCommentHtml;
+
+    if (this.postData.comments.length === 0) {
+      // console.log(this.postData.comments.length);
+      this.appendChild(temporaryComment);
+    } else {
+      const commentElements = this.postData.comments.map((comment) => {
+        return new PostComment(comment, this.postData.id);
+      });
+      commentElements.forEach((el) => this.appendChild(el));
+    }
   }
 
   handleOptimisticCommentUpdate() {

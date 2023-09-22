@@ -7,11 +7,7 @@ import postButtons from "./postButtons.html?raw";
  */
 export class PostButtons extends CustomComponent {
   /**
-   * Create a PostButtons component.
-   * @param {Element} parentEl - The parent element.
-   * @param {number} commentsCount - Count of comments.
-   * @param {number} reactionsCount - Count of reactions.
-   * @param {string} postId - ID of the post.
+   * @param {PostDataComplete} postData - The full post data returned from the API, expects the _comments, _reactions and _author flags to be set to true.
    */
   constructor(postData) {
     super();

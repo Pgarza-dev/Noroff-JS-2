@@ -1,6 +1,11 @@
 <div class="flex flex-row leading-5" id="post-header">
   <div class="h-12 w-12 overflow-hidden rounded-full">
-    <img class="w-full" src="/images/IMG_5076.jpeg" alt="avatar" />
+    <img
+      class="w-full"
+      src="/images/IMG_5076.jpeg"
+      alt="avatar"
+      data-slot="profileImg"
+    />
   </div>
   <div class="pl-4">
     <a id="author-link" data-slot="authorLink" href="#">
@@ -8,8 +13,6 @@
     </a>
     <div class="text-sm text-gray-300">
       <span id="time" data-slot="time">8:06 AM</span>
-      <span>·</span>
-      <span id="date" data-slot="date"></span>
     </div>
   </div>
   <div class="relative flex flex-1 items-start justify-end">

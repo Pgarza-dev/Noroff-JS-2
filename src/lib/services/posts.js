@@ -1,7 +1,7 @@
 import { API_BASE_URL } from "../constants.js";
 
 // Define API URLs
-const allPostsUrl = `${API_BASE_URL}/social/posts`;
+const allPostsUrl = `${API_BASE_URL}/social/posts?_comments=true&_reactions=true&_author=true`;
 const singlePostUrl = `${API_BASE_URL}/social/posts/820`;
 const followersPostsUrl = `${API_BASE_URL}/social/posts/following`;
 const createPostUrl = `${API_BASE_URL}/social/posts`;

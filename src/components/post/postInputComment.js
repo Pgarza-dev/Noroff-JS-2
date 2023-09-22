@@ -2,6 +2,9 @@ import PostInputCommentHtml from "./PostInputComment.html?raw";
 import { CustomComponent } from "../customComponent.js";
 
 export class PostInputComment extends CustomComponent {
+  /**
+   * @param {PostDataComplete} postData - The full post data returned from the API, expects the _comments, _reactions and _author flags to be set to true.
+   */
   constructor(postData) {
     super();
     this.postData = postData;
@@ -41,11 +44,23 @@ export class PostInputComment extends CustomComponent {
       useDocument: true,
       callback: (event) => this.handleReplyToComment(event),
     });
+
+    this.handleExpandTextField();
   }
 
   getInputCommentField() {
     return this;
   }
+
+  handleExpandTextField = () => {
+    const textarea = this.getSlot("commentField");
+    textarea.style.height = `${textarea.height}px`;
+
+    textarea.addEventListener("input", function () {
+      this.style.height = "auto";
+      this.style.height = `${this.scrollHeight}px`;
+    });
+  };
 
   handleReplyToComment = (event) => {
     this.classList.remove("hidden");
@@ -72,6 +87,7 @@ export class PostInputComment extends CustomComponent {
     event.preventDefault();
 
     const commentField = this.getSlot("commentField");
+    commentField.style.height = "auto";
 
     const commentValue = commentField.value.trim();
 
