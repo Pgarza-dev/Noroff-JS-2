@@ -4,6 +4,7 @@ import { createPost } from "../services/posts.js";
 import { getAllPosts } from "../services/posts.js";
 import { createFormDataObject } from "@lib/forms/utils";
 import { getProfilePosts } from "../services/posts.js";
+import { Post } from "../../components/post/post.js";
 
 const myPostUrl = `${API_BASE_URL}/social/posts?_author=true&_comments=true&_reactions=true`;
 const createPostButton = document.getElementById("create-post-button");
@@ -33,18 +34,28 @@ async function createNewPost(event) {
 }
 
 async function displayAllPosts() {
-  const posts = await getProfilePosts("dfd");
   const profilePostsSection = document.getElementById("profile-posts");
   console.log(posts);
 }
-
-displayAllPosts();
 
 function displayInput() {
   newPostForm.classList.remove("hidden");
   createPostPlusIcon.classList.add("hidden");
   createPostMinusIcon.classList.remove("hidden");
 }
+
+const profilePostsSection = document.getElementById("profile-posts");
+async function main() {
+  const posts = await getProfilePosts("dfd");
+
+  console.log(posts);
+
+  posts.forEach((post) => {
+    profilePostsSection.appendChild(new Post(post));
+  });
+}
+
+main();
 
 // add event listener to input post form
 //add event listener to new post button.

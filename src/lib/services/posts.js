@@ -23,7 +23,10 @@ export async function getProfilePosts(profileName) {
       },
     };
     const response = await fetch(
-      profileUrl + profileName + "/posts",
+      profileUrl +
+        profileName +
+        "/posts" +
+        "?_comments=true&_reactions=true&_author=true",
       fetchOptions,
     );
     const json = await response.json();
