@@ -66,6 +66,7 @@ export class PostCommentList extends CustomComponent {
       id: this.postData.id,
       useDocument: true,
       callback: (event) => {
+        this.classList.remove("hidden");
         const newComment = event.detail;
         this.postData.comments = [...this.postData.comments, newComment];
         this.fillCommentList(this.postData.comments);
