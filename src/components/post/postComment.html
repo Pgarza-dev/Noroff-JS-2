@@ -1,0 +1,53 @@
+<div
+  id="comment"
+  data-slot="comment"
+  class="flex w-full items-center border-opacity-30"
+>
+  <div class="flex w-full flex-col gap-2 px-2">
+    <div class="flex items-center gap-2">
+      <div class="h-8 w-8 overflow-hidden rounded-full">
+        <img src="/images/IMG_5076.jpeg" alt="" />
+      </div>
+      <div class="flex flex-col justify-center">
+        <a id="author-link" data-slot="authorLink" href="#">
+          <span
+            class="text-md font-medium leading-none text-gray-100"
+            id="author"
+            data-slot="author"
+            >username</span
+          >
+        </a>
+        <div class="text-sm text-gray-300">
+          <span id="time" data-slot="time">8:06 AM</span>
+          <span id="date" data-slot="date"></span>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center">
+      <p class="pb-4" id="comment-body" data-slot="commentBody">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Exercitationem
+        eaque sapiente minus quos alias similique necessitatibus inventore
+        perspiciatis temporibus, maiores assumenda vero harum aperiam optio
+        distinctio. Eos animi enim ad?
+      </p>
+    </div>
+  </div>
+  <button
+    class="py-2 opacity-20 transition-opacity hover:opacity-100"
+    id="reply-to-comment-btn"
+    data-slot="replyToCommentBtn"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <path
+        d="M19 19V15C19 14.1667 18.7083 13.4583 18.125 12.875C17.5417 12.2917 16.8333 12 16 12H6.825L10.425 15.6L9 17L3 11L9 5L10.425 6.4L6.825 10H16C17.3833 10 18.5627 10.4877 19.538 11.463C20.5133 12.4383 21.0007 13.6173 21 15V19H19Z"
+        fill="white"
+      />
+    </svg>
+  </button>
+</div>

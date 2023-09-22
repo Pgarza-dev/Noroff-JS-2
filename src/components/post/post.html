@@ -1,0 +1,43 @@
+<div class="rounded-2xl border border-white border-opacity-30 p-8" id="post">
+  <div data-slot="postHeader"></div>
+  <div class="pb-6 pt-6">
+    <p data-slot="postBody">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae,
+      voluptates rem, libero rerum nostrum error molestias voluptas expedita
+      sunt voluptatibus deserunt delectus animi fuga sequi consequuntur quam
+      numquam dignissimos modi!
+    </p>
+    <div data-slot="postMedia" class="max-h-[500px] overflow-hidden"></div>
+  </div>
+  <hr class="pb-2 opacity-20" />
+  <div data-slot="postButtons"></div>
+
+  <div data-slot="comment-section">
+    <div id="comments" data-slot="postCommentList" class=""></div>
+    <!-- both flex and hidden are here by purpose -->
+    <div data-slot="inputComment"></div>
+    <!-- <form
+      id="input-comment-form"
+      data-slot="input-comment-form"
+      class="hidden pt-4 peer-[.hidden]:pt-8"
+      method="post"
+    >
+      <div class="relative">
+        <div
+          class="block w-full rounded-md border border-stone-700 bg-black p-2 text-xl leading-none outline-none ring-2 ring-transparent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-800"
+          type="text"
+          name=""
+          contenteditable="true"
+          id="commentField"
+        ></div>
+        <button
+          class="absolute right-0 top-1/2 -translate-y-1/2 p-2 leading-none"
+          id="submit-comment-btn"
+          type="submit"
+        >
+          Send
+        </button>
+      </div>
+    </form> -->
+  </div>
+</div>
