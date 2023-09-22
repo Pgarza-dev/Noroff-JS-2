@@ -90,13 +90,47 @@
               type="button"
               class="h-10 max-w-lg rounded-lg border-primary-900 bg-primary-900 px-5 py-1 capitalize transition-all duration-500 ease-in-out hover:bg-primary-950 hover:text-primary-50"
             >
-              New <i class="fa-solid fa-plus"></i>
+              New <i id="create-post-plus-icon" class="fa-solid fa-plus"></i
+              ><i
+                id="create-post-minus-icon"
+                class="fa-solid fa-trash hidden"
+              ></i>
             </button>
           </div>
           <div>
-            <div class="text-black" id="post-container"></div>
+            <form
+              id="new-post-form"
+              class="flex hidden flex-col pb-6 text-black"
+              action=""
+            >
+              <label for="title">Title</label>
+              <input
+                required
+                type="text"
+                name="title"
+                id=""
+                class="rounded border border-white border-opacity-30 bg-stone-950 p-2"
+              />
+              <label for="body">Title</label>
+              <textarea
+                required
+                name="body"
+                id=""
+                cols="30"
+                rows="10"
+                class="peer-focus: max-h-20 rounded-t-lg border-white border-opacity-30 bg-stone-800 p-2 text-gray-50 hover:border-white hover:border-opacity-30"
+              ></textarea>
+              <button
+                type="submit"
+                class="h-10 rounded-b-lg border-primary-900 bg-primary-900 px-5 py-1 capitalize text-gray-50 transition-all duration-500 ease-in-out hover:bg-primary-950 hover:text-primary-50"
+              >
+                Post
+              </button>
+            </form>
+
+            <section id="profile-posts"></section>
             <div
-              class="visible hidden rounded-2xl border border-white border-opacity-30 p-8"
+              class="h-full rounded-2xl border border-white border-opacity-30 p-8"
               id="new-post"
             ></div>
             <div

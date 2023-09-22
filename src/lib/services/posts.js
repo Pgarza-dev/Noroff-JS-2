@@ -5,12 +5,33 @@ const allPostsUrl = `${API_BASE_URL}/social/posts`;
 const singlePostUrl = `${API_BASE_URL}/social/posts/820`;
 const followersPostsUrl = `${API_BASE_URL}/social/posts/following`;
 const createPostUrl = `${API_BASE_URL}/social/posts`;
-
+const profileUrl = `${API_BASE_URL}/social/profiles/`;
 const urlParams = new URLSearchParams(window.location.search);
 const singlePostId = urlParams.get("id");
 const updateSinglePostUrl = `${API_BASE_URL}/social/posts/${singlePostId}`;
 const deleteSinglePostUrl = `${API_BASE_URL}/social/posts/${singlePostId}`;
 const reactSinglePostUrl = `${API_BASE_URL}/social/posts/${singlePostId}/react`;
+
+export async function getProfilePosts(profileName) {
+  try {
+    const token = localStorage.getItem("accessToken");
+    const fetchOptions = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(
+      profileUrl + profileName + "/posts",
+      fetchOptions,
+    );
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 export async function getAllPosts() {
   try {
