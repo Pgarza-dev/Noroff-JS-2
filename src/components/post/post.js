@@ -20,6 +20,7 @@ export class Post extends CustomComponent {
     this.populateData({
       postHeader: this.setPostHeader(),
       postBody: this.setPostBody(),
+      postMedia: this.setPostMedia(),
       postButtons: this.setPostButtons(),
       postCommentList: this.setPostCommentList(),
       inputComment: this.setPostInputComment(),
@@ -32,6 +33,16 @@ export class Post extends CustomComponent {
 
   setPostBody() {
     return this.postData.body || ""; // TODO: Add support for images
+  }
+
+  setPostMedia() {
+    if (this.postData.media) {
+      const image = document.createElement("img");
+      image.src = this.postData.media;
+      image.alt = `${this.postData.author.name} posted an image with the title ${this.postData.title}.`;
+      image.classList.add("post-media");
+      return image;
+    }
   }
 
   setPostButtons() {
