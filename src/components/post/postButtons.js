@@ -32,13 +32,25 @@ export class PostButtons extends CustomComponent {
   }
 
   handleViewCommentsBtnClick = () => {
-    this.onClick("viewCommentsBtn", () => this.dispatchToggleCommentsEvent());
+    this.onClick("viewCommentsBtn", (event) => {
+      const state = this.toggleState(event);
+      this.dispatchToggleCommentsEvent(state);
+    });
   };
 
-  dispatchToggleCommentsEvent = () => {
+  toggleState(event) {
+    const {
+      currentTarget: { dataset },
+    } = event;
+    dataset.state = dataset.state === "open" ? "closed" : "open";
+    return dataset.state;
+  }
+
+  dispatchToggleCommentsEvent = (state) => {
     this.dispatchCustomEvent({
       eventName: "toggleComments",
       id: this.postData.id,
+      detail: { state },
     });
   };
 

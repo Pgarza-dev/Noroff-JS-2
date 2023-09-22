@@ -33,9 +33,7 @@ export class PostInputComment extends CustomComponent {
       eventName: "toggleComments",
       id: this.postData.id,
       useDocument: true,
-      callback: () => {
-        this.classList.remove("hidden");
-      },
+      callback: (event) => this.toggleComments(event.detail.state),
     });
 
     this.onCustomEvent({
@@ -51,6 +49,12 @@ export class PostInputComment extends CustomComponent {
   getInputCommentField() {
     return this;
   }
+
+  toggleComments = (state) => {
+    state === "open"
+      ? this.classList.remove("hidden")
+      : this.classList.add("hidden");
+  };
 
   handleExpandTextField = () => {
     const textarea = this.getSlot("commentField");

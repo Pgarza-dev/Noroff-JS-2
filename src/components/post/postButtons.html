@@ -1,6 +1,6 @@
 <div class="flex justify-between pt-4">
   <div
-    class="bg-200% rounded-md bg-gradient-to-r from-stone-400 via-stone-600 to-stone-400 bg-left p-[2px] opacity-60 transition-all duration-700 hover:opacity-100 [&:has(#view-comments-btn:hover)]:bg-right"
+    class="rounded-md bg-gradient-to-r from-stone-400 via-stone-600 to-stone-400 bg-200% bg-left p-[2px] opacity-60 transition-all duration-700 hover:opacity-100 [&:has(#view-comments-btn:hover)]:bg-right"
   >
     <div class="flex items-center overflow-hidden rounded-md bg-stone-950">
       <button
@@ -24,6 +24,7 @@
         id="view-comments-btn"
         data-slot="viewCommentsBtn"
         class="h-full w-8 rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
+        data-state="closed"
       >
         17
       </button>
@@ -31,7 +32,7 @@
   </div>
 
   <div
-    class="bg-200% rounded-md bg-gradient-to-l from-stone-400 via-stone-600 to-stone-400 bg-right p-[2px] opacity-60 transition-all duration-700 hover:opacity-100 [&:has(#view-reactions-btn:hover)]:bg-left"
+    class="rounded-md bg-gradient-to-l from-stone-400 via-stone-600 to-stone-400 bg-200% bg-right p-[2px] opacity-60 transition-all duration-700 hover:opacity-100 [&:has(#view-reactions-btn:hover)]:bg-left"
   >
     <div class="flex items-center overflow-hidden rounded-md bg-stone-950">
       <button
