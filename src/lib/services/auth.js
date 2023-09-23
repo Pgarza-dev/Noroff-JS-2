@@ -38,11 +38,10 @@ export async function loginUser(userData) {
     };
     const response = await fetch(loginUrl, postData);
     const json = await response.json();
-    console.log(json);
 
     const accessToken = json.accessToken;
     localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("userName", json.name);
+    localStorage.setItem("username", json.name);
     return json;
   } catch (error) {
     console.error(error + "Something went wrong");
