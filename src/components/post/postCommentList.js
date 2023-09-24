@@ -17,6 +17,7 @@ export class PostCommentList extends CustomComponent {
 
   connectedCallback() {
     this.initStyles();
+    this.setAttribute("aria-expanded", "false");
     this.renderCommentList(this.postData.comments);
     this.setupStoreSubscriptions();
   }
@@ -26,7 +27,13 @@ export class PostCommentList extends CustomComponent {
   }
 
   initStyles() {
-    this.classList.add("peer", "flex", "hidden", "flex-col", "gap-5", "pt-4");
+    this.classList.add(
+      "transition-height-inner",
+      "peer",
+      "flex",
+      "flex-col",
+      "gap-5",
+    );
   }
 
   setupStoreSubscriptions() {
@@ -56,7 +63,9 @@ export class PostCommentList extends CustomComponent {
   }
 
   toggleCommentVisibility(commentsOpen) {
-    this.classList.toggle("hidden", !commentsOpen);
+    this.setAttribute("aria-expanded", commentsOpen ? "true" : "false");
+
+    // this.classList.toggle("hidden", !commentsOpen);
   }
 
   renderTempComment() {

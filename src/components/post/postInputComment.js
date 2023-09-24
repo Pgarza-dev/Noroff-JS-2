@@ -11,7 +11,6 @@ export class PostInputComment extends CustomComponent {
     this.postData = postData;
     this.store = store;
     this.inputOpenUnsubscribe = null;
-    this.commentsOpenUnsubscribe = null;
   }
 
   connectedCallback() {
@@ -25,7 +24,7 @@ export class PostInputComment extends CustomComponent {
   }
 
   initComponent() {
-    this.classList.add("hidden");
+    this.classList.add("transition-height");
     this.innerHTML = PostInputCommentHtml;
   }
 
@@ -34,32 +33,25 @@ export class PostInputComment extends CustomComponent {
       (state) => this.toggleInputField(state),
       "commentInputOpen",
     );
-    this.commentsOpenUnsubscribe = this.store.subscribe(
-      (state) => this.toggleComments(state),
-      "commentsOpen",
-    );
   }
 
   unsubscribeFromStore() {
     if (this.inputOpenUnsubscribe) this.inputOpenUnsubscribe();
-    if (this.commentsOpenUnsubscribe) this.commentsOpenUnsubscribe();
   }
 
   toggleInputField(isOpen) {
-    isOpen ? this.openInputField() : this.classList.add("hidden");
+    isOpen
+      ? this.openInputField()
+      : this.getSlot("inputCommentForm").setAttribute("aria-expanded", "false");
   }
 
   openInputField() {
-    this.classList.remove("hidden");
+    this.getSlot("inputCommentForm").setAttribute("aria-expanded", "true");
     this.focusInputField();
   }
 
   focusInputField() {
     this.getSlot("commentField").focus();
-  }
-
-  toggleComments(commentsOpen) {
-    this.classList.toggle("hidden", !commentsOpen);
   }
 
   addEventListeners() {
@@ -117,6 +109,10 @@ export class PostInputComment extends CustomComponent {
       this.addNewComment(comment);
       commentField.value = "";
     }
+    this.store.setState(() => ({
+      commentsOpen: true,
+    }));
+    commentField.blur();
   }
 
   handleReplyToComment(event) {

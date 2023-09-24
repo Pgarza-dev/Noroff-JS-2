@@ -24,6 +24,7 @@ export class PostComment extends CustomComponent {
       "border-b",
       "border-opacity-10",
       "border-white",
+      "first:pt-8",
       "last:border-none",
     );
 
