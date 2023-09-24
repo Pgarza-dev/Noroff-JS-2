@@ -63,6 +63,16 @@ export class PostCommentList extends CustomComponent {
     const tempComment = document.createElement("div");
     tempComment.innerHTML = tempPostCommentHtml;
     this.appendChild(tempComment);
+    this.onClick("addCommentText", () => {
+      this.store.setState((currentState) => ({
+        ...currentState,
+        commentInputOpen: true,
+      }));
+      this.dispatchCustomEvent({
+        eventName: "focusCommentInput",
+        id: this.postData.id,
+      });
+    });
   }
 
   renderComments(comments) {

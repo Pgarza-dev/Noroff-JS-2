@@ -51,6 +51,10 @@ export class PostInputComment extends CustomComponent {
 
   openInputField() {
     this.classList.remove("hidden");
+    this.focusInputField();
+  }
+
+  focusInputField() {
     this.getSlot("commentField").focus();
   }
 
@@ -63,6 +67,7 @@ export class PostInputComment extends CustomComponent {
     this.addEnterKeyListener();
     this.addReplyToCommentListener();
     this.addExpandTextFieldListener();
+    this.handleFocusCommentInput();
   }
 
   addSubmitListener() {
@@ -92,6 +97,15 @@ export class PostInputComment extends CustomComponent {
     textarea.addEventListener("input", function () {
       this.style.height = "auto";
       this.style.height = `${this.scrollHeight}px`;
+    });
+  }
+
+  handleFocusCommentInput() {
+    this.onCustomEvent({
+      eventName: "focusCommentInput",
+      id: this.postData.id,
+      useDocument: true,
+      callback: () => this.focusInputField(),
     });
   }
 
