@@ -15,7 +15,7 @@
   }
 }
 
-/* note: inspired by this article: https://una.im/radial-menu/ */
+/* note: radial menu inspired by this article: https://una.im/radial-menu/ */
 @layer components {
   .radial-menu,
   .menu-items,
@@ -90,5 +90,28 @@
 
   .post-media {
     @apply h-full max-h-[500px];
+  }
+
+  .transition-height {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition:
+      grid-template-rows 300ms ease-in-out,
+      opacity 150ms 150ms ease-in-out;
+  }
+
+  .transition-height[aria-expanded="true"] {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  .transition-height:has(.transition-height-inner[aria-expanded="true"]) {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  .transition-height-inner {
+    overflow: hidden;
   }
 }
