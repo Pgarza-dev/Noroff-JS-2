@@ -5,77 +5,72 @@ import tempPostCommentHtml from "./postCommentTemp.html?raw";
 export class PostCommentList extends CustomComponent {
   /**
    * @param {PostDataComplete} postData - The full post data returned from the API, expects the _comments, _reactions and _author flags to be set to true.
+   * @param {Store} store - The store to use for the component.
    */
-  constructor(postData) {
+  constructor(postData, store) {
     super();
     this.postData = postData;
+    this.store = store;
+    this.unsubscribeComments = null;
+    this.unsubscribeCommentsOpen = null;
   }
 
   connectedCallback() {
-    this.applyInitialStyles();
-    this.fillCommentList(this.postData.comments);
-    this.handleOptimisticCommentUpdate();
-
-    this.onCustomEvent({
-      eventName: "toggleComments",
-      id: this.postData.id,
-      useDocument: true,
-      callback: (event) => this.toggleComments(event.detail.state),
-    });
+    this.initStyles();
+    this.renderCommentList(this.postData.comments);
+    this.setupStoreSubscriptions();
   }
 
-  applyInitialStyles() {
+  disconnectedCallback() {
+    this.teardownStoreSubscriptions();
+  }
+
+  initStyles() {
     this.classList.add("peer", "flex", "hidden", "flex-col", "gap-5", "pt-4");
   }
 
-  toggleComments(state) {
-    state === "open"
-      ? this.classList.remove("hidden")
-      : this.classList.add("hidden");
+  setupStoreSubscriptions() {
+    this.unsubscribeComments = this.subscribeToComments();
+    this.unsubscribeCommentsOpen = this.subscribeToCommentsOpen();
   }
 
-  fillCommentList(comments) {
-    if (!comments.length) {
-      this.showTemporaryComment();
-    } else {
-      this.clearComments();
-      this.renderComments(comments);
-    }
+  teardownStoreSubscriptions() {
+    if (this.unsubscribeComments) this.unsubscribeComments();
+    if (this.unsubscribeCommentsOpen) this.unsubscribeCommentsOpen();
   }
 
-  showTemporaryComment() {
-    const temporaryComment = document.createElement("div");
-    temporaryComment.innerHTML = tempPostCommentHtml;
-    this.appendChild(temporaryComment);
+  subscribeToComments() {
+    return this.store.subscribe((state) => {
+      this.renderCommentList(state);
+    }, "comments");
   }
 
-  clearComments() {
-    this.innerHTML = "";
+  subscribeToCommentsOpen() {
+    return this.store.subscribe((state) => {
+      this.toggleCommentVisibility(state);
+    }, "commentsOpen");
+  }
+
+  renderCommentList(comments) {
+    comments.length ? this.renderComments(comments) : this.renderTempComment();
+  }
+
+  toggleCommentVisibility(commentsOpen) {
+    this.classList.toggle("hidden", !commentsOpen);
+  }
+
+  renderTempComment() {
+    const tempComment = document.createElement("div");
+    tempComment.innerHTML = tempPostCommentHtml;
+    this.appendChild(tempComment);
   }
 
   renderComments(comments) {
-    const commentElements = comments.map(
-      (comment) => new PostComment(comment, this.postData.id),
-    );
-    commentElements.forEach((el) => this.appendChild(el));
-  }
-
-  handleOptimisticCommentUpdate() {
-    this.onCustomEvent({
-      eventName: "addCommentOptimistically",
-      id: this.postData.id,
-      useDocument: true,
-      callback: (event) => {
-        this.classList.remove("hidden");
-        const newComment = event.detail;
-        this.postData.comments = [...this.postData.comments, newComment];
-        this.fillCommentList(this.postData.comments);
-      },
+    this.innerHTML = "";
+    comments.forEach((comment) => {
+      const commentElement = new PostComment(comment, this.postData.id);
+      this.appendChild(commentElement);
     });
-  }
-
-  getCommentElements() {
-    return this;
   }
 }
 

@@ -37,6 +37,8 @@ export class CustomComponent extends HTMLElement {
       const slot = this.getSlot(slotName);
 
       switch (this.determineValueType(value)) {
+        case "null":
+          break;
         case "primitive":
           this.populateSlotWithText(slot, value);
           break;
@@ -56,6 +58,10 @@ export class CustomComponent extends HTMLElement {
   }
 
   determineValueType(value) {
+    if (value === null) {
+      return "null";
+    }
+
     if (typeof value === "string" || typeof value === "number") {
       return "primitive";
     }
