@@ -14,3 +14,76 @@
       sans-serif;
   }
 }
+
+@layer components {
+  .radial-menu,
+  .menu-items,
+  .item {
+    display: grid;
+    place-content: center;
+  }
+
+  .menu-items {
+    position: absolute;
+    transform: translate(-50%, -25%);
+  }
+
+  .radial-menu > *,
+  .menu-items > *,
+  .item button {
+    grid-area: 1/1;
+  }
+
+  .item {
+    --btn-size: 2.5rem;
+    --extra-space: 1.5rem;
+    --radius: calc(var(--btn-size) + var(--extra-space));
+
+    transform: translateX(calc(cos(var(--angle)) * var(--radius)))
+      translateY(calc(sin(var(--angle) * -1) * var(--radius))) rotate(0deg);
+
+    transition: all 0.3s var(--delay) ease;
+
+    @apply h-[--btn-size] w-[--btn-size] cursor-pointer rounded-full bg-primary-800;
+
+    &:hover {
+      --delay: 0s !important;
+      scale: 1.1;
+      @apply bg-primary-700;
+    }
+  }
+
+  .item:nth-child(1) {
+    --angle: 90deg;
+    --delay: 0s;
+  }
+
+  .item:nth-child(2) {
+    --angle: 135deg;
+    --delay: 0.1s;
+  }
+
+  .item:nth-child(3) {
+    --angle: 180deg;
+    --delay: 0.2s;
+  }
+
+  .item:nth-child(4) {
+    --angle: 225deg;
+    --delay: 0.3s;
+  }
+
+  .item:nth-child(5) {
+    --angle: 270deg;
+    --delay: 0.4s;
+  }
+
+  .radial-menu:not(:focus-within) .item {
+    --radius: 0;
+    --angle: 0;
+    rotate: 45deg;
+    scale: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
