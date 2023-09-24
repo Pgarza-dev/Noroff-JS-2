@@ -1,5 +1,6 @@
 import { CustomComponent } from "../customComponent.js";
 import postButtons from "./postButtons.html?raw";
+import { PostReactionBtn } from "./postReactionsBtns.js";
 
 /**
  * PostButtons component to manage comments and reactions buttons.
@@ -33,10 +34,10 @@ export class PostButtons extends CustomComponent {
   }
 
   initUI() {
-    const { comments, reactions } = this.store.getState();
+    const { comments } = this.store.getState();
     this.populateData({
       viewCommentsBtn: comments.length,
-      viewReactionsBtn: reactions.length,
+      addReactionBtn: new PostReactionBtn(this.store),
     });
   }
 
