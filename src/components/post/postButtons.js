@@ -2,57 +2,57 @@ import { CustomComponent } from "../customComponent.js";
 import postButtons from "./postButtons.html?raw";
 
 /**
- * Class representing PostButtons component.
+ * PostButtons component to manage comments and reactions buttons.
  * @extends CustomComponent
  */
 export class PostButtons extends CustomComponent {
   /**
-   * @param {PostDataComplete} postData - The full post data returned from the API, expects the _comments, _reactions and _author flags to be set to true.
-   * @param {Store} store - The store to use for the component.
+   * @param {Store} store - Data store instance for managing state.
    */
-  constructor(postData, store) {
+  constructor(store) {
     super();
-    this.postData = postData;
-    this.commentsCount = this.postData.comments.length;
-    this.reactionsCount = this.postData.reactions.length;
     this.store = store;
   }
 
   connectedCallback() {
     this.innerHTML = postButtons;
-    this.populateData({
-      viewCommentsBtn: this.commentsCount,
-      viewReactionsBtn: this.reactionsCount,
-    });
 
+    this.unsubscribeComments = this.store.subscribe(
+      this.updateCommentCount,
+      "comments",
+    );
+
+    this.initUI();
     this.addEventListeners();
-    this.handleOptimisticCommentUpdate();
+  }
+
+  disconnectedCallback() {
+    if (this.unsubscribeComments) {
+      this.unsubscribeComments();
+    }
+  }
+
+  initUI() {
+    const { comments, reactions } = this.store.getState();
+    this.populateData({
+      viewCommentsBtn: comments.length,
+      viewReactionsBtn: reactions.length,
+    });
   }
 
   addEventListeners() {
-    this.handleViewCommentsBtnClick();
-    this.handleAddCommentBtnClick();
+    this.toggleCommentsViewOnClick();
+    this.toggleCommentInputOnClick();
   }
 
-  handleViewCommentsBtnClick = () => {
+  toggleCommentsViewOnClick = () => {
     this.onClick("viewCommentsBtn", (event) => {
-      this.store.setState((currentState) => ({
-        ...currentState,
-        commentsOpen: !currentState.commentsOpen,
-        commentInputOpen: currentState.commentsOpen,
-      }));
-      const isCommentsOpen = this.store.getState((state) => state.commentsOpen);
-      this.toggleViewCommentsBtnState(event.currentTarget, isCommentsOpen);
+      const isCommentsOpen = this.toggleCommentsAndInput();
+      this.updateViewCommentsButton(event.currentTarget, isCommentsOpen);
     });
   };
 
-  toggleViewCommentsBtnState(target, isCommentsOpen) {
-    isCommentsOpen
-      ? (target.dataset.state = "open")
-      : (target.dataset.state = "closed");
-  }
-
-  handleAddCommentBtnClick = () => {
+  toggleCommentInputOnClick = () => {
     this.onClick("addCommentBtn", () => {
       this.store.setState((currentState) => ({
         ...currentState,
@@ -61,17 +61,22 @@ export class PostButtons extends CustomComponent {
     });
   };
 
-  handleOptimisticCommentUpdate() {
-    this.onCustomEvent({
-      eventName: "addCommentOptimistically",
-      id: this.postData.id,
-      useDocument: true,
-      callback: () => {
-        this.commentsCount++;
-        this.getSlot("viewCommentsBtn").textContent = this.commentsCount;
-      },
-    });
+  toggleCommentsAndInput() {
+    this.store.setState((currentState) => ({
+      ...currentState,
+      commentsOpen: !currentState.commentsOpen,
+      commentInputOpen: !currentState.commentsOpen,
+    }));
+    return this.store.getState((state) => state.commentsOpen);
   }
+
+  updateViewCommentsButton(target, isOpen) {
+    target.dataset.state = isOpen ? "open" : "closed";
+  }
+
+  updateCommentCount = (comments) => {
+    this.getSlot("viewCommentsBtn").textContent = comments.length;
+  };
 }
 
 customElements.define("post-buttons", PostButtons);

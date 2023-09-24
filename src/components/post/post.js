@@ -6,6 +6,7 @@ import { PostHeader } from "./postHeader.js";
 import { PostInputComment } from "./postInputComment.js";
 import { Store } from "../../lib/stores/store.js";
 import "../../lib/services/posts.js"; // to get vscode to pick up the jsdoc types
+import { PostMedia } from "./postMedia.js";
 
 export class Post extends CustomComponent {
   /**
@@ -26,46 +27,13 @@ export class Post extends CustomComponent {
     this.innerHTML = postHtml;
 
     this.populateData({
-      postHeader: this.setPostHeader(),
-      postBody: this.setPostBody(),
-      postMedia: this.setPostMedia(),
-      postButtons: this.setPostButtons(),
-      postCommentList: this.setPostCommentList(),
-      inputComment: this.setPostInputComment(),
+      postHeader: new PostHeader(this.postData.author, this.postData.created),
+      postBody: this.postData.body || "",
+      postMedia: new PostMedia(this.postData),
+      postButtons: new PostButtons(this.store),
+      postCommentList: new PostCommentList(this.postData, this.store),
+      inputComment: new PostInputComment(this.postData, this.store),
     });
-  }
-
-  setPostHeader() {
-    return new PostHeader(this.postData.author, this.postData.created);
-  }
-
-  setPostBody() {
-    return this.postData.body || ""; // TODO: Add support for images
-  }
-
-  setPostMedia() {
-    if (this.postData.media) {
-      const image = document.createElement("img");
-      image.src = this.postData.media;
-      image.alt = `${this.postData.author.name} posted an image with the title ${this.postData.title}.`;
-      image.classList.add("post-media");
-      return image;
-    }
-  }
-
-  setPostButtons() {
-    return new PostButtons(this.postData, this.store);
-  }
-
-  setPostCommentList() {
-    const postCommentList = new PostCommentList(this.postData, this.store);
-
-    return postCommentList.getCommentElements();
-  }
-
-  setPostInputComment() {
-    const postInputComment = new PostInputComment(this.postData, this.store);
-    return postInputComment.getInputCommentField();
   }
 }
 
