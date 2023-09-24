@@ -42,6 +42,7 @@ export async function loginUser(userData) {
     const accessToken = json.accessToken;
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("username", json.name);
+    localStorage.setItem("avatar", json.avatar);
     return json;
   } catch (error) {
     console.error(error + "Something went wrong");

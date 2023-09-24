@@ -112,8 +112,11 @@ export class PostInputComment extends CustomComponent {
   }
 
   addNewComment(comment) {
+    const username = localStorage.getItem("username");
+    const avatar = localStorage.getItem("avatar");
+
     const newComment = {
-      author: this.postData.author, //TODO: Replace with active user info when available
+      author: { name: username, avatar: avatar },
       body: comment,
       created: Date.now(),
     };

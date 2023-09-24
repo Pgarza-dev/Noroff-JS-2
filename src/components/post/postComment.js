@@ -27,9 +27,16 @@ export class PostComment extends CustomComponent {
       "last:border-none",
     );
 
+    const avatar = this.comment.author.avatar || "/images/default_user.png";
+
     this.populateData({
       commentBody: this.comment.body,
       author: this.comment.author.name,
+      avatar: {
+        type: "attribute",
+        attrName: "src",
+        attrValue: avatar,
+      },
       time: this.formatDateFromNow(this.comment.date),
       authorLink: {
         type: "attribute",
@@ -39,7 +46,6 @@ export class PostComment extends CustomComponent {
     });
 
     this.onClick("replyToCommentBtn", () => {
-      console.log("clicked");
       this.dispatchCustomEvent({
         eventName: "replyToComment",
         id: this.postId,
