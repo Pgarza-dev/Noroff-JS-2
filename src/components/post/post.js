@@ -11,8 +11,9 @@ import { PostMedia } from "./postMedia.js";
 export class Post extends CustomComponent {
   /**
    * @param {PostDataComplete} postData - The full post data returned from the API, expects the _comments, _reactions and _author flags to be set to true.
+   * @param {currentUser} string - The current user's username.
    */
-  constructor(postData) {
+  constructor(postData, currentUser) {
     super();
     this.postData = postData;
     this.store = new Store({

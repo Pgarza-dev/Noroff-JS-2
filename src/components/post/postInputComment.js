@@ -51,6 +51,10 @@ export class PostInputComment extends CustomComponent {
 
   openInputField() {
     this.classList.remove("hidden");
+    this.focusInputField();
+  }
+
+  focusInputField() {
     this.getSlot("commentField").focus();
   }
 
@@ -63,6 +67,7 @@ export class PostInputComment extends CustomComponent {
     this.addEnterKeyListener();
     this.addReplyToCommentListener();
     this.addExpandTextFieldListener();
+    this.handleFocusCommentInput();
   }
 
   addSubmitListener() {
@@ -95,6 +100,15 @@ export class PostInputComment extends CustomComponent {
     });
   }
 
+  handleFocusCommentInput() {
+    this.onCustomEvent({
+      eventName: "focusCommentInput",
+      id: this.postData.id,
+      useDocument: true,
+      callback: () => this.focusInputField(),
+    });
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     const commentField = this.getSlot("commentField");
@@ -112,8 +126,11 @@ export class PostInputComment extends CustomComponent {
   }
 
   addNewComment(comment) {
+    const username = localStorage.getItem("username");
+    const avatar = localStorage.getItem("avatar");
+
     const newComment = {
-      author: this.postData.author, //TODO: Replace with active user info when available
+      author: { name: username, avatar: avatar },
       body: comment,
       created: Date.now(),
     };
@@ -121,6 +138,8 @@ export class PostInputComment extends CustomComponent {
     this.store.setState((currentState) => ({
       comments: [...currentState.comments, newComment],
     }));
+
+    // TODO: Add API call to add comment to post. @Pgarza-dev
   }
 }
 
