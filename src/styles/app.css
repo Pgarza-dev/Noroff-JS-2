@@ -87,4 +87,8 @@
     opacity: 0;
     pointer-events: none;
   }
+
+  .post-media {
+    @apply h-full max-h-[500px];
+  }
 }
