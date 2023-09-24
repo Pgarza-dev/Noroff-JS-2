@@ -15,7 +15,7 @@
   }
 }
 
-// note: inspired by this article: https://una.im/radial-menu/
+/* note: inspired by this article: https://una.im/radial-menu/ */
 @layer components {
   .radial-menu,
   .menu-items,
