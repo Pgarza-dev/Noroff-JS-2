@@ -124,6 +124,8 @@ export class PostInputComment extends CustomComponent {
     this.store.setState((currentState) => ({
       comments: [...currentState.comments, newComment],
     }));
+
+    // TODO: Add API call to add comment to post. @Pgarza-dev
   }
 }
 
