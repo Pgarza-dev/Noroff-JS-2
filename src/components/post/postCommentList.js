@@ -5,33 +5,23 @@ import tempPostCommentHtml from "./postCommentTemp.html?raw";
 export class PostCommentList extends CustomComponent {
   /**
    * @param {PostDataComplete} postData - The full post data returned from the API, expects the _comments, _reactions and _author flags to be set to true.
+   * @param {Store} store - The store to use for the component.
    */
-  constructor(postData) {
+  constructor(postData, store) {
     super();
     this.postData = postData;
+    this.store = store;
   }
 
   connectedCallback() {
     this.applyInitialStyles();
-    this.fillCommentList(this.postData.comments);
-    this.handleOptimisticCommentUpdate();
+    this.unsubscribeComments = this.store.subscribe((state) => {
+      this.fillCommentList(state.comments);
+    }, "comments");
 
-    this.onCustomEvent({
-      eventName: "toggleComments",
-      id: this.postData.id,
-      useDocument: true,
-      callback: (event) => this.toggleComments(event.detail.state),
-    });
-  }
-
-  applyInitialStyles() {
-    this.classList.add("peer", "flex", "hidden", "flex-col", "gap-5", "pt-4");
-  }
-
-  toggleComments(state) {
-    state === "open"
-      ? this.classList.remove("hidden")
-      : this.classList.add("hidden");
+    this.unsubscribeCommentsOpen = this.store.subscribe((state) => {
+      this.toggleComments(state.commentsOpen);
+    }, "commentsOpen");
   }
 
   fillCommentList(comments) {
@@ -41,6 +31,27 @@ export class PostCommentList extends CustomComponent {
       this.clearComments();
       this.renderComments(comments);
     }
+  }
+
+  disconnectedCallback() {
+    if (this.unsubscribeComments) {
+      this.unsubscribeComments();
+    }
+
+    if (this.unsubscribeCommentsOpen) {
+      this.unsubscribeCommentsOpen();
+    }
+  }
+
+  applyInitialStyles() {
+    this.classList.add("peer", "flex", "hidden", "flex-col", "gap-5", "pt-4");
+  }
+
+  toggleComments(commentsOpen) {
+    console.log("toggleComments", commentsOpen);
+    commentsOpen
+      ? this.classList.remove("hidden")
+      : this.classList.add("hidden");
   }
 
   showTemporaryComment() {

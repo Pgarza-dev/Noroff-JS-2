@@ -4,16 +4,42 @@ import { CustomComponent } from "../customComponent.js";
 export class PostInputComment extends CustomComponent {
   /**
    * @param {PostDataComplete} postData - The full post data returned from the API, expects the _comments, _reactions and _author flags to be set to true.
+   * @param {Store} store - The store to use for the component.
    */
-  constructor(postData) {
+  constructor(postData, store) {
     super();
     this.postData = postData;
+    this.store = store;
   }
 
   connectedCallback() {
     this.classList.add("hidden");
     this.innerHTML = PostInputCommentHtml;
     this.addEventListeners();
+
+    this.inputOpenUnsubscribe = this.store.subscribe(
+      (state) => this.setCommentInputOpen(state),
+      "commentInputOpen",
+    );
+
+    this.commentsOpenUnsubscribe = this.store.subscribe(
+      (state) => this.toggleComments(state.commentsOpen),
+      "commentsOpen",
+    );
+  }
+
+  disconnectedCallback() {
+    this.inputOpenUnsubscribe();
+  }
+
+  setCommentInputOpen(isOpen) {
+    console.log(isOpen);
+    isOpen ? this.handleOpen() : this.classList.add("hidden");
+  }
+
+  handleOpen() {
+    this.classList.remove("hidden");
+    this.getSlot("commentField").focus();
   }
 
   addEventListeners() {
@@ -22,23 +48,6 @@ export class PostInputComment extends CustomComponent {
       if (event.key === "Enter" && !event.shiftKey) {
         this.handleSubmitComment(event);
       }
-    });
-
-    this.onCustomEvent({
-      eventName: "addComment",
-      id: this.postData.id,
-      useDocument: true,
-      callback: () => {
-        this.classList.remove("hidden");
-        this.getSlot("commentField").focus();
-      },
-    });
-
-    this.onCustomEvent({
-      eventName: "toggleComments",
-      id: this.postData.id,
-      useDocument: true,
-      callback: (event) => this.toggleComments(event.detail.state),
     });
 
     this.onCustomEvent({
@@ -55,8 +64,8 @@ export class PostInputComment extends CustomComponent {
     return this;
   }
 
-  toggleComments = (state) => {
-    state === "open"
+  toggleComments = (commentsOpen) => {
+    commentsOpen
       ? this.classList.remove("hidden")
       : this.classList.add("hidden");
   };

@@ -8,12 +8,14 @@ import postButtons from "./postButtons.html?raw";
 export class PostButtons extends CustomComponent {
   /**
    * @param {PostDataComplete} postData - The full post data returned from the API, expects the _comments, _reactions and _author flags to be set to true.
+   * @param {Store} store - The store to use for the component.
    */
-  constructor(postData) {
+  constructor(postData, store) {
     super();
     this.postData = postData;
     this.commentsCount = this.postData.comments.length;
     this.reactionsCount = this.postData.reactions.length;
+    this.store = store;
   }
 
   connectedCallback() {
@@ -22,6 +24,7 @@ export class PostButtons extends CustomComponent {
       viewCommentsBtn: this.commentsCount,
       viewReactionsBtn: this.reactionsCount,
     });
+
     this.addEventListeners();
     this.handleOptimisticCommentUpdate();
   }
@@ -33,35 +36,28 @@ export class PostButtons extends CustomComponent {
 
   handleViewCommentsBtnClick = () => {
     this.onClick("viewCommentsBtn", (event) => {
-      const state = this.toggleState(event);
-      this.dispatchToggleCommentsEvent(state);
+      this.store.setState((currentState) => ({
+        ...currentState,
+        commentsOpen: !currentState.commentsOpen,
+        commentInputOpen: currentState.commentsOpen,
+      }));
+      const isCommentsOpen = this.store.getState((state) => state.commentsOpen);
+      this.toggleViewCommentsBtnState(event.currentTarget, isCommentsOpen);
     });
   };
 
-  toggleState(event) {
-    const {
-      currentTarget: { dataset },
-    } = event;
-    dataset.state = dataset.state === "open" ? "closed" : "open";
-    return dataset.state;
+  toggleViewCommentsBtnState(target, isCommentsOpen) {
+    isCommentsOpen
+      ? (target.dataset.state = "open")
+      : (target.dataset.state = "closed");
   }
 
-  dispatchToggleCommentsEvent = (state) => {
-    this.dispatchCustomEvent({
-      eventName: "toggleComments",
-      id: this.postData.id,
-      detail: { state },
-    });
-  };
-
   handleAddCommentBtnClick = () => {
-    this.onClick("addCommentBtn", () => this.dispatchAddCommentEvent());
-  };
-
-  dispatchAddCommentEvent = () => {
-    this.dispatchCustomEvent({
-      eventName: "addComment",
-      id: this.postData.id,
+    this.onClick("addCommentBtn", () => {
+      this.store.setState((currentState) => ({
+        ...currentState,
+        commentInputOpen: !currentState.commentInputOpen,
+      }));
     });
   };
 

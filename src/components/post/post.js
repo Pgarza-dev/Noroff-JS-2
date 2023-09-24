@@ -4,6 +4,8 @@ import { PostButtons } from "./postButtons.js";
 import { PostCommentList } from "./postCommentList";
 import { PostHeader } from "./postHeader.js";
 import { PostInputComment } from "./postInputComment.js";
+import { Store } from "../../lib/stores/store.js";
+import "../../lib/services/posts.js"; // to get vscode to pick up the jsdoc types
 
 export class Post extends CustomComponent {
   /**
@@ -12,6 +14,12 @@ export class Post extends CustomComponent {
   constructor(postData) {
     super();
     this.postData = postData;
+    this.store = new Store({
+      commentsOpen: false,
+      commentInputOpen: false,
+      comments: [...this.postData.comments],
+      reactions: [...this.postData.reactions],
+    });
   }
 
   connectedCallback() {
@@ -46,17 +54,17 @@ export class Post extends CustomComponent {
   }
 
   setPostButtons() {
-    return new PostButtons(this.postData);
+    return new PostButtons(this.postData, this.store);
   }
 
   setPostCommentList() {
-    const postCommentList = new PostCommentList(this.postData);
+    const postCommentList = new PostCommentList(this.postData, this.store);
 
     return postCommentList.getCommentElements();
   }
 
   setPostInputComment() {
-    const postInputComment = new PostInputComment(this.postData);
+    const postInputComment = new PostInputComment(this.postData, this.store);
     return postInputComment.getInputCommentField();
   }
 }
