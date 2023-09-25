@@ -7,7 +7,7 @@ export default {
     alias: {
       "@": path.resolve(__dirname, "src"),
       "@lib": path.resolve(__dirname, "src/lib"),
-      "@services": path.resolve(__dirname, "src/services"),
+      "@components": path.resolve(__dirname, "src/components"),
     },
   },
   server: {
