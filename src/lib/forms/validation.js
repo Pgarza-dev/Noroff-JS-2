@@ -1,20 +1,26 @@
-function isValidString(string) {
+import {
+  USERNAME_MIN_LENGTH,
+  PASSWORD_MIN_LENGTH,
+  EMAIL_DOMAIN_WHITELIST,
+} from "../constants";
+
+function checkValidString(string) {
   return /^[a-zA-Z0-9_]+$/.test(string);
 }
 
-function isValidUsername(username, usernameMinLength) {
-  return isValidString(username) && username.length >= usernameMinLength;
+function checkValidUsername(username, usernameMinLength) {
+  return checkValidString(username) && username.length >= usernameMinLength;
 }
 
-function isWhitelistedEmail(email, emailDomainWhiteList) {
+function checkWhitelistedEmail(email, emailDomainWhiteList) {
   return emailDomainWhiteList.some((domain) => email.endsWith(domain));
 }
 
-function isValidPassword(password, minPasswordLength) {
+function checkValidPassword(password, minPasswordLength) {
   return password.length >= minPasswordLength;
 }
 
-function doPasswordsMatch(password, repeatPassword) {
+function checkPasswordsMatch(password, repeatPassword) {
   return password === repeatPassword;
 }
 
@@ -38,34 +44,30 @@ function doPasswordsMatch(password, repeatPassword) {
  * @param {SignupFormDataObject} form - The form data to validate.
  * @returns {ValidationResult} The result of the validation.
  */
-export function isSignupFormValid(form) {
+export function checkSignupForm(form) {
   const { username, email, password, repeatPassword } = form;
-
-  const usernameMinLength = 1;
-  const passwordMinLength = 8;
-  const emailDomainWhiteList = ["@noroff.no", "@stud.noroff.no"];
 
   const validationResult = {
     isValid: true,
     errors: {},
   };
 
-  if (!isValidUsername(username, usernameMinLength)) {
+  if (!checkValidUsername(username, USERNAME_MIN_LENGTH)) {
     validationResult.isValid = false;
     validationResult.errors.username = "Invalid username.";
   }
 
-  if (!isWhitelistedEmail(email, emailDomainWhiteList)) {
+  if (!checkWhitelistedEmail(email, EMAIL_DOMAIN_WHITELIST)) {
     validationResult.isValid = false;
-    validationResult.errors.email = "not whitelisted.";
+    validationResult.errors.email = `Email can only end in ${EMAIL_DOMAIN_WHITELIST[0]} or ${EMAIL_DOMAIN_WHITELIST[1]}.`;
   }
 
-  if (!isValidPassword(password, passwordMinLength)) {
+  if (!checkValidPassword(password, PASSWORD_MIN_LENGTH)) {
     validationResult.isValid = false;
     validationResult.errors.password = "Invalid password.";
   }
 
-  if (!doPasswordsMatch(password, repeatPassword)) {
+  if (!checkPasswordsMatch(password, repeatPassword)) {
     validationResult.isValid = false;
     validationResult.errors.repeatPassword = "Passwords do not match.";
   }
@@ -74,7 +76,7 @@ export function isSignupFormValid(form) {
 }
 
 // SIGN UP FORM VALIDATION
-export function isLoginFormValid(form) {
+export function checkLoginForm(form) {
   const { email, password } = form;
 
   const passwordMinLength = 8;
@@ -85,11 +87,11 @@ export function isLoginFormValid(form) {
     errors: {},
   };
 
-  if (!isWhitelistedEmail(email, emailDomainWhiteList)) {
+  if (!checkWhitelistedEmail(email, emailDomainWhiteList)) {
     loginValidationResults.isValid = false;
     loginValidationResults.errors.email = "Invalid email.";
   }
-  if (!isValidPassword(password, passwordMinLength)) {
+  if (!checkValidPassword(password, passwordMinLength)) {
     loginValidationResults.isValid = false;
     loginValidationResults.errors.password = "Invalid password.";
   }

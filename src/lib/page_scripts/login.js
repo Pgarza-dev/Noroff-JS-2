@@ -1,4 +1,4 @@
-import { isLoginFormValid } from "@lib/forms/validation";
+import { checkLoginForm } from "@lib/forms/validation";
 import { clearErrors, displayErrors } from "../forms/handleErrors";
 import { loginUser } from "@lib/services/auth";
 import { createFormDataObject } from "@lib/forms/utils";
@@ -26,7 +26,7 @@ loginForm.addEventListener("submit", (event) => {
 
   const form = createFormDataObject(loginForm);
 
-  const loginValidationResult = isLoginFormValid(form);
+  const loginValidationResult = checkLoginForm(form);
 
   if (loginValidationResult.isValid) {
     handleLogin(form);

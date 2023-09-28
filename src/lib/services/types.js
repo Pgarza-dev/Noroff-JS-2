@@ -1,5 +1,3 @@
-// Basic Types
-
 /**
  * Represents a reaction on a post.
  * @typedef {Object} ReactionData

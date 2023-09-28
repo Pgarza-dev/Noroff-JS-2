@@ -1,50 +1,36 @@
+import { fetcher } from "./fetcher";
 import { API_BASE_URL } from "../constants.js";
 const registerUrl = `${API_BASE_URL}/social/auth/register`;
+const loginUrl = `${API_BASE_URL}/social/auth/login`;
 
 /**
  * API call to register a user
  * @param {string} url
  * @param {register object} userData
- * ```js
+ * @example
  * registerUser( registerUrl, userToRegister);
  */
 export async function registerUser(userData) {
-  try {
-    const postData = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    };
-    const response = await fetch(registerUrl, postData);
-    const json = await response.json();
-    return json;
-  } catch (error) {
-    console.error(error + "Something went wrong");
-  }
+  return await fetcher({
+    url: registerUrl,
+    method: "POST",
+    body: userData,
+    needsAuth: false,
+  });
 }
 
-const loginUrl = `${API_BASE_URL}/social/auth/login`;
-
 export async function loginUser(userData) {
-  try {
-    const postData = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    };
-    const response = await fetch(loginUrl, postData);
-    const json = await response.json();
+  const data = await fetcher({
+    url: loginUrl,
+    method: "POST",
+    body: userData,
+    needsAuth: false,
+  });
 
-    const accessToken = json.accessToken;
-    localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("username", json.name);
-    localStorage.setItem("avatar", json.avatar);
-    return json;
-  } catch (error) {
-    console.error(error + "Something went wrong");
+  if (data) {
+    if (data.accessToken) localStorage.setItem("accessToken", data.accessToken);
+    if (data.name) localStorage.setItem("username", data.name);
+    if (data.avatar) localStorage.setItem("avatar", data.avatar);
   }
+  return data;
 }

@@ -1,4 +1,4 @@
-import { isSignupFormValid } from "@lib/forms/validation";
+import { checkSignupForm } from "@lib/forms/validation";
 import { clearErrors, displayErrors } from "@lib/forms/handleErrors";
 import { registerUser } from "@lib/services/auth";
 import { createFormDataObject } from "@lib/forms/utils";
@@ -27,7 +27,7 @@ signupForm.addEventListener("submit", (event) => {
 
   const form = createFormDataObject(signupForm);
 
-  const validationResult = isSignupFormValid(form);
+  const validationResult = checkSignupForm(form);
 
   if (validationResult.isValid) {
     handleSignUp(form);
