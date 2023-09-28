@@ -35,10 +35,115 @@
         <li class="p-3 font-semibold">
           <a class="hover:text-white" href="/pages/login/index.html">Login</a>
         </li>
+        <li class="p-3 font-semibold">
+          <button
+            type="button"
+            class="hidden origin-center transform cursor-pointer transition duration-300 hover:rotate-180 hover:text-white"
+            id="edit-profile-button"
+            data-te-toggle="modal"
+            data-te-target="#editProfileModal"
+            data-te-ripple-init
+            data-te-ripple-color="light"
+          >
+            <i class="fa-solid fa-gear"></i>
+          </button>
+        </li>
       </ul>
     </nav>
 
     <main class="flex w-full justify-center">
+      <form id="edit-profile-form" method="post" action="" class="hidden">
+        <div
+          id="modal-container"
+          class="insert-0 fixed inset-0 z-50 flex w-full items-center justify-center rounded bg-stone-900 p-5 opacity-95"
+        >
+          <div
+            class="glass flex w-full max-w-5xl flex-col gap-10 rounded p-8 text-gray-50 shadow-xl"
+          >
+            <div class="flex justify-between">
+              <h3 class="text-2xl font-bold">Profile settings</h3>
+              <button
+                id="close-modal-btn"
+                type="button"
+                class="rounded border border-gray-50 border-opacity-30 px-3 py-1 capitalize transition-all duration-500 ease-in-out hover:border-primary-950 hover:bg-primary-950 hover:text-primary-50"
+              >
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+
+            <div class="relative w-full">
+              <input
+                type="text"
+                id="change-username-input"
+                name="change-username"
+                class="peer h-10 w-full border px-3 py-2 text-primary-950 caret-primary-950 focus:outline-none"
+                placeholder="Change username"
+              />
+              <label
+                for="change-username"
+                class="peer absolute -top-5 left-0 text-sm text-white caret-slate-900 transition-all duration-500 placeholder-shown:-top-2 peer-placeholder-shown:text-base peer-placeholder-shown:opacity-0 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-white peer-focus:opacity-100"
+                >Change username</label
+              >
+              <div id="password-error"></div>
+            </div>
+
+            <div class="relative w-full">
+              <input
+                type="password"
+                id="current-password"
+                name="password"
+                class="peer h-10 w-full border px-3 py-2 text-primary-950 caret-primary-950 focus:outline-none"
+                placeholder="Enter your current password"
+                minlength="8"
+              />
+              <label
+                for="current-password"
+                class="peer absolute -top-5 left-0 text-sm text-white transition-all duration-500 placeholder-shown:-top-2 peer-placeholder-shown:text-base peer-placeholder-shown:opacity-0 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-white peer-focus:opacity-100"
+                >Enter your current password</label
+              >
+              <div id="password-error"></div>
+            </div>
+            <div class="relative w-full">
+              <input
+                type="password"
+                id="new-password"
+                name="password"
+                class="peer h-10 w-full border px-3 py-2 text-white focus:outline-none"
+                placeholder="Enter your new password"
+                minlength="8"
+              />
+              <label
+                for="new-password"
+                class="peer absolute -top-5 left-0 text-sm text-white transition-all duration-500 placeholder-shown:-top-2 peer-placeholder-shown:text-base peer-placeholder-shown:opacity-0 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-white peer-focus:opacity-100"
+                >Enter your new password</label
+              >
+              <div id="password-error"></div>
+            </div>
+            <div class="relative w-full">
+              <input
+                type="text"
+                id="new-image"
+                name="new-image"
+                class="peer h-10 w-full border p-1 text-white focus:outline-none"
+                placeholder="Upload new image"
+              />
+              <label
+                for="new-image"
+                class="peer absolute -top-5 left-0 text-sm text-white transition-all duration-500 placeholder-shown:-top-2 peer-placeholder-shown:text-base peer-placeholder-shown:opacity-0 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-white peer-focus:opacity-100"
+                >Upload new profile image</label
+              >
+            </div>
+            <button
+              id="apply-changes-modal-btn"
+              type="submit"
+              class="w-40 rounded border border-gray-50 border-opacity-30 px-3 py-1 capitalize transition-all duration-500 ease-in-out hover:border-primary-950 hover:bg-primary-950 hover:text-primary-50"
+            >
+              Apply changes
+            </button>
+          </div>
+        </div>
+      </form>
+
       <div class="m-4 max-w-screen-lg">
         <section>
           <div class="min-h-full border-2">
@@ -62,7 +167,9 @@
               />
             </div>
             <div class="flex flex-col items-center justify-center gap-2">
-              <span class="text-2xl font-black">username</span>
+              <span id="profile-username" class="text-2xl font-black"
+                >username</span
+              >
               <div class="flex gap-3">
                 <div class="flex gap-3">
                   followers <span id="followers">100</span>
@@ -85,17 +192,22 @@
         <section class="flex flex-col gap-6">
           <div class="flex justify-between">
             <h2 class="py-4 text-2xl font-bold">Posts</h2>
-            <button
-              id="create-post-button"
-              type="button"
-              class="h-10 max-w-lg rounded-lg border-primary-900 bg-primary-900 px-5 py-1 capitalize transition-all duration-500 ease-in-out hover:bg-primary-950 hover:text-primary-50"
-            >
-              New <i id="create-post-plus-icon" class="fa-solid fa-plus"></i
-              ><i
-                id="create-post-minus-icon"
-                class="fa-solid fa-trash hidden"
-              ></i>
-            </button>
+            <div class="main">
+              <div class="theCard">
+                <button
+                  id="create-post-button"
+                  type="button"
+                  class="theFront ease h-10 max-w-lg rounded-lg border-primary-900 bg-primary-900 px-5 py-1 capitalize transition-all duration-500 hover:bg-primary-950 hover:text-primary-50"
+                >
+                  Post
+                  <i id="create-post-plus-icon" class="fa-solid fa-plus"></i
+                  ><i
+                    id="create-post-minus-icon"
+                    class="fa-solid fa-trash hidden"
+                  ></i>
+                </button>
+              </div>
+            </div>
           </div>
           <div>
             <form
