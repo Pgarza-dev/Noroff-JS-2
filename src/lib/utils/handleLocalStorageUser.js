@@ -39,3 +39,19 @@ export function setActiveUserAvatar(avatar) {
 export function clearActiveUserAvatar() {
   localStorage.removeItem("avatar");
 }
+
+export function getAccessToken() {
+  const accessToken = localStorage.getItem("accessToken");
+  if (!accessToken) {
+    console.warn("No access token found in localStorage.");
+    return null;
+  }
+  return accessToken;
+}
+
+export function setAccessToken(accessToken) {
+  if (typeof accessToken !== "string") {
+    throw new Error("Invalid access token.");
+  }
+  localStorage.setItem("accessToken", accessToken);
+}

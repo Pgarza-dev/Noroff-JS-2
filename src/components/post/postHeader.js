@@ -1,5 +1,6 @@
 import postHeader from "./postHeader.html?raw";
 import { CustomComponent } from "../customComponent.js";
+import { getActiveUser } from "@/lib/utils/handleLocalStorageUser";
 
 export class PostHeader extends CustomComponent {
   /**
@@ -32,11 +33,20 @@ export class PostHeader extends CustomComponent {
       },
     });
     this.addEventListeners();
+    this.displayMenuBtnIfAuthorIsLoggedInUser();
   }
 
   addEventListeners() {
     this.onClick("postMenuBtn", this.togglePostMenu);
     this.clickedOutside("postMenuDropdown", this.hideMenuOnOutsideClick);
+  }
+
+  displayMenuBtnIfAuthorIsLoggedInUser() {
+    const activeUser = getActiveUser();
+
+    if (activeUser && activeUser === this.author.name) {
+      this.getSlot("postMenuBtn").classList.remove("hidden");
+    }
   }
 
   togglePostMenu = (event) => {

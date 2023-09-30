@@ -1,6 +1,7 @@
 import { fetcher } from "./fetcher";
 import { API_BASE_URL } from "../constants.js";
 import {
+  setAccessToken,
   setActiveUser,
   setActiveUserAvatar,
 } from "@/lib/utils/handleLocalStorageUser";
@@ -32,7 +33,7 @@ export async function loginUser(userData) {
   });
 
   if (data) {
-    if (data.accessToken) localStorage.setItem("accessToken", data.accessToken);
+    if (data.accessToken) setAccessToken(data.accessToken);
     if (data.name) setActiveUser(data.name);
     if (data.avatar) setActiveUserAvatar(data.avatar);
   }
