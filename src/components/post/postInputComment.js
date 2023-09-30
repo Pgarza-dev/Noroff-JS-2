@@ -1,4 +1,4 @@
-import PostInputCommentHtml from "./PostInputComment.html?raw";
+import PostInputCommentHtml from "./postInputComment.html?raw";
 import { CustomComponent } from "../customComponent.js";
 
 export class PostInputComment extends CustomComponent {
