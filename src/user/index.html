@@ -12,42 +12,19 @@
     ></script>
   </head>
   <body class="bg-stone-950 text-gray-50">
-    <nav class="w-full bg-primary-900 pr-3 text-lg">
-      <ul class="flex flex-row items-center justify-end text-gray-300">
-        <li class="p-3 font-semibold">
-          <a class="hover:text-white"
-            ><i class="fa-solid fa-magnifying-glass"></i
-          ></a>
-        </li>
-        <li class="p-3 font-semibold">
-          <a class="hover:text-white" class="" href="/">Feed</a>
-        </li>
-        <li class="p-3 font-semibold">
-          <a class="visited:text-white hover:text-white" href="/user/"
-            >Profile</a
-          >
-        </li>
-        <li class="p-3 font-semibold">
-          <a class="hover:text-white" href="/signup/">Signup</a>
-        </li>
-        <li class="p-3 font-semibold">
-          <a class="hover:text-white" href="/login/">Login</a>
-        </li>
-        <li class="p-3 font-semibold">
-          <button
-            type="button"
-            class="hidden origin-center transform cursor-pointer transition duration-300 hover:rotate-180 hover:text-white"
-            id="edit-profile-button"
-            data-te-toggle="modal"
-            data-te-target="#editProfileModal"
-            data-te-ripple-init
-            data-te-ripple-color="light"
-          >
-            <i class="fa-solid fa-gear"></i>
-          </button>
-        </li>
-      </ul>
-    </nav>
+    <app-header></app-header>
+
+    <button
+      type="button"
+      class="hidden origin-center transform cursor-pointer transition duration-300 hover:rotate-180 hover:text-white"
+      id="edit-profile-button"
+      data-te-toggle="modal"
+      data-te-target="#editProfileModal"
+      data-te-ripple-init
+      data-te-ripple-color="light"
+    >
+      <i class="fa-solid fa-gear"></i>
+    </button>
 
     <main class="flex w-full justify-center">
       <form id="edit-profile-form" method="post" action="" class="hidden">
