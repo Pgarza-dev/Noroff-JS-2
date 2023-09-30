@@ -1,11 +1,11 @@
 console.log("createPosts.js");
 import { API_BASE_URL } from "../constants.js";
-import { fetcher } from "../services/fetcher.js";
 import { getSingleProfile } from "../services/profiles.js";
 import { getAllPosts } from "../services/posts.js";
 import { editProfile } from "../utils/editProfile.js";
 import { createNewPost } from "../utils/profilePageUtils.js";
 import { displayAllUserPosts } from "../utils/profilePageUtils.js";
+import { getUsernameQueryParam } from "../utils/getUsernameQueryParam.js";
 
 const myPostUrl = `${API_BASE_URL}/social/posts?_author=true&_comments=true&_reactions=true`;
 const createPostButton = document.getElementById("create-post-button");
@@ -21,6 +21,7 @@ const followers = document.getElementById("followers");
 const following = document.getElementById("following");
 const followUnfollowButton = document.getElementById("follow-btn");
 
+newPostForm.addEventListener("submit", createNewPost);
 createPostButton.addEventListener("click", displayInput);
 
 createPostButton.addEventListener("click", () => {
@@ -36,5 +37,12 @@ function displayInput() {
 
 editProfile();
 getAllPosts();
-createNewPost();
 displayAllUserPosts();
+
+async function settingUpTheProfile() {
+  const username = getUsernameQueryParam();
+  const singleProfileData = await getSingleProfile(username);
+
+  console.log(singleProfileData);
+}
+settingUpTheProfile();

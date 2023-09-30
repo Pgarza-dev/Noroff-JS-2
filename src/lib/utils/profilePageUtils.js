@@ -7,9 +7,9 @@ import { Post } from "../../components/post/post.js";
 
 const newPostDiv = document.getElementById("new-post");
 const newPostForm = document.getElementById("new-post-form");
+const createPostPlusIcon = document.getElementById("create-post-plus-icon");
+const createPostMinusIcon = document.getElementById("create-post-minus-icon");
 const profilePostsSection = document.getElementById("profile-posts");
-
-newPostForm.addEventListener("submit", createNewPost);
 
 export async function createNewPost(event) {
   event.preventDefault();
