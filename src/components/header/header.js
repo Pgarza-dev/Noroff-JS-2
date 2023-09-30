@@ -1,4 +1,5 @@
 import { CustomComponent } from "../customComponent.js";
+import { getActiveUser } from "@/lib/utils/handleLocalStorageUser.js";
 import headerHtml from "./header.html?raw";
 
 export class Header extends CustomComponent {
@@ -22,11 +23,8 @@ export class Header extends CustomComponent {
   setProfileLink() {
     const profileLink = this.querySelector("#profile-link");
 
-    const username = localStorage.getItem("username");
-    if (!username) {
-      console.warn("No username found in localStorage.");
-      return;
-    }
+    const username = getActiveUser();
+
     profileLink.href = `/user/?username=${username}`;
   }
 }
