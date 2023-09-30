@@ -1,5 +1,9 @@
 import PostInputCommentHtml from "./postInputComment.html?raw";
 import { CustomComponent } from "../customComponent.js";
+import {
+  getActiveUser,
+  getActiveUserAvatar,
+} from "@/lib/utils/handleLocalStorageUser";
 
 export class PostInputComment extends CustomComponent {
   /**
@@ -122,8 +126,8 @@ export class PostInputComment extends CustomComponent {
   }
 
   addNewComment(comment) {
-    const username = localStorage.getItem("username");
-    const avatar = localStorage.getItem("avatar");
+    const username = getActiveUser();
+    const avatar = getActiveUserAvatar();
 
     const newComment = {
       author: { name: username, avatar: avatar },
