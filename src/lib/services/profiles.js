@@ -19,12 +19,20 @@ export async function getSingleProfilePosts(username) {
   });
 }
 
-export async function updateEntryMedia(username, avatarUrl, bannerUrl) {
+export async function updateProfilePicture(username, avatarUrl) {
   return await fetcher({
     url: `${API_BASE_URL}/social/profiles/${username}/media`,
     method: "PUT",
     body: {
       avatar: avatarUrl,
+    },
+  });
+}
+export async function updateProfileBanner(username, bannerUrl) {
+  return await fetcher({
+    url: `${API_BASE_URL}/social/profiles/${username}/media`,
+    method: "PUT",
+    body: {
       banner: bannerUrl,
     },
   });
