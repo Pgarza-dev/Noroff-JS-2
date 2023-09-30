@@ -30,16 +30,16 @@ export async function updateEntryMedia(username, avatarUrl, bannerUrl) {
   });
 }
 
-export async function updateEntryProfile(username) {
+export async function followProfile(username) {
   return await fetcher({
-    url: `${API_BASE_URL}/social/profiles/${username}/profile`,
+    url: `${API_BASE_URL}/social/profiles/${username}/follow`,
     method: "PUT",
   });
 }
 
-export async function followProfile(username) {
+export async function unFollowProfile(username) {
   return await fetcher({
-    url: `${API_BASE_URL}/social/profiles/${username}/follow`,
+    url: `${API_BASE_URL}/social/profiles/${username}/unfollow`,
     method: "PUT",
   });
 }
