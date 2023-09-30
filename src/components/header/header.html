@@ -1,4 +1,4 @@
-<header class="sticky top-0 z-50 w-full bg-primary-900 p-4 text-lg">
+<header class="sticky top-0 z-50 w-full bg-primary-900 px-8 py-4 text-lg">
   <nav>
     <ul
       class="flex items-center justify-end gap-5 font-semibold text-gray-300 transition-colors"
@@ -12,7 +12,18 @@
         <a class="hover:text-white" class="" href="/">Feed</a>
       </li>
       <li>
-        <a id="profile-link" class="hover:text-white" href="/user/">Profile</a>
+        <a id="profile-link" class="hover:text-white" href="/user/">
+          Profile
+        </a>
+      </li>
+      <li class="relative">
+        <button
+          data-slot="accountMenuBtn"
+          class="flex items-center justify-center"
+        >
+          <img class="h-6" src="/icons/account-icon.svg" alt="" />
+        </button>
+        <div data-slot="accountMenuDropdown"></div>
       </li>
     </ul>
   </nav>

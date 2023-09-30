@@ -1,0 +1,42 @@
+<div
+  id="account-menu-dropdown"
+  data-slot="accountMenuDropdown"
+  class="absolute -right-2 top-10 z-10 rounded-lg bg-stone-800 shadow"
+>
+  <ul
+    class="z-10 whitespace-nowrap py-2 text-sm text-gray-700 dark:text-gray-200"
+    aria-labelledby="dropdownMenuIconButton"
+  >
+    <li>
+      <a
+        id="account-menu-dropdown-profile-link"
+        href="#"
+        class="flex w-full items-center justify-end gap-4 py-2 pl-8 pr-3 text-end hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+        >My Profile
+        <img class="h-4" src="/icons/account-icon.svg" alt="" />
+      </a>
+    </li>
+    <li class="">
+      <a
+        href="/settings/"
+        class="flex items-center justify-end gap-4 py-2 pl-8 pr-3 text-end hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+        >Settings
+        <img class="h-4" src="/icons/settings-icon.svg" alt="" />
+      </a>
+      <hr class="border-stone-600" />
+    </li>
+    <li>
+      <a
+        href="#"
+        data-slot="logoutBtn"
+        class="flex items-center justify-end gap-4 py-2 pl-8 pr-3 text-end hover:bg-gray-100 dark:hover:bg-red-700 dark:hover:text-white"
+      >
+        Log out
+        <img class="h-4" src="/icons/logout-icon.svg" alt="" />
+      </a>
+    </li>
+  </ul>
+  <div
+    class="absolute -top-4 right-3 -z-10 h-5 w-5 translate-x-1 translate-y-2 rotate-45 bg-stone-800"
+  ></div>
+</div>
