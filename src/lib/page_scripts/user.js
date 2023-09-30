@@ -1,8 +1,9 @@
 console.log("createPosts.js");
 import { API_BASE_URL } from "../constants.js";
+import { fetcher } from "../services/fetcher.js";
+import { getSingleProfile } from "../services/profiles.js";
 import { getAllPosts } from "../services/posts.js";
 import { editProfile } from "../utils/editProfile.js";
-
 import { createNewPost } from "../utils/profilePageUtils.js";
 import { displayAllUserPosts } from "../utils/profilePageUtils.js";
 
@@ -12,6 +13,13 @@ const newPostForm = document.getElementById("new-post-form");
 const createPostPlusIcon = document.getElementById("create-post-plus-icon");
 const createPostMinusIcon = document.getElementById("create-post-minus-icon");
 const cancelPostButton = document.getElementById("cancel-post-button");
+
+const avatar = document.getElementById("avatar");
+const username = document.getElementById("profile-username");
+const banner = document.getElementById("banner");
+const followers = document.getElementById("followers");
+const following = document.getElementById("following");
+const followUnfollowButton = document.getElementById("follow-btn");
 
 createPostButton.addEventListener("click", displayInput);
 

@@ -1,4 +1,4 @@
-import { fetcher } from "./fetcher";
+import { fetcher } from "../services/fetcher.js";
 import { API_BASE_URL } from "../constants.js";
 
 export async function getAllProfiles() {
