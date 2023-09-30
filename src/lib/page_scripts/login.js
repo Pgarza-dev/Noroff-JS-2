@@ -13,7 +13,7 @@ async function handleLogin(formDataObject) {
   if (response.errors) {
     handleFormApiError(response.errors);
   } else {
-    window.location.href = "/pages/profile/index.html";
+    window.location.href = "/";
   }
 }
 
