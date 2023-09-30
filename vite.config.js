@@ -21,9 +21,9 @@ export default {
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, "src/index.html"),
-        profile: path.resolve(__dirname, "src/pages/profile/index.html"),
-        login: path.resolve(__dirname, "src/pages/login/index.html"),
-        signup: path.resolve(__dirname, "src/pages/signup/index.html"),
+        profile: path.resolve(__dirname, "src/user/index.html"),
+        login: path.resolve(__dirname, "src/login/index.html"),
+        signup: path.resolve(__dirname, "src/signup/index.html"),
       },
     },
   },
