@@ -44,20 +44,23 @@
         aria-labelledby="dropdownMenuIconButton"
       >
         <li class="">
-          <a
-            href="#"
-            class="flex items-center justify-end gap-4 px-4 py-2 text-end hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-            >Edit
+          <button
+            class="flex w-full items-center justify-end gap-4 px-4 py-2 text-end hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+            data-slot="editPostBtn"
+            popovertarget="post-editor"
+          >
+            Edit
             <i class="fa-sharp fa-regular fa-pen-to-square"></i>
-          </a>
+          </button>
         </li>
         <li>
-          <a
-            href="#"
+          <button
             class="flex items-center justify-end gap-4 px-4 py-2 text-end hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-            >Delete
+            data-slot="deletePostBtn"
+          >
+            Delete
             <i class="fa-sharp fa-solid fa-delete-left"></i>
-          </a>
+          </button>
         </li>
       </ul>
       <div
