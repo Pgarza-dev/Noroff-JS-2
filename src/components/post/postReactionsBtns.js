@@ -1,3 +1,4 @@
+import { reactPost } from "@/lib/services/posts.js";
 import { CustomComponent } from "../customComponent.js";
 import reactionBtnHtml from "./postReactionsBtn.html?raw";
 
@@ -10,10 +11,12 @@ import reactionBtnHtml from "./postReactionsBtn.html?raw";
 export class PostReactionBtn extends CustomComponent {
   /**
    * @param {Store} store - Data store instance for managing state.
+   * @param {postId} number - The id of the post the comment belongs to.
    */
-  constructor(store) {
+  constructor(store, postId) {
     super();
     this.store = store;
+    this.postId = postId;
   }
 
   connectedCallback() {
@@ -45,17 +48,29 @@ export class PostReactionBtn extends CustomComponent {
     this.onClick("reactionsMenu", this.handleReactionClick);
   }
 
-  handleReactionClick = (event) => {
+  handleReactionClick = async (event) => {
     const reaction = event.target
       .closest(".item")
       .querySelector("span").textContent;
 
+    const localStoreReaction = {
+      count: 1,
+      postId: this.postId,
+      symbol: reaction,
+    };
+
+    this.store.getState().reactions.forEach((reaction) => {
+      if (reaction.symbol === localStoreReaction.symbol) {
+        localStoreReaction.count = reaction.count + 1;
+      }
+    });
+
     this.store.setState((currentState) => ({
       ...currentState,
-      reactions: [...currentState.reactions, reaction],
+      reactions: [...currentState.reactions, localStoreReaction],
     }));
 
-    //TODO: send reaction to API @Pgarza-dev
+    await reactPost(this.postId, reaction);
   };
 
   updateReactionCount = (reactions) => {

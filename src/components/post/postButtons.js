@@ -9,10 +9,12 @@ import { PostReactionBtn } from "./postReactionsBtns.js";
 export class PostButtons extends CustomComponent {
   /**
    * @param {Store} store - Data store instance for managing state.
+   * @param {postId} number - The id of the post the comment belongs to.
    */
-  constructor(store) {
+  constructor(store, postId) {
     super();
     this.store = store;
+    this.postId = postId;
   }
 
   connectedCallback() {
@@ -37,7 +39,7 @@ export class PostButtons extends CustomComponent {
     const { comments } = this.store.getState();
     this.populateData({
       viewCommentsBtn: comments.length,
-      addReactionBtn: new PostReactionBtn(this.store),
+      addReactionBtn: new PostReactionBtn(this.store, this.postId),
     });
   }
 
