@@ -1,25 +1,25 @@
-console.log("createPosts.js");
-import { API_BASE_URL } from "../constants.js";
 import { getSingleProfile } from "../services/profiles.js";
 import { getAllPosts } from "../services/posts.js";
 import { editProfile } from "../utils/editProfile.js";
 import { createNewPost } from "../utils/profilePageUtils.js";
 import { displayAllUserPosts } from "../utils/profilePageUtils.js";
 import { getUsernameQueryParam } from "../utils/getUsernameQueryParam.js";
+import { followProfile } from "../services/profiles.js";
+import { getActiveUser } from "../utils/handleLocalStorageUser.js";
+import { unFollowProfile } from "../services/profiles.js";
 
-const myPostUrl = `${API_BASE_URL}/social/posts?_author=true&_comments=true&_reactions=true`;
 const createPostButton = document.getElementById("create-post-button");
 const newPostForm = document.getElementById("new-post-form");
 const createPostPlusIcon = document.getElementById("create-post-plus-icon");
 const createPostMinusIcon = document.getElementById("create-post-minus-icon");
-const cancelPostButton = document.getElementById("cancel-post-button");
 
 const avatar = document.getElementById("avatar");
-const username = document.getElementById("profile-username");
+const profileName = document.getElementById("profile-username");
 const banner = document.getElementById("banner");
+
 const followers = document.getElementById("followers");
 const following = document.getElementById("following");
-const followUnfollowButton = document.getElementById("follow-btn");
+const followUnFollowButton = document.getElementById("follow-btn");
 
 newPostForm.addEventListener("submit", createNewPost);
 createPostButton.addEventListener("click", displayInput);
@@ -39,10 +39,53 @@ editProfile();
 getAllPosts();
 displayAllUserPosts();
 
+function setUpProfileAvatar(avatarUrl) {
+  if (avatarUrl) {
+    avatar.src = avatarUrl;
+  }
+}
+
+function setUpProfileBanner(bannerUrl) {
+  if (bannerUrl) {
+    banner.src = bannerUrl;
+  }
+}
+
+function setUpFollowButton(followers, activeUser) {
+  const isFollowing = followers.some(
+    (follower) => follower.name === activeUser,
+  );
+  if (isFollowing) {
+    followUnFollowButton.textContent = "Unfollow";
+  } else {
+    followUnFollowButton.textContent = "Follow";
+  }
+}
+
 async function settingUpTheProfile() {
   const username = getUsernameQueryParam();
   const singleProfileData = await getSingleProfile(username);
+  const activeUser = getActiveUser();
 
-  console.log(singleProfileData);
+  profileName.textContent = singleProfileData.name;
+  setUpProfileAvatar(singleProfileData.avatar);
+  setUpProfileBanner(singleProfileData.banner);
+  setUpFollowButton(singleProfileData.followers, activeUser);
+
+  followers.textContent = singleProfileData._count.followers;
+  following.textContent = singleProfileData._count.following;
+
+  followUnFollowButton.addEventListener("click", async () => {
+    const followersAmount = parseInt(followers.textContent);
+    if (followUnFollowButton.textContent === "Follow") {
+      followers.textContent = followersAmount + 1;
+      followUnFollowButton.textContent = "Unfollow";
+      await followProfile(username);
+    } else {
+      followUnFollowButton.textContent = "Follow";
+      followers.textContent = followersAmount - 1;
+      await unFollowProfile(username);
+    }
+  });
 }
 settingUpTheProfile();
