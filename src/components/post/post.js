@@ -28,7 +28,7 @@ export class Post extends CustomComponent {
     this.innerHTML = postHtml;
 
     this.populateData({
-      postHeader: new PostHeader(this.postData.author, this.postData.created),
+      postHeader: new PostHeader(this.postData),
       postBody: this.postData.body || "",
       postMedia: new PostMedia(this.postData),
       postButtons: new PostButtons(this.store),

@@ -4,27 +4,25 @@ import { getActiveUser } from "@/lib/utils/handleLocalStorageUser";
 
 export class PostHeader extends CustomComponent {
   /**
-   * @param {AuthorData} author - The author of the post.
-   * @param {string} created - The creation date (e.g., "2023-08-30T23:59:59Z").
+   * @param {PostDataComplete} postData - The full post data returned from the API, expects the _comments, _reactions and _author flags to be set to true.
    */
-  constructor(author, created) {
+  constructor(postData) {
     super();
-    this.author = author;
-    this.created = created;
+    this.postData = postData;
   }
 
   connectedCallback() {
     this.innerHTML = postHeader;
 
-    const avatar = this.author.avatar || "/images/default_user.png";
+    const avatar = this.postData.author.avatar || "/images/default_user.png";
 
     this.populateData({
-      author: this.author.name,
-      time: this.formatDateFromNow(this.created),
+      author: this.postData.author.name,
+      time: this.formatDateFromNow(this.postData.created),
       authorLink: {
         type: "attribute",
         attrName: "href",
-        attrValue: `/user/?username=${this.author.name}`,
+        attrValue: `/user/?username=${this.postData.author.name}`,
       },
       profileImg: {
         type: "attribute",
@@ -38,13 +36,15 @@ export class PostHeader extends CustomComponent {
 
   addEventListeners() {
     this.onClick("postMenuBtn", this.togglePostMenu);
+    this.onClick("editPostBtn", this.handleEditPost);
+    this.onClick("deletePostBtn", this.handleDeletePost);
     this.clickedOutside("postMenuDropdown", this.hideMenuOnOutsideClick);
   }
 
   displayMenuBtnIfAuthorIsLoggedInUser() {
     const activeUser = getActiveUser();
 
-    if (activeUser && activeUser === this.author.name) {
+    if (activeUser && activeUser === this.postData.author.name) {
       this.getSlot("postMenuBtn").classList.remove("hidden");
     }
   }
@@ -56,6 +56,16 @@ export class PostHeader extends CustomComponent {
 
   hideMenuOnOutsideClick = () => {
     this.hideElement(this.getSlot("postMenuDropdown"));
+  };
+
+  handleEditPost = () => {
+    document.querySelector(
+      "#post-editor-textarea",
+    ).value = `${this.postData.body}`;
+
+    document.querySelector(
+      "#post-editor-post-id",
+    ).value = `${this.postData.id}`;
   };
 }
 
