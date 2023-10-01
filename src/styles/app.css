@@ -15,6 +15,13 @@
   }
 }
 
+@layer utilities {
+  .mask-image-circle {
+    mask-image: radial-gradient(circle, black 70%, rgba(0, 0, 0, 0.5) 70.01%);
+    @apply aspect-square;
+  }
+}
+
 /* note: radial menu inspired by this article: https://una.im/radial-menu/ */
 @layer components {
   .radial-menu,

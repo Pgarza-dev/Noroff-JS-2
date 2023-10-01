@@ -33,9 +33,15 @@ export async function loginUser(userData) {
   });
 
   if (data) {
-    if (data.accessToken) setAccessToken(data.accessToken);
-    if (data.name) setActiveUser(data.name);
-    if (data.avatar) setActiveUserAvatar(data.avatar);
+    if (data.accessToken) {
+      setAccessToken(data.accessToken);
+    }
+    if (data.name) {
+      setActiveUser(data.name);
+    }
+    if (data.avatar) {
+      setActiveUserAvatar(data.avatar);
+    }
   }
   return data;
 }
