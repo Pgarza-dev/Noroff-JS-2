@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Social</title>
     <script type="module" src="../lib/main.js"></script>
-    <script type="module" src="../lib/page_scripts/profile.js"></script>
+    <script type="module" src="../lib/page_scripts/user.js"></script>
+    <script
+      src="https://kit.fontawesome.com/a6b44b4960.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body class="bg-stone-950 text-gray-50">
     <app-header></app-header>
@@ -117,8 +121,12 @@
 
       <div class="m-4 max-w-screen-lg">
         <section>
-          <div class="min-h-full">
-            <img src="/images/default_header.jpg" alt="profile-header" />
+          <div class="min-h-full border-2">
+            <img
+              id="banner"
+              src="/images/default_header.jpg"
+              alt="profile-header"
+            />
           </div>
           <div
             class="relative flex w-full flex-col items-center justify-center"
@@ -127,6 +135,7 @@
               class="absolute top-0 h-40 w-40 translate-y-[-105%] overflow-hidden rounded-full object-fill"
             >
               <img
+                id="avatar"
                 class="h-full w-full object-cover"
                 height="120px"
                 width="120px"
