@@ -1,4 +1,4 @@
-import { fetcher } from "./fetcher";
+import { fetcher } from "../services/fetcher.js";
 import { API_BASE_URL } from "../constants.js";
 
 export async function getAllProfiles() {
@@ -10,6 +10,11 @@ export async function getAllProfiles() {
 export async function getSingleProfile(username) {
   return await fetcher({
     url: `${API_BASE_URL}/social/profiles/${username}`,
+    query: {
+      _following: true,
+      _followers: true,
+      _posts: true,
+    },
   });
 }
 
@@ -42,6 +47,7 @@ export async function followProfile(username) {
   return await fetcher({
     url: `${API_BASE_URL}/social/profiles/${username}/follow`,
     method: "PUT",
+    body: {},
   });
 }
 
@@ -49,5 +55,6 @@ export async function unFollowProfile(username) {
   return await fetcher({
     url: `${API_BASE_URL}/social/profiles/${username}/unfollow`,
     method: "PUT",
+    body: {},
   });
 }
