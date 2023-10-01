@@ -125,3 +125,20 @@ export async function reactPost(postId, reactionType) {
     method: "PUT",
   });
 }
+
+/**
+ * Adds a comment to a post by its ID.
+ * @param {number|string} postId - The unique identifier of the post.
+ * @param {Object} commentData - The comment data.
+ * @param {string} commentData.body - The comment body.
+ * @param {string | number} commentData.replyToId - Optional - Only required if replying to another comment
+ * @return {Promise<Object>} - A promise that resolves to the comment data.
+ */
+
+export async function commentPost(postId, commentData) {
+  return await fetcher({
+    url: `${singlePostUrl}${postId}/comment`,
+    method: "POST",
+    body: commentData,
+  });
+}

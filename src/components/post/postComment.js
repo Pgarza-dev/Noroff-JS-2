@@ -52,6 +52,7 @@ export class PostComment extends CustomComponent {
         id: this.postId,
         detail: {
           author: this.comment.author,
+          commentId: this.comment.id,
         },
       });
     });

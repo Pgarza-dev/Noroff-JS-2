@@ -4,6 +4,7 @@ import {
   getActiveUser,
   getActiveUserAvatar,
 } from "@/lib/utils/handleLocalStorageUser";
+import { commentPost } from "@/lib/services/posts";
 
 export class PostInputComment extends CustomComponent {
   /**
@@ -108,9 +109,10 @@ export class PostInputComment extends CustomComponent {
   handleSubmit(event) {
     event.preventDefault();
     const commentField = this.getSlot("commentField");
+    const replyToId = commentField.dataset.replyToId || null;
     const comment = commentField.value.trim();
     if (comment) {
-      this.addNewComment(comment);
+      this.addNewComment(comment, replyToId);
       commentField.value = "";
     }
     this.store.setState(() => ({
@@ -123,23 +125,32 @@ export class PostInputComment extends CustomComponent {
     this.openInputField();
     const commentField = this.getSlot("commentField");
     commentField.value = `@${event.detail.author.name} `;
+    commentField.dataset.replyToId = event.detail.commentId;
   }
 
-  addNewComment(comment) {
+  async addNewComment(comment, replyToId = null) {
     const username = getActiveUser();
     const avatar = getActiveUserAvatar();
 
-    const newComment = {
+    const localStoreComment = {
       author: { name: username, avatar: avatar },
       body: comment,
       created: Date.now(),
     };
 
     this.store.setState((currentState) => ({
-      comments: [...currentState.comments, newComment],
+      comments: [...currentState.comments, localStoreComment],
     }));
 
-    // TODO: Add API call to add comment to post. @Pgarza-dev
+    const commentData = {
+      body: comment,
+    };
+
+    if (replyToId) {
+      commentData.replyToId = parseInt(replyToId);
+    }
+
+    await commentPost(this.postData.id, commentData);
   }
 }
 
