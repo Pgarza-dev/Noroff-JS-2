@@ -59,13 +59,21 @@ export class PostHeader extends CustomComponent {
   };
 
   handleEditPost = () => {
-    document.querySelector(
-      "#post-editor-textarea",
-    ).value = `${this.postData.body}`;
+    document.querySelector("#post-editor-textarea").value = `${
+      this.postData.body || ""
+    }`;
+
+    document.querySelector("#post-editor-title").value = `${
+      this.postData.title || ""
+    }`;
 
     document.querySelector(
       "#post-editor-post-id",
     ).value = `${this.postData.id}`;
+
+    document.querySelector("#post-editor-media").value = `${
+      this.postData.media || ""
+    }`;
   };
 }
 
