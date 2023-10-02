@@ -1,6 +1,5 @@
 import { getSingleProfile } from "../services/profiles.js";
 import { getAllPosts } from "../services/posts.js";
-import { editProfile } from "../utils/editProfile.js";
 import { createNewPost } from "../utils/profilePageUtils.js";
 import { displayAllUserPosts } from "../utils/profilePageUtils.js";
 import { getUsernameQueryParam } from "../utils/getUsernameQueryParam.js";
@@ -35,7 +34,6 @@ function displayInput() {
   createPostMinusIcon.classList.remove("hidden");
 }
 
-editProfile();
 getAllPosts();
 displayAllUserPosts();
 
