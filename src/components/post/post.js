@@ -27,8 +27,10 @@ export class Post extends CustomComponent {
   connectedCallback() {
     this.innerHTML = postHtml;
 
+    console.log(this.postData);
     this.populateData({
       postHeader: new PostHeader(this.postData),
+      postTitle: this.postData.title || "",
       postBody: this.postData.body || "",
       postMedia: new PostMedia(this.postData),
       postButtons: new PostButtons(this.store, this.postData.id),
