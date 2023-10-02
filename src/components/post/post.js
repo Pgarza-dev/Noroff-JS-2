@@ -31,7 +31,7 @@ export class Post extends CustomComponent {
       postHeader: new PostHeader(this.postData),
       postBody: this.postData.body || "",
       postMedia: new PostMedia(this.postData),
-      postButtons: new PostButtons(this.store),
+      postButtons: new PostButtons(this.store, this.postData.id),
       postCommentList: new PostCommentList(this.postData, this.store),
       inputComment: new PostInputComment(this.postData, this.store),
     });

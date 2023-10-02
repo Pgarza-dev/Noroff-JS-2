@@ -1,9 +1,5 @@
-console.log("current_user_profile.js");
-
-import { createFormDataObject } from "../forms/utils";
 import { API_BASE_URL } from "../constants.js";
 const profileUrl = `${API_BASE_URL}/social/profiles/`;
-console.log(profileUrl);
 
 const loggedInUserName = localStorage.getItem("username");
 const currentUserProfileName = loggedInUserName;

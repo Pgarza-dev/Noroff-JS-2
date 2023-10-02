@@ -123,6 +123,7 @@ export async function reactPost(postId, reactionType) {
   return await fetcher({
     url: `${singlePostUrl}${postId}/react/${reactionType}`,
     method: "PUT",
+    body: {},
   });
 }
 
