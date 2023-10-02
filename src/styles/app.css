@@ -161,7 +161,12 @@
     transform: rotateY(180deg);
   }
 
-  #post-editor {
+  /* 
+  experimental chrome popover API and transitions 
+  https://developer.chrome.com/blog/introducing-popover-api/
+  */
+  #post-editor,
+  #post-reactions {
     &:popover-open {
       @starting-style {
         transform: translateY(100px);

@@ -3,9 +3,10 @@
 >
   <div class="flex items-center rounded-md bg-stone-950">
     <button
-      class="h-full w-8 rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
+      class="h-full w-8 rounded-l-md px-2 transition-colors duration-500 hover:bg-primary-900"
       id="view-reactions-btn"
       data-slot="viewReactionsBtn"
+      popovertarget="post-reactions"
     >
       12
     </button>
@@ -21,33 +22,33 @@
     </div>
     <div class="radial-menu" tabindex="0">
       <button
-        class="menu-toggle z-20 h-full w-8 rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
+        class="menu-toggle z-20 h-full w-8 rounded-r-md px-2 transition-colors duration-500 hover:bg-primary-900"
         id="add-reaction-btn"
       >
         <i class="fa-regular fa-plus"></i>
       </button>
-      <ul class="menu-items" data-slot="reactionsMenu">
-        <li class="item">
+      <ul class="menu-items pointer-events-none" data-slot="reactionsMenu">
+        <li class="item pointer-events-auto">
           <button value="👍">
             <span aria-hidden="true">👍</span>
           </button>
         </li>
-        <li class="item">
+        <li class="item pointer-events-auto">
           <button>
             <span aria-hidden="true">🔥</span>
           </button>
         </li>
-        <li class="item">
+        <li class="item pointer-events-auto">
           <button>
             <span aria-hidden="true">🚀</span>
           </button>
         </li>
-        <li class="item">
+        <li class="item pointer-events-auto">
           <button>
             <span aria-hidden="true">🤠</span>
           </button>
         </li>
-        <li class="item">
+        <li class="item pointer-events-auto">
           <button>
             <span aria-hidden="true">❤️</span>
           </button>
