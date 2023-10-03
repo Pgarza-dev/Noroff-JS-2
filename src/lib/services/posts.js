@@ -80,6 +80,9 @@ export async function createPost(newPostData) {
     url: allPostsUrl,
     method: "POST",
     body: newPostData,
+    query: {
+      ...fullQuery,
+    },
   });
 }
 
