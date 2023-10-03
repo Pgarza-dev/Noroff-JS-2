@@ -16,8 +16,6 @@ export class SingleReaction extends CustomComponent {
       reactionType: this.reactionType,
       reactionCount: this.reactionCount,
     });
-
-    console.log(this.reactionType, this.reactionCount);
   }
 
   addEventListeners() {}
