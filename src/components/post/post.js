@@ -4,8 +4,8 @@ import { PostButtons } from "./postButtons.js";
 import { PostCommentList } from "./postCommentList";
 import { PostHeader } from "./postHeader.js";
 import { PostInputComment } from "./postInputComment.js";
-import { Store } from "../../lib/stores/store.js";
-import "../../lib/services/posts.js"; // to get vscode to pick up the jsdoc types
+import { Store } from "@lib/stores/store.js";
+import "@lib/services/posts.js"; // to get vscode to pick up the jsdoc types
 import { PostMedia } from "./postMedia.js";
 
 export class Post extends CustomComponent {
@@ -19,15 +19,14 @@ export class Post extends CustomComponent {
     this.store = new Store({
       commentsOpen: false,
       commentInputOpen: false,
-      comments: [...this.postData.comments],
-      reactions: [...this.postData.reactions],
+      comments: [...(this.postData.comments || [])],
+      reactions: [...(this.postData.reactions || [])],
     });
   }
 
   connectedCallback() {
     this.innerHTML = postHtml;
 
-    console.log(this.postData);
     this.populateData({
       postHeader: new PostHeader(this.postData),
       postTitle: this.postData.title || "",

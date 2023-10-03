@@ -75,6 +75,15 @@ export class PostHeader extends CustomComponent {
       this.postData.media || ""
     }`;
   };
+
+  handleDeletePost = () => {
+    this.dispatchCustomEvent({
+      eventName: "deletePostBtnClick",
+      detail: {
+        postId: this.postData.id,
+      },
+    });
+  };
 }
 
 customElements.define("post-header", PostHeader);

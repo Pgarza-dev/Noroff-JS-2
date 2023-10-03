@@ -32,7 +32,6 @@ export class AccountMenuDropdown extends CustomComponent {
 
   addEventListeners() {
     this.onClick("logoutBtn", this.handleLogout);
-
     this.clickedOutside("accountMenuDropdown", this.hideMenuOnOutsideClick);
   }
 

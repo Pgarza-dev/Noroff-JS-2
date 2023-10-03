@@ -23,7 +23,7 @@
 
   .dim-background::backdrop {
     backdrop-filter: blur(4px);
-    @apply bg-black bg-opacity-50;
+    @apply bg-black bg-opacity-20;
   }
 }
 
@@ -31,6 +31,10 @@
 @layer components {
   .btn {
     @apply h-10 w-full max-w-lg rounded-lg border-primary-900 bg-primary-900 px-5 py-1 capitalize transition-all duration-500 ease-in-out hover:bg-primary-950 hover:text-primary-50;
+  }
+
+  .btn-warning {
+    @apply btn bg-red-700 hover:bg-red-900;
   }
 
   .radial-menu,
