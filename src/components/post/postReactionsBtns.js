@@ -98,7 +98,20 @@ export class PostReactionBtn extends CustomComponent {
 
   updateReactionCount = (reactions) => {
     const totalReactionCount = this.getTotalReactionCount(reactions);
-    this.getSlot("viewReactionsBtn").textContent = totalReactionCount;
+    const viewReactionsBtn = this.getSlot("viewReactionsBtn");
+    const incrementClasses = [
+      "animate-fade-up",
+      "animate-once",
+      "animate-duration-300",
+      "animate-fill-forwards",
+    ];
+
+    viewReactionsBtn.classList.add(...incrementClasses);
+    setTimeout(() => {
+      viewReactionsBtn.classList.remove(...incrementClasses);
+    }, 300);
+
+    viewReactionsBtn.textContent = totalReactionCount;
   };
 }
 

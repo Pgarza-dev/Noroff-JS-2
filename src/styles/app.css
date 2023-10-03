@@ -99,6 +99,10 @@
     --delay: 0.4s;
   }
 
+  .radial-menu:focus-within .plus-icon {
+    transform: rotate(-45deg);
+  }
+
   .radial-menu:not(:focus-within) .item {
     --radius: 0;
     --angle: 0;
