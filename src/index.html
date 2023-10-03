@@ -15,10 +15,74 @@
     <app-header></app-header>
     <post-editor></post-editor>
     <post-reactions></post-reactions>
-    <confirm-delete-modal></confirm-delete-modal>
+    <dialog
+      id="post-input"
+      class="dim-background w-full max-w-xl rounded-lg bg-stone-950 p-4 text-white"
+      popover
+    >
+      <form action="" class="flex flex-col gap-5" id="post-input-form">
+        <input
+          type="hidden"
+          name="id"
+          id="post-input-post-id"
+          class="bg-black text-white"
+        />
+        <label for="title">Title</label>
+        <input
+          id="post-input-title"
+          type="text"
+          name="title"
+          class="bg-black text-2xl font-bold text-white"
+        />
+        <label for="body">Body</label>
+        <textarea
+          name="body"
+          cols="30"
+          rows="10"
+          class="block w-full rounded-md border border-stone-700 bg-black p-2 text-xl leading-none outline-none ring-2 ring-transparent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-800"
+          id="post-input-textarea"
+        ></textarea>
+        <label for="media">Media</label>
+        <input
+          id="post-input-media"
+          type="url"
+          name="media"
+          id=""
+          class="bg-black text-white"
+        />
+        <div class="flex gap-5">
+          <button
+            id="post-input-submit"
+            type="submit"
+            popovertargetaction="hide"
+            popovertarget="post-input"
+            class="btn"
+          >
+            Post
+          </button>
+          <button
+            type="button"
+            popovertargetaction="hide"
+            popovertarget="post-input"
+            class="btn"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </dialog>
 
     <main class="flex w-full justify-center">
       <section class="m-4 flex max-w-5xl flex-col gap-8" id="posts"></section>
+      <div class="fixed bottom-6 right-6">
+        <button
+          type="button"
+          popovertarget="post-input"
+          class="flex h-16 w-16 max-w-xs items-center justify-center rounded-full border-primary-900 bg-primary-900 px-5 py-1 transition-all duration-500 ease-in-out hover:bg-white hover:text-primary-950"
+        >
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
     </main>
   </body>
 </html>
