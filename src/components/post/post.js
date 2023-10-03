@@ -19,8 +19,8 @@ export class Post extends CustomComponent {
     this.store = new Store({
       commentsOpen: false,
       commentInputOpen: false,
-      comments: [...this.postData.comments],
-      reactions: [...this.postData.reactions],
+      comments: [...(this.postData.comments || [])],
+      reactions: [...(this.postData.reactions || [])],
     });
   }
 

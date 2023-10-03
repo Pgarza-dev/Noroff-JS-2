@@ -73,13 +73,16 @@ export async function getFollowersPosts() {
  * @param {string} [newPostData.body] - The body of the post.
  * @param {Array<string>} [newPostData.tags] - Tags for the post.
  * @param {string} [newPostData.media] - Media URL for the post.
- * @return {Promise<PostDataBasic>} - A promise that resolves to the created post data.
+ * @return {Promise<PostDataComplete>} - A promise that resolves to the created post data.
  */
 export async function createPost(newPostData) {
   return await fetcher({
     url: allPostsUrl,
     method: "POST",
     body: newPostData,
+    query: {
+      ...fullQuery,
+    },
   });
 }
 
@@ -91,13 +94,16 @@ export async function createPost(newPostData) {
  * @param {string} updatedPostData.body - The body of the post.
  * @param {Array<string>} updatedPostData.tags - Tags for the post.
  * @param {string} updatedPostData.media - Media URL for the post.
- * @return {Promise<PostDataBasic>} - A promise that resolves to the updated post data.
+ * @return {Promise<PostDataComplete>} - A promise that resolves to the updated post data.
  */
 export async function updatePost(postId, updatedPostData) {
   return await fetcher({
     url: singlePostUrl + postId,
     method: "PUT",
     body: updatedPostData,
+    query: {
+      ...fullQuery,
+    },
   });
 }
 
