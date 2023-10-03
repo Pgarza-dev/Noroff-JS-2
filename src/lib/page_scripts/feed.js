@@ -4,6 +4,7 @@ import { createPost, getAllPosts } from "../services/posts.js";
 import { postStore } from "../stores/postStore.js";
 
 const postInput = document.getElementById("post-input");
+const postsSection = document.querySelector("#posts");
 
 async function initPostStore() {
   const postsData = await getAllPosts();
@@ -17,15 +18,12 @@ function subscribeToPostStore(renderFeed) {
 }
 
 function renderFeed(postsData) {
-  const postsSection = document.querySelector("#posts");
   postsSection.innerHTML = "";
 
   postsData.forEach((postData) => {
     postsSection.appendChild(new Post(postData));
   });
 }
-
-renderFeed();
 
 postInput.addEventListener("submit", createNewFeedPost);
 
