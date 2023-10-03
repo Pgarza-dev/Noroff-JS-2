@@ -1,11 +1,11 @@
-import { getSingleProfile } from "../services/profiles.js";
-import { getAllPosts } from "../services/posts.js";
-import { createNewPost } from "../utils/profilePageUtils.js";
-import { displayAllUserPosts } from "../utils/profilePageUtils.js";
+import {
+  followProfile,
+  getSingleProfile,
+  unFollowProfile,
+} from "../services/profiles.js";
 import { getUsernameQueryParam } from "../utils/getUsernameQueryParam.js";
-import { followProfile } from "../services/profiles.js";
 import { getActiveUser } from "../utils/handleLocalStorageUser.js";
-import { unFollowProfile } from "../services/profiles.js";
+import { createNewPost, initUserPage } from "../utils/profilePageUtils.js";
 
 const createPostButton = document.getElementById("create-post-button");
 const newPostForm = document.getElementById("new-post-form");
@@ -33,9 +33,6 @@ function displayInput() {
   createPostPlusIcon.classList.add("hidden");
   createPostMinusIcon.classList.remove("hidden");
 }
-
-getAllPosts();
-displayAllUserPosts();
 
 function setUpProfileAvatar(avatarUrl) {
   if (avatarUrl) {
@@ -86,4 +83,5 @@ async function settingUpTheProfile() {
     }
   });
 }
+initUserPage();
 settingUpTheProfile();

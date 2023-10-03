@@ -1,36 +1,50 @@
-// add all user functions here
-import { createPost } from "../services/posts.js";
-import { getUsernameQueryParam } from "../utils/getUsernameQueryParam.js";
 import { createFormDataObject } from "@lib/forms/utils";
-import { getProfilePosts } from "../services/posts.js";
 import { Post } from "../../components/post/post.js";
+import { createPost, getProfilePosts } from "../services/posts.js";
+import { getUsernameQueryParam } from "../utils/getUsernameQueryParam.js";
 
-const newPostDiv = document.getElementById("new-post");
+import { postStore } from "../stores/postStore.js";
+
 const newPostForm = document.getElementById("new-post-form");
-const createPostPlusIcon = document.getElementById("create-post-plus-icon");
-const createPostMinusIcon = document.getElementById("create-post-minus-icon");
+
 const profilePostsSection = document.getElementById("profile-posts");
 
 export async function createNewPost(event) {
   event.preventDefault();
-  const form = createFormDataObject(newPostForm);
-  try {
-    const response = await createPost(form);
+  const postFormObj = createFormDataObject(newPostForm);
+  const newPost = await createPost(postFormObj);
 
-    const postDiv = document.createElement("div");
-    postDiv.classList.add("post");
-    postDiv.innerHTML = `<p>${response.title}</p><p>${response.body}</p>`;
-    newPostDiv.appendChild(postDiv);
-  } catch (error) {
-    console.error(error);
-  }
+  postStore.setState((currentState) => ({
+    posts: [newPost, ...currentState.posts],
+  }));
 }
 
-export async function displayAllUserPosts() {
+async function initPostStore() {
   const username = getUsernameQueryParam();
-  const posts = await getProfilePosts(username);
+  const postsData = await getProfilePosts(username);
+  postStore.setState(() => ({ posts: postsData }));
+}
 
-  posts.forEach((post) => {
-    profilePostsSection.appendChild(new Post(post));
+function subscribeToPostStore(renderFeed) {
+  return postStore.subscribe((newState) => {
+    renderFeed(newState);
+  }, "posts");
+}
+
+function renderPosts(postsData) {
+  profilePostsSection.innerHTML = "";
+
+  postsData.forEach((postData) => {
+    profilePostsSection.appendChild(new Post(postData));
   });
+}
+
+export async function initUserPage() {
+  await initPostStore();
+
+  const initialPosts = postStore.getState((state) => state.posts);
+
+  renderPosts(initialPosts);
+
+  subscribeToPostStore(renderPosts);
 }

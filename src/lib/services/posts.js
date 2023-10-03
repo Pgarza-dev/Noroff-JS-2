@@ -41,7 +41,7 @@ export async function getAllPosts() {
 
 /**
  * Fetches a single post by its ID.
- * @param {number|string} postId - The unique identifier of the post.
+ * @param {number} postId - The unique identifier of the post.
  * @return {Promise<PostDataComplete>} - A promise that resolves to the post data.
  */
 export async function getSinglePost(postId) {
@@ -73,7 +73,7 @@ export async function getFollowersPosts() {
  * @param {string} [newPostData.body] - The body of the post.
  * @param {Array<string>} [newPostData.tags] - Tags for the post.
  * @param {string} [newPostData.media] - Media URL for the post.
- * @return {Promise<PostDataBasic>} - A promise that resolves to the created post data.
+ * @return {Promise<PostDataComplete>} - A promise that resolves to the created post data.
  */
 export async function createPost(newPostData) {
   return await fetcher({
@@ -88,25 +88,28 @@ export async function createPost(newPostData) {
 
 /**
  * Updates a post by its ID.
- * @param {number|string} postId - The unique identifier of the post.
+ * @param {number} postId - The unique identifier of the post.
  * @param {Object} updatedPostData - Updated data for the post.
  * @param {string} updatedPostData.title - The title of the post.
  * @param {string} updatedPostData.body - The body of the post.
  * @param {Array<string>} updatedPostData.tags - Tags for the post.
  * @param {string} updatedPostData.media - Media URL for the post.
- * @return {Promise<PostDataBasic>} - A promise that resolves to the updated post data.
+ * @return {Promise<PostDataComplete>} - A promise that resolves to the updated post data.
  */
 export async function updatePost(postId, updatedPostData) {
   return await fetcher({
     url: singlePostUrl + postId,
     method: "PUT",
     body: updatedPostData,
+    query: {
+      ...fullQuery,
+    },
   });
 }
 
 /**
  * Deletes a post by its ID.
- * @param {number|string} postId - The unique identifier of the post.
+ * @param {number} postId - The unique identifier of the post.
  * @return {Promise<void>} - A promise that resolves when the post is deleted.
  */
 export async function deletePost(postId) {
@@ -118,7 +121,7 @@ export async function deletePost(postId) {
 
 /**
  * Reacts to a post by its ID.
- * @param {number|string} postId - The unique identifier of the post.
+ * @param {number} postId - The unique identifier of the post.
  * @param {string} reactionType - The type of reaction (emoji).
  * @return {Promise<Object>} - A promise that resolves to the reaction data.
  */
@@ -132,7 +135,7 @@ export async function reactPost(postId, reactionType) {
 
 /**
  * Adds a comment to a post by its ID.
- * @param {number|string} postId - The unique identifier of the post.
+ * @param {number} postId - The unique identifier of the post.
  * @param {Object} commentData - The comment data.
  * @param {string} commentData.body - The comment body.
  * @param {string | number} commentData.replyToId - Optional - Only required if replying to another comment
