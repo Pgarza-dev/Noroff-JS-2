@@ -7,10 +7,12 @@ import { getUsernameQueryParam } from "../utils/getUsernameQueryParam.js";
 import { getActiveUser } from "../utils/handleLocalStorageUser.js";
 import { createNewPost, initUserPage } from "../utils/profilePageUtils.js";
 
+const newPostInput = document.getElementById("new-post-input");
+
 const createPostButton = document.getElementById("create-post-button");
 const newPostForm = document.getElementById("new-post-form");
-const createPostPlusIcon = document.getElementById("create-post-plus-icon");
-const createPostMinusIcon = document.getElementById("create-post-minus-icon");
+// const createPostPlusIcon = document.getElementById("create-post-plus-icon");
+// const createPostMinusIcon = document.getElementById("create-post-minus-icon");
 
 const avatar = document.getElementById("avatar");
 const profileName = document.getElementById("profile-username");
@@ -23,15 +25,15 @@ const followUnFollowButton = document.getElementById("follow-btn");
 newPostForm.addEventListener("submit", createNewPost);
 createPostButton.addEventListener("click", displayInput);
 
-createPostButton.addEventListener("click", () => {
-  createPostButton.classList.add("theCard");
-  createPostButton.classList.add("flip");
-});
+// createPostButton.addEventListener("click", () => {
+//   createPostButton.classList.add("theCard");
+//   createPostButton.classList.add("flip");
+// });
 
 function displayInput() {
   newPostForm.classList.remove("hidden");
-  createPostPlusIcon.classList.add("hidden");
-  createPostMinusIcon.classList.remove("hidden");
+  // createPostPlusIcon.classList.add("hidden");
+  // createPostMinusIcon.classList.remove("hidden");
 }
 
 function setUpProfileAvatar(avatarUrl) {
