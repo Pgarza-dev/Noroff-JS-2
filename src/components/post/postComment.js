@@ -42,7 +42,12 @@ export class PostComment extends CustomComponent {
       authorLink: {
         type: "attribute",
         attrName: "href",
-        attrValue: `/users/${this.comment.author.name}`,
+        attrValue: `/user/?username=${this.comment.author.name}`,
+      },
+      commentAvatarLink: {
+        type: "attribute",
+        attrName: "href",
+        attrValue: `/user/?username=${this.comment.author.name}`,
       },
     });
 
