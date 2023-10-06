@@ -193,4 +193,24 @@
       display 350ms;
     transition-behavior: allow-discrete;
   }
+
+  .toast-in {
+    @apply animate-jump-in animate-duration-300;
+  }
+
+  .toast-out {
+    @apply animate-jump-out animate-duration-300;
+  }
+
+  .toast-container {
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 1000;
+  }
 }

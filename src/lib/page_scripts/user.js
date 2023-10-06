@@ -6,6 +6,7 @@ import {
 import { getUsernameQueryParam } from "../utils/getUsernameQueryParam.js";
 import { getActiveUser } from "../utils/handleLocalStorageUser.js";
 import { createNewPost, initUserPage } from "../utils/profilePageUtils.js";
+import toastStore, { addToast } from "@lib/stores/toastStore";
 
 const createPostButton = document.getElementById("create-post-button");
 const newPostForm = document.getElementById("new-post-form");
@@ -20,8 +21,14 @@ const followers = document.getElementById("followers");
 const following = document.getElementById("following");
 const followUnFollowButton = document.getElementById("follow-btn");
 
+const addToastBtn = document.getElementById("add-toast");
+
 newPostForm.addEventListener("submit", createNewPost);
 createPostButton.addEventListener("click", displayInput);
+
+addToastBtn.addEventListener("click", () => {
+  toastStore.setState(addToast("This is a new toast!"));
+});
 
 createPostButton.addEventListener("click", () => {
   createPostButton.classList.add("theCard");
