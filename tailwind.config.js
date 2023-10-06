@@ -41,5 +41,10 @@ export default {
       },
     },
   },
+  variants: {
+    extend: {
+      display: ["group-focus"],
+    },
+  },
   plugins: [require("tailwindcss-animated")],
 };
