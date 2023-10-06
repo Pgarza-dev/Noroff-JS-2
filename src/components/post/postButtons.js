@@ -21,12 +21,12 @@ export class PostButtons extends CustomComponent {
     this.innerHTML = postButtons;
 
     this.unsubscribeComments = this.store.subscribe(
-      this.updateCommentCount,
+      this.#updateCommentCount,
       "comments",
     );
 
-    this.initUI();
-    this.addEventListeners();
+    this.#initUI();
+    this.#addEventListeners();
   }
 
   disconnectedCallback() {
@@ -35,7 +35,7 @@ export class PostButtons extends CustomComponent {
     }
   }
 
-  initUI() {
+  #initUI() {
     const { comments } = this.store.getState();
     this.populateData({
       viewCommentsBtn: comments.length,
@@ -43,19 +43,19 @@ export class PostButtons extends CustomComponent {
     });
   }
 
-  addEventListeners() {
-    this.toggleCommentsViewOnClick();
-    this.toggleCommentInputOnClick();
+  #addEventListeners() {
+    this.#toggleCommentsViewOnClick();
+    this.#toggleCommentInputOnClick();
   }
 
-  toggleCommentsViewOnClick = () => {
+  #toggleCommentsViewOnClick = () => {
     this.onClick("viewCommentsBtn", (event) => {
-      const isCommentsOpen = this.toggleCommentsAndInput();
-      this.updateViewCommentsButton(event.currentTarget, isCommentsOpen);
+      const isCommentsOpen = this.#toggleCommentsAndInput();
+      this.#updateViewCommentsButton(event.currentTarget, isCommentsOpen);
     });
   };
 
-  toggleCommentInputOnClick = () => {
+  #toggleCommentInputOnClick = () => {
     this.onClick("addCommentBtn", () => {
       this.store.setState((currentState) => ({
         ...currentState,
@@ -64,7 +64,7 @@ export class PostButtons extends CustomComponent {
     });
   };
 
-  toggleCommentsAndInput() {
+  #toggleCommentsAndInput() {
     this.store.setState((currentState) => ({
       ...currentState,
       commentsOpen: !currentState.commentsOpen,
@@ -73,11 +73,11 @@ export class PostButtons extends CustomComponent {
     return this.store.getState((state) => state.commentsOpen);
   }
 
-  updateViewCommentsButton(target, isOpen) {
+  #updateViewCommentsButton(target, isOpen) {
     target.dataset.state = isOpen ? "open" : "closed";
   }
 
-  updateCommentCount = (comments) => {
+  #updateCommentCount = (comments) => {
     this.getSlot("viewCommentsBtn").textContent = comments.length;
   };
 }

@@ -1,5 +1,5 @@
 import postCommentHtml from "./postComment.html?raw";
-
+import { formatDateFromNow } from "@lib/utils/dateUtils";
 import { CustomComponent } from "../customComponent.js";
 
 /**
@@ -38,7 +38,7 @@ export class PostComment extends CustomComponent {
         attrName: "src",
         attrValue: avatar,
       },
-      time: this.formatDateFromNow(this.comment.date),
+      time: formatDateFromNow(this.comment.date),
       authorLink: {
         type: "attribute",
         attrName: "href",

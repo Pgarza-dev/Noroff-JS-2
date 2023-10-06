@@ -19,76 +19,76 @@ export class PostInputComment extends CustomComponent {
   }
 
   connectedCallback() {
-    this.initComponent();
-    this.subscribeToStore();
-    this.addEventListeners();
+    this.#initComponent();
+    this.#subscribeToStore();
+    this.#addEventListeners();
   }
 
   disconnectedCallback() {
-    this.unsubscribeFromStore();
+    this.#unsubscribeFromStore();
   }
 
-  initComponent() {
+  #initComponent() {
     this.classList.add("transition-height");
     this.innerHTML = PostInputCommentHtml;
   }
 
-  subscribeToStore() {
+  #subscribeToStore() {
     this.inputOpenUnsubscribe = this.store.subscribe(
-      (state) => this.toggleInputField(state),
+      (state) => this.#toggleInputField(state),
       "commentInputOpen",
     );
   }
 
-  unsubscribeFromStore() {
+  #unsubscribeFromStore() {
     if (this.inputOpenUnsubscribe) this.inputOpenUnsubscribe();
   }
 
-  toggleInputField(isOpen) {
+  #toggleInputField(isOpen) {
     isOpen
-      ? this.openInputField()
+      ? this.#openInputField()
       : this.getSlot("inputCommentForm").setAttribute("aria-expanded", "false");
   }
 
-  openInputField() {
+  #openInputField() {
     this.getSlot("inputCommentForm").setAttribute("aria-expanded", "true");
-    this.focusInputField();
+    this.#focusInputField();
   }
 
-  focusInputField() {
+  #focusInputField() {
     this.getSlot("commentField").focus();
   }
 
-  addEventListeners() {
-    this.addSubmitListener();
-    this.addEnterKeyListener();
-    this.addReplyToCommentListener();
-    this.addExpandTextFieldListener();
-    this.handleFocusCommentInput();
+  #addEventListeners() {
+    this.#addSubmitListener();
+    this.#addEnterKeyListener();
+    this.#addReplyToCommentListener();
+    this.#addExpandTextFieldListener();
+    this.#handleFocusCommentInput();
   }
 
-  addSubmitListener() {
-    this.addEventListener("submit", this.handleSubmit);
+  #addSubmitListener() {
+    this.addEventListener("submit", this.#handleSubmit);
   }
 
-  addEnterKeyListener() {
+  #addEnterKeyListener() {
     this.addEventListener("keydown", (event) => {
       if (event.key === "Enter" && !event.shiftKey) {
-        this.handleSubmit(event);
+        this.#handleSubmit(event);
       }
     });
   }
 
-  addReplyToCommentListener() {
+  #addReplyToCommentListener() {
     this.onCustomEvent({
       eventName: "replyToComment",
       id: this.postData.id,
       useDocument: true,
-      callback: (event) => this.handleReplyToComment(event),
+      callback: (event) => this.#handleReplyToComment(event),
     });
   }
 
-  addExpandTextFieldListener() {
+  #addExpandTextFieldListener() {
     const textarea = this.getSlot("commentField");
     textarea.style.height = `${textarea.height}px`;
     textarea.addEventListener("input", function () {
@@ -97,22 +97,22 @@ export class PostInputComment extends CustomComponent {
     });
   }
 
-  handleFocusCommentInput() {
+  #handleFocusCommentInput() {
     this.onCustomEvent({
       eventName: "focusCommentInput",
       id: this.postData.id,
       useDocument: true,
-      callback: () => this.focusInputField(),
+      callback: () => this.#focusInputField(),
     });
   }
 
-  handleSubmit(event) {
+  #handleSubmit(event) {
     event.preventDefault();
     const commentField = this.getSlot("commentField");
     const replyToId = commentField.dataset.replyToId || null;
     const comment = commentField.value.trim();
     if (comment) {
-      this.addNewComment(comment, replyToId);
+      this.#addNewComment(comment, replyToId);
       commentField.value = "";
     }
     this.store.setState(() => ({
@@ -121,14 +121,14 @@ export class PostInputComment extends CustomComponent {
     commentField.blur();
   }
 
-  handleReplyToComment(event) {
-    this.openInputField();
+  #handleReplyToComment(event) {
+    this.#openInputField();
     const commentField = this.getSlot("commentField");
     commentField.value = `@${event.detail.author.name} `;
     commentField.dataset.replyToId = event.detail.commentId;
   }
 
-  async addNewComment(comment, replyToId = null) {
+  async #addNewComment(comment, replyToId = null) {
     const username = getActiveUser();
     const avatar = getActiveUserAvatar();
 

@@ -9,16 +9,10 @@ export class PostReactions extends CustomComponent {
   }
 
   connectedCallback() {
-    this.addEventListeners();
-
-    this.populateData({});
-
-    this.handleViewReactions();
+    this.#handleViewReactions();
   }
 
-  addEventListeners() {}
-
-  populateReactions(reactions) {
+  #populateReactions(reactions) {
     const reactionList = this.getSlot("reactionList");
 
     if (reactions.length === 0) {
@@ -38,12 +32,12 @@ export class PostReactions extends CustomComponent {
     });
   }
 
-  handleViewReactions() {
+  #handleViewReactions() {
     this.onCustomEvent({
       eventName: "viewReactions",
       useDocument: true,
       callback: (event) => {
-        this.populateReactions(event.detail.reactions);
+        this.#populateReactions(event.detail.reactions);
       },
     });
   }
