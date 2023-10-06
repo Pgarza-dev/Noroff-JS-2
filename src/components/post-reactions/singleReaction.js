@@ -10,15 +10,11 @@ export class SingleReaction extends CustomComponent {
   }
 
   connectedCallback() {
-    this.addEventListeners();
-
     this.populateData({
       reactionType: this.reactionType,
       reactionCount: this.reactionCount,
     });
   }
-
-  addEventListeners() {}
 }
 
 customElements.define("single-reaction", SingleReaction);

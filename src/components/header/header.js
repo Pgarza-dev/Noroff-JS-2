@@ -29,9 +29,7 @@ export class Header extends CustomComponent {
   }
 
   setProfileLink() {
-    const profileLink = this.querySelector("#profile-link");
-    const username = getActiveUser();
-    profileLink.href = `/user/?username=${username}`;
+    this.getSlot("profileLink").href = `/user/?username=${getActiveUser()}`;
   }
 
   addEventListeners() {

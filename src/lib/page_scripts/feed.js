@@ -1,13 +1,13 @@
 import { Post } from "@components/post/post.js";
 import { createFormDataObject } from "@lib/forms/utils";
-import { createPost, getFollowersPosts } from "../services/posts.js";
+import { createPost, getAllPosts } from "../services/posts.js";
 import { postStore } from "../stores/postStore.js";
 
 const postInput = document.getElementById("post-input");
 const postsSection = document.querySelector("#posts");
 
 async function initPostStore() {
-  const postsData = await getFollowersPosts();
+  const postsData = await getAllPosts();
   postStore.setState(() => ({ posts: postsData }));
 }
 

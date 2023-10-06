@@ -1,6 +1,3 @@
-import * as DateUtils from "@lib/utils/dateUtils";
-import * as DomUtils from "@lib/utils/domUtils";
-
 export class CustomComponent extends HTMLElement {
   constructor() {
     super();
@@ -12,6 +9,12 @@ export class CustomComponent extends HTMLElement {
    * The key should correspond to a `data-slot="key"` attribute in the HTML.
    * The value can be either a string, number, DOM Element, or an object with an `attribute`
    * type, specifying the attribute name and value.
+   *
+   * @param {Object.<string, (string|number|HTMLElement|{type: string, attrName: string, attrValue: string|number})>} dataMap - An object containing keys as slot names and values to populate.
+   * @param {string|number|HTMLElement|{type: string, attrName: string, attrValue: string|number}} [dataMap.<key>] - The value to populate in the slot or an object specifying an attribute.
+   * @param {'attribute'} [dataMap.<key>.type] - The type of data if it's an attribute.
+   * @param {string} [dataMap.<key>.attrName] - The attribute name if the type is `attribute`.
+   * @param {string|number} [dataMap.<key>.attrValue] - The attribute value if the type is `attribute`.
    *
    * @example
    * // HTML: <span data-slot="author"></span>
@@ -26,30 +29,25 @@ export class CustomComponent extends HTMLElement {
    * // Populate attribute
    * populateData({ authorLink: { type: 'attribute', attrName: 'href', attrValue: '/user/john' } });
    *
-   * @param {Object.<string, (string|number|HTMLElement|{type: string, attrName: string, attrValue: string|number})>} dataMap - An object containing keys as slot names and values to populate.
-   * @param {string|number|HTMLElement|{type: string, attrName: string, attrValue: string|number}} [dataMap.<key>] - The value to populate in the slot or an object specifying an attribute.
-   * @param {'attribute'} [dataMap.<key>.type] - The type of data if it's an attribute.
-   * @param {string} [dataMap.<key>.attrName] - The attribute name if the type is `attribute`.
-   * @param {string|number} [dataMap.<key>.attrValue] - The attribute value if the type is `attribute`.
    */
   populateData(dataMap) {
     for (const [slotName, value] of Object.entries(dataMap)) {
       const slot = this.getSlot(slotName);
 
-      switch (this.determineValueType(value)) {
+      switch (this.#determineValueType(value)) {
         case "null":
           break;
         case "primitive":
-          this.populateSlotWithText(slot, value);
+          this.#populateSlotWithText(slot, value);
           break;
         case "elementArray":
-          this.populateSlotWithElements(slot, value);
+          this.#populateSlotWithElements(slot, value);
           break;
         case "element":
-          this.populateSlotWithElement(slot, value);
+          this.#populateSlotWithElement(slot, value);
           break;
         case "attribute":
-          this.populateSlotWithAttribute(slot, value);
+          this.#populateSlotWithAttribute(slot, value);
           break;
         default:
           console.warn(`Unknown type for value: ${value}`);
@@ -57,12 +55,14 @@ export class CustomComponent extends HTMLElement {
     }
   }
 
-  determineValueType(value) {
+  #determineValueType(value) {
     if (value === null) {
       return "null";
     }
 
-    if (typeof value === "string" || typeof value === "number") {
+    const valueType = typeof value;
+
+    if (valueType === "string" || valueType === "number") {
       return "primitive";
     }
 
@@ -77,44 +77,27 @@ export class CustomComponent extends HTMLElement {
       return "elementArray";
     }
 
-    if (typeof value === "object" && value.type === "attribute") {
+    if (valueType === "object" && value.type === "attribute") {
       return "attribute";
     }
 
     return "unknown";
   }
 
-  populateSlotWithText(slot, value) {
+  #populateSlotWithText(slot, value) {
     slot.textContent = value;
   }
 
-  populateSlotWithElements(slot, elements) {
+  #populateSlotWithElements(slot, elements) {
     elements.forEach((el) => slot.appendChild(el));
   }
 
-  populateSlotWithElement(slot, element) {
+  #populateSlotWithElement(slot, element) {
     slot.appendChild(element);
   }
 
-  populateSlotWithAttribute(slot, { attrName, attrValue }) {
+  #populateSlotWithAttribute(slot, { attrName, attrValue }) {
     slot[attrName] = attrValue;
-  }
-
-  /**
-   * Registers click event listeners for the slots in the custom component based on
-   * the provided event map. The event map should have the slot name as the key
-   * and the callback function to execute when the event occurs.
-   *
-   * @example
-   * addEventListeners({ authorLink: () => { console.log('Clicked!'); } });
-   *
-   * @param {Object} eventMap - An object containing keys as slot names and values as callback functions.
-   * @param {Function} eventMap.<key> - The callback function to be called when an event is triggered on the slot.
-   */
-  addClickEventListeners(eventMap) {
-    for (const [slotName, callback] of Object.entries(eventMap)) {
-      this.onClick(slotName, callback);
-    }
   }
 
   /**
@@ -158,22 +141,6 @@ export class CustomComponent extends HTMLElement {
     slot.appendChild(element);
   }
 
-  hideElement(element) {
-    DomUtils.hideElement(element);
-  }
-
-  displayElement(element) {
-    DomUtils.displayElement(element);
-  }
-
-  isHidden(element) {
-    return DomUtils.isHidden(element);
-  }
-
-  toggleHidden(element) {
-    DomUtils.toggleHidden(element);
-  }
-
   onClick(slotName, callback) {
     const element = this.getSlot(slotName);
     if (element) {
@@ -185,6 +152,7 @@ export class CustomComponent extends HTMLElement {
 
   /**
    * Listen for clicks outside of an element and run a callback function.
+   *
    * @param {HTMLElement} element - The element to watch for outside clicks.
    * @param {Function} callback - The callback function to run on an outside click.
    */
@@ -197,19 +165,5 @@ export class CustomComponent extends HTMLElement {
     };
 
     document.addEventListener("click", outsideClickListener);
-  }
-
-  formatDateFromNow(date) {
-    return DateUtils.formatDateFromNow(date);
-  }
-
-  /**
-   * Format a date string to a specific time format.
-   * @param {string} date - The date string to format.
-   * @param {string} format - The desired time format.
-   * @return {string} - The formatted time string.
-   */
-  formatDate(date, format) {
-    return DateUtils.formatDate(date, format);
   }
 }

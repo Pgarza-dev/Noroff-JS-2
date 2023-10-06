@@ -11,13 +11,11 @@ export class ConfirmDeleteModal extends CustomComponent {
   }
 
   connectedCallback() {
-    this.addEventListeners();
-
-    this.populateData({});
+    this.#addEventListeners();
   }
 
-  addEventListeners() {
-    this.onClick("deleteBtn", () => this.handleDeletePost());
+  #addEventListeners() {
+    this.onClick("deleteBtn", () => this.#handleDeletePost());
     this.onCustomEvent({
       eventName: "deletePostBtnClick",
       useDocument: true,
@@ -25,7 +23,7 @@ export class ConfirmDeleteModal extends CustomComponent {
     });
   }
 
-  async handleDeletePost() {
+  async #handleDeletePost() {
     postStore.setState((state) => ({
       posts: state.posts.filter((post) => post.id !== parseInt(this.postId)),
     }));
