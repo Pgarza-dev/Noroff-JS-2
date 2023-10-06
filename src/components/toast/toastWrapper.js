@@ -1,16 +1,11 @@
 import { CustomComponent } from "../customComponent.js";
 import toastStore from "@lib/stores/toastStore";
-import { Toast } from "./toast.js";
+import { Toast } from "./toast.js"; // Import the Toast component
 
 export class ToastWrapper extends CustomComponent {
   constructor() {
     super();
     this.toasts = [];
-
-    this.popoverDiv = document.createElement("div");
-    this.popoverDiv.classList.add("toast-container");
-    this.popoverDiv.setAttribute("popover", "manual");
-    this.appendChild(this.popoverDiv);
   }
 
   connectedCallback() {
@@ -26,11 +21,11 @@ export class ToastWrapper extends CustomComponent {
   }
 
   renderToasts(toastData) {
-    const maxToasts = 3; // Limit the amount of toasts displayed at once
+    const maxToasts = 5;
     const limitedToasts = toastData.slice(-maxToasts);
+
     this.removeOldToasts(limitedToasts);
     this.addNewToasts(limitedToasts);
-    this.togglePopover(limitedToasts.length === 0);
   }
 
   removeOldToasts(limitedToasts) {
@@ -39,10 +34,10 @@ export class ToastWrapper extends CustomComponent {
         (toast) => toast.id === toastComponent.toast.id,
       );
       if (!stillExists) {
-        toastComponent.classList.remove("toast-in");
-        toastComponent.classList.add("toast-out");
+        toastComponent.style.transform = `translateY(${-100}px)`;
+
         setTimeout(() => {
-          this.popoverDiv.removeChild(toastComponent);
+          this.removeChild(toastComponent);
         }, 300);
       }
       return stillExists;
@@ -50,28 +45,17 @@ export class ToastWrapper extends CustomComponent {
   }
 
   addNewToasts(limitedToasts) {
-    limitedToasts.forEach((toast) => {
+    limitedToasts.forEach((toast, index) => {
       const alreadyExists = this.toasts.some(
         (toastComponent) => toast.id === toastComponent.toast.id,
       );
       if (!alreadyExists) {
         const toastComponent = new Toast(toast);
+        toastComponent.style.transform = `translateY(${index * 60}px)`;
         this.toasts.push(toastComponent);
-        this.popoverDiv.appendChild(toastComponent);
+        this.appendChild(toastComponent);
       }
     });
-  }
-
-  togglePopover(shouldClose) {
-    shouldClose ? this.closePopover() : this.showPopover();
-  }
-
-  closePopover() {
-    this.popoverDiv.hidePopover();
-  }
-
-  showPopover() {
-    this.popoverDiv.showPopover();
   }
 }
 

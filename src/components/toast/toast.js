@@ -5,15 +5,17 @@ export class Toast extends CustomComponent {
   constructor(toast) {
     super();
     this.toast = toast;
+    this.setAttribute("popover", "manual");
+    this.classList.add("toast");
     this.innerHTML = toastHtml;
 
-    const toastTitle = this.getSlot("toastTitle");
-    const toastBody = this.getSlot("toastBody");
-
-    toastTitle.textContent = this.toast.type || "";
-    toastBody.textContent = this.toast.message || "";
+    this.getSlot("toastBody").textContent = this.toast.message || "";
 
     this.applyTailwindClasses();
+  }
+
+  connectedCallback() {
+    this.showPopover();
   }
 
   applyTailwindClasses() {
@@ -22,13 +24,13 @@ export class Toast extends CustomComponent {
 
     switch (type) {
       case "info":
-        classes = "bg-blue-500 text-white";
+        classes = "bg-blue-700 text-white";
         break;
       case "success":
-        classes = "bg-green-500 text-white";
+        classes = "bg-green-800 text-white";
         break;
       case "warning":
-        classes = "bg-yellow-500 text-black";
+        classes = "bg-orange-500 text-black";
         break;
       case "error":
         classes = "bg-red-500 text-white";
@@ -38,6 +40,10 @@ export class Toast extends CustomComponent {
     }
 
     this.getSlot("toastWrapper").classList.add(...classes.split(" "));
+  }
+
+  animateOut() {
+    this.classList.add("toast-out");
   }
 }
 

@@ -4,6 +4,7 @@ import {
   updateProfileBanner,
   updateProfilePicture,
 } from "@/lib/services/profiles";
+import toastStore from "@/lib/stores/toastStore";
 import { getActiveUser } from "@/lib/utils/handleLocalStorageUser";
 
 const username = getActiveUser();
@@ -72,11 +73,23 @@ bannerImgUrl.addEventListener("input", async (e) => {
 avatarForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const { avatar } = createFormDataObject(e.target);
-  await updateProfilePicture(username, avatar);
+  const serverResponse = await updateProfilePicture(username, avatar);
+
+  if (serverResponse) {
+    toastStore.addToast("Avatar updated", "success");
+  } else {
+    toastStore.addToast("Avatar could not be updated!", "error");
+  }
 });
 
 bannerForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const { banner } = createFormDataObject(e.target);
-  await updateProfileBanner(username, banner);
+  const serverResponse = await updateProfileBanner(username, banner);
+
+  if (serverResponse) {
+    toastStore.addToast("Banner updated", "success");
+  } else {
+    toastStore.addToast("Banner could not be updated!", "error");
+  }
 });

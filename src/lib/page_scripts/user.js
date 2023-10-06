@@ -1,4 +1,4 @@
-import toastStore from "@lib/stores/toastStore";
+import toastStore from "@/lib/stores/toastStore.js";
 import {
   followProfile,
   getSingleProfile,
@@ -21,14 +21,8 @@ const followers = document.getElementById("followers");
 const following = document.getElementById("following");
 const followUnFollowButton = document.getElementById("follow-btn");
 
-const addToastBtn = document.getElementById("add-toast");
-
 newPostForm.addEventListener("submit", createNewPost);
 createPostButton.addEventListener("click", displayInput);
-
-addToastBtn.addEventListener("click", () => {
-  toastStore.addToast("This is a new toast!", "error");
-});
 
 createPostButton.addEventListener("click", () => {
   createPostButton.classList.add("theCard");
