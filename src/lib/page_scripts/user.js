@@ -27,7 +27,7 @@ newPostForm.addEventListener("submit", createNewPost);
 createPostButton.addEventListener("click", displayInput);
 
 addToastBtn.addEventListener("click", () => {
-  toastStore.setState(addToast("This is a new toast!"));
+  toastStore.setState(addToast("This is a new toast!", "error"));
 });
 
 createPostButton.addEventListener("click", () => {
