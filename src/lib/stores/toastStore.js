@@ -1,11 +1,11 @@
 import { Store } from "@/lib/stores/store";
 
-export const toastStore = new Store({
-  toasts: [],
-});
+class ToastStore extends Store {
+  constructor(initialState) {
+    super(initialState);
+  }
 
-export const addToast = (message, type = "info", timeout = 4000) => {
-  return (state) => {
+  addToast(message, type = "info", timeout = 3500) {
     const newToast = {
       id: new Date().getTime(),
       message,
@@ -13,21 +13,23 @@ export const addToast = (message, type = "info", timeout = 4000) => {
     };
 
     setTimeout(() => {
-      toastStore.setState(removeToast(newToast.id));
+      this.setState(this.removeToast(newToast.id));
     }, timeout);
 
-    return {
+    this.setState((state) => ({
       toasts: [...state.toasts, newToast],
-    };
-  };
-};
+    }));
+  }
 
-export const removeToast = (id) => {
-  return (state) => {
-    return {
+  removeToast(id) {
+    return (state) => ({
       toasts: state.toasts.filter((toast) => toast.id !== id),
-    };
-  };
-};
+    });
+  }
+}
+
+const toastStore = new ToastStore({
+  toasts: [],
+});
 
 export default toastStore;

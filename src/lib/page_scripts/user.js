@@ -1,3 +1,4 @@
+import toastStore from "@lib/stores/toastStore";
 import {
   followProfile,
   getSingleProfile,
@@ -6,7 +7,6 @@ import {
 import { getUsernameQueryParam } from "../utils/getUsernameQueryParam.js";
 import { getActiveUser } from "../utils/handleLocalStorageUser.js";
 import { createNewPost, initUserPage } from "../utils/profilePageUtils.js";
-import toastStore, { addToast } from "@lib/stores/toastStore";
 
 const createPostButton = document.getElementById("create-post-button");
 const newPostForm = document.getElementById("new-post-form");
@@ -27,7 +27,7 @@ newPostForm.addEventListener("submit", createNewPost);
 createPostButton.addEventListener("click", displayInput);
 
 addToastBtn.addEventListener("click", () => {
-  toastStore.setState(addToast("This is a new toast!", "error"));
+  toastStore.addToast("This is a new toast!", "error");
 });
 
 createPostButton.addEventListener("click", () => {
