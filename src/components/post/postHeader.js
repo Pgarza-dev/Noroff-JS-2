@@ -24,6 +24,11 @@ export class PostHeader extends CustomComponent {
         attrName: "href",
         attrValue: `/user/?username=${this.postData.author.name}`,
       },
+      authorImgLink: {
+        type: "attribute",
+        attrName: "href",
+        attrValue: `/user/?username=${this.postData.author.name}`,
+      },
       profileImg: {
         type: "attribute",
         attrName: "src",
