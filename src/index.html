@@ -72,59 +72,19 @@
         </div>
       </form>
     </dialog>
-
+    <div class="">
+      <select
+        id="filter-posts-select"
+        class="flex w-64 items-center justify-center rounded border bg-stone-950 p-3 text-primary-50 focus:outline-none"
+        aria-label="Filter Posts"
+      >
+        <option value="following">Following</option>
+        <option value="all-posts" selected aria-selected="All Posts">
+          All Post
+        </option>
+      </select>
+    </div>
     <main class="flex w-full justify-center">
-      <!-- <div class="relative left-4 z-10">
-        <button
-          id="feed-sort-post-button"
-          class="group absolute flex w-64 items-center justify-center rounded border bg-stone-950 p-3 text-primary-50 focus:outline-none"
-        >
-          Sort posts
-          <i
-            id="feed-sort-post-arrow"
-            class="fa-solid fa-chevron-down px-2"
-          ></i>
-          <div
-            class="absolute top-full hidden w-max min-w-full rounded group-focus:block"
-          >
-            <ul class="rounded border bg-stone-950 text-center">
-              <li
-                id="all-posts-feed"
-                class="border-b px-4 py-1 hover:bg-primary-900"
-              >
-                All posts
-              </li>
-              <li
-                id="friends-following-feed"
-                class="border-b px-4 py-1 hover:bg-primary-900"
-              >
-                Following
-              </li>
-              <li
-                id="oldest-posts-feed"
-                class="border-b px-4 py-1 hover:bg-primary-900"
-              >
-                Oldest
-              </li>
-            </ul>
-          </div>
-        </button>
-      </div> -->
-      <div>
-        <select
-          id=""
-          class="flex w-64 items-center justify-center rounded border bg-stone-950 p-3 text-primary-50 focus:outline-none"
-          aria-label="Filter Posts"
-        >
-          <option id="filter-posts" class="" selected aria-readonly="">
-            Filter Posts
-          </option>
-          <option id="friends-following-feed" value="1">Following</option>
-          <option id="oldest-posts-feed" value="2">Oldest Posts</option>
-          <option value="3">All Post</option>
-        </select>
-      </div>
-
       <section
         class="m-4 flex max-w-5xl flex-col gap-8 pt-20"
         id="posts"
