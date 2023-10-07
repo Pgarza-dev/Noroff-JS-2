@@ -39,6 +39,7 @@ export async function makeApiCall({
   errorMessage,
   successMessage,
   defaultReturn = [],
+  disableError = false,
 }) {
   try {
     if (method === "GET") {
@@ -65,7 +66,9 @@ export async function makeApiCall({
     handleSuccess(successMessage);
     return result;
   } catch (error) {
-    handleErrors(error, errorMessage);
+    if (!disableError) {
+      handleErrors(error, errorMessage);
+    }
     return defaultReturn;
   }
 }
