@@ -1,60 +1,66 @@
-import { fetcher } from "../services/fetcher.js";
-import { API_BASE_URL } from "../constants.js";
+import { PROFILES_ENDPOINT } from "../constants.js";
+import { makeApiCall } from "../services/makeApiCall.js";
 
 export async function getAllProfiles() {
-  return await fetcher({
-    url: `${API_BASE_URL}/social/profiles`,
+  return makeApiCall({
+    endpoint: PROFILES_ENDPOINT,
+    errorMessage: "Could not get all profiles! Please try again.",
   });
 }
 
 export async function getSingleProfile(username) {
-  return await fetcher({
-    url: `${API_BASE_URL}/social/profiles/${username}`,
+  return makeApiCall({
+    endpoint: PROFILES_ENDPOINT + "/" + username,
     query: {
       _following: true,
       _followers: true,
       _posts: true,
     },
+    errorMessage: `Could not get profile for ${username}! Please try again.`,
   });
 }
 
 export async function getSingleProfilePosts(username) {
-  return await fetcher({
-    url: `${API_BASE_URL}/social/profiles/${username}/posts`,
+  return makeApiCall({
+    endpoint: PROFILES_ENDPOINT + "/" + username + "/posts",
+    errorMessage: `Could not get posts for ${username}! Please try again.`,
   });
 }
 
 export async function updateProfilePicture(username, avatarUrl) {
-  return await fetcher({
-    url: `${API_BASE_URL}/social/profiles/${username}/media`,
+  return makeApiCall({
+    endpoint: PROFILES_ENDPOINT + "/" + username + "/media",
     method: "PUT",
     body: {
       avatar: avatarUrl,
     },
+    errorMessage: "Could not update profile picture! Please try again.",
   });
 }
+
 export async function updateProfileBanner(username, bannerUrl) {
-  return await fetcher({
-    url: `${API_BASE_URL}/social/profiles/${username}/media`,
+  return makeApiCall({
+    endpoint: PROFILES_ENDPOINT + "/" + username + "/media",
     method: "PUT",
     body: {
       banner: bannerUrl,
     },
+    errorMessage: "Could not update profile banner! Please try again.",
   });
 }
 
 export async function followProfile(username) {
-  return await fetcher({
-    url: `${API_BASE_URL}/social/profiles/${username}/follow`,
+  return makeApiCall({
+    endpoint: PROFILES_ENDPOINT + "/" + username + "/follow",
     method: "PUT",
-    body: {},
+    errorMessage: `Could not follow ${username}! Please try again.`,
   });
 }
 
 export async function unFollowProfile(username) {
-  return await fetcher({
-    url: `${API_BASE_URL}/social/profiles/${username}/unfollow`,
+  return makeApiCall({
+    endpoint: PROFILES_ENDPOINT + "/" + username + "/unfollow",
     method: "PUT",
-    body: {},
+    errorMessage: `Could not unfollow ${username}! Please try again.`,
   });
 }
