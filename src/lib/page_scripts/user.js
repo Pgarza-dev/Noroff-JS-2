@@ -1,3 +1,4 @@
+import toastStore from "@/lib/stores/toastStore.js";
 import {
   followProfile,
   getSingleProfile,
