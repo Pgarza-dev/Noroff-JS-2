@@ -30,12 +30,21 @@ export class Post extends CustomComponent {
     this.populateData({
       postHeader: new PostHeader(this.postData),
       postTitle: this.postData.title || "",
+      postTitleLink: {
+        type: "attribute",
+        attrName: "href",
+        attrValue: `/post/?id=${this.postData.id}`,
+      },
       postBody: this.postData.body || "",
       postMedia: new PostMedia(this.postData),
       postButtons: new PostButtons(this.store, this.postData.id),
       postCommentList: new PostCommentList(this.postData, this.store),
       inputComment: new PostInputComment(this.postData, this.store),
     });
+  }
+
+  setPostTitleLink() {
+    this.getSlot("postTitle").attributes.href = `#/post/${this.postData.id}`;
   }
 }
 
