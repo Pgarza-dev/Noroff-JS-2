@@ -31,12 +31,9 @@ async function createNewFeedPost(event) {
   event.preventDefault();
   const form = createFormDataObject(event.target);
 
-  const response = await createPost(form);
-
-  postStore.setState((state) => ({
-    posts: [response, ...state.posts],
-  }));
   postInput.hidePopover();
+
+  await createPost(form);
 }
 
 async function initPage() {

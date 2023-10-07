@@ -1,12 +1,12 @@
-import { API_BASE_URL } from "../constants";
-import { fetcher } from "./fetcher";
+import {
+  ALL_POSTS_ENDPOINT,
+  FOLLOWED_POSTS_ENDPOINT,
+  PROFILES_ENDPOINT,
+  SINGLE_POST_ENDPOINT,
+} from "@/lib/constants";
+import { makeApiCall } from "@/lib/services/makeApiCall";
 
-const allPostsUrl = `${API_BASE_URL}/social/posts`;
-const singlePostUrl = `${API_BASE_URL}/social/posts/`;
-const followedPostsUrl = `${API_BASE_URL}/social/posts/following`;
-const profileUrl = `${API_BASE_URL}/social/profiles/`;
-
-const fullQuery = {
+export const fullQuery = {
   _comments: true,
   _reactions: true,
   _author: true,
@@ -18,24 +18,26 @@ const fullQuery = {
  * @return {Promise<PostDataComplete>} - A promise that resolves to the posts data.
  */
 export async function getProfilePosts(profileName) {
-  return fetcher({
-    url: `${profileUrl}${profileName}/posts`,
+  return makeApiCall({
+    endpoint: `${PROFILES_ENDPOINT}/${profileName}/posts`,
     query: {
       ...fullQuery,
     },
+    errorMessage: "Could not get this profile's posts! Please try again.",
   });
 }
 
 /**
  * Fetches all posts.
- * @return {Promise<Array<PostDataComplete>>} - A promise that resolves to an array of posts.
+ * @return {Promise<Array<PostDataComplete | []>>} - A promise that resolves to an array of posts.
  */
 export async function getAllPosts() {
-  return await fetcher({
-    url: allPostsUrl,
+  return makeApiCall({
+    endpoint: ALL_POSTS_ENDPOINT,
     query: {
       ...fullQuery,
     },
+    errorMessage: "Could not get posts! Please try again.",
   });
 }
 
@@ -45,11 +47,12 @@ export async function getAllPosts() {
  * @return {Promise<PostDataComplete>} - A promise that resolves to the post data.
  */
 export async function getSinglePost(postId) {
-  return await fetcher({
-    url: singlePostUrl + postId,
+  return makeApiCall({
+    endpoint: SINGLE_POST_ENDPOINT + postId,
     query: {
       ...fullQuery,
     },
+    errorMessage: "Could not get post! Please try again.",
   });
 }
 
@@ -58,11 +61,12 @@ export async function getSinglePost(postId) {
  * @return {Promise<Array<PostDataComplete>>} - A promise that resolves to an array of posts.
  */
 export async function getFollowersPosts() {
-  return await fetcher({
-    url: followedPostsUrl,
+  return makeApiCall({
+    endpoint: FOLLOWED_POSTS_ENDPOINT,
     query: {
       ...fullQuery,
     },
+    errorMessage: "Could not get posts from followers! Please try again.",
   });
 }
 
@@ -76,13 +80,15 @@ export async function getFollowersPosts() {
  * @return {Promise<PostDataComplete>} - A promise that resolves to the created post data.
  */
 export async function createPost(newPostData) {
-  return await fetcher({
-    url: allPostsUrl,
+  return makeApiCall({
+    endpoint: ALL_POSTS_ENDPOINT,
     method: "POST",
     body: newPostData,
     query: {
       ...fullQuery,
     },
+    successMessage: "New post created!",
+    errorMessage: "Could not create post! Please try again.",
   });
 }
 
@@ -97,13 +103,15 @@ export async function createPost(newPostData) {
  * @return {Promise<PostDataComplete>} - A promise that resolves to the updated post data.
  */
 export async function updatePost(postId, updatedPostData) {
-  return await fetcher({
-    url: singlePostUrl + postId,
+  return makeApiCall({
+    endpoint: SINGLE_POST_ENDPOINT + postId,
     method: "PUT",
     body: updatedPostData,
     query: {
       ...fullQuery,
     },
+    successMessage: "Post updated!",
+    errorMessage: "Could not update post! Please try again.",
   });
 }
 
@@ -113,9 +121,11 @@ export async function updatePost(postId, updatedPostData) {
  * @return {Promise<void>} - A promise that resolves when the post is deleted.
  */
 export async function deletePost(postId) {
-  return await fetcher({
-    url: singlePostUrl + postId,
+  return makeApiCall({
+    endpoint: SINGLE_POST_ENDPOINT + postId,
     method: "DELETE",
+    successMessage: "Post deleted!",
+    errorMessage: "Could not delete post! Please try again.",
   });
 }
 
@@ -126,10 +136,11 @@ export async function deletePost(postId) {
  * @return {Promise<Object>} - A promise that resolves to the reaction data.
  */
 export async function reactPost(postId, reactionType) {
-  return await fetcher({
-    url: `${singlePostUrl}${postId}/react/${reactionType}`,
-    method: "PUT",
-    body: {},
+  return makeApiCall({
+    endpoint: `${SINGLE_POST_ENDPOINT}${postId}/react`,
+    method: "POST",
+    body: { reactionType },
+    errorMessage: "Could not react to post! Please try again.",
   });
 }
 
@@ -141,11 +152,12 @@ export async function reactPost(postId, reactionType) {
  * @param {string | number} commentData.replyToId - Optional - Only required if replying to another comment
  * @return {Promise<Object>} - A promise that resolves to the comment data.
  */
-
 export async function commentPost(postId, commentData) {
-  return await fetcher({
-    url: `${singlePostUrl}${postId}/comment`,
+  return makeApiCall({
+    endpoint: `${SINGLE_POST_ENDPOINT}${postId}/comment`,
     method: "POST",
     body: commentData,
+    successMessage: "Comment added!",
+    errorMessage: "Could not comment on post! Please try again.",
   });
 }

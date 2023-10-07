@@ -43,7 +43,6 @@ export async function fetcher({
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error(error);
-    return null;
+    return { error: true, message: error.message };
   }
 }

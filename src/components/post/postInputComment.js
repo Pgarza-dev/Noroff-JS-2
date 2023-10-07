@@ -1,10 +1,10 @@
-import PostInputCommentHtml from "./postInputComment.html?raw";
-import { CustomComponent } from "../customComponent.js";
+import { commentPost } from "@/lib/services/posts";
 import {
   getActiveUser,
   getActiveUserAvatar,
 } from "@/lib/utils/handleLocalStorageUser";
-import { commentPost } from "@/lib/services/posts";
+import { CustomComponent } from "../customComponent.js";
+import PostInputCommentHtml from "./postInputComment.html?raw";
 
 export class PostInputComment extends CustomComponent {
   /**

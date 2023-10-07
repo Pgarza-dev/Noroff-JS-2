@@ -1,7 +1,7 @@
 import { deletePost } from "@/lib/services/posts.js";
+import { postStore } from "../../lib/stores/postStore.js";
 import { CustomComponent } from "../customComponent.js";
 import confirmDeleteModalHtml from "./confirmDeleteModal.html?raw";
-import { postStore } from "../../lib/stores/postStore.js";
 
 export class ConfirmDeleteModal extends CustomComponent {
   constructor(postId) {
