@@ -1,10 +1,18 @@
 import { PROFILES_ENDPOINT } from "../constants.js";
 import { makeApiCall } from "../services/makeApiCall.js";
 
-export async function getAllProfiles() {
-  return makeApiCall({
-    endpoint: PROFILES_ENDPOINT,
-    errorMessage: "Could not get all profiles! Please try again.",
+import { fetcher } from "@/lib/services/fetcher";
+import { API_BASE_URL } from "@/lib/constants";
+
+export async function getAllProfiles(limit, offset) {
+  return await fetcher({
+    url: `${API_BASE_URL}/social/profiles`,
+    query: {
+      _following: true,
+      _followers: true,
+      limit,
+      offset,
+    },
   });
 }
 
