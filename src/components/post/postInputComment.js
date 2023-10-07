@@ -1,11 +1,10 @@
-import PostInputCommentHtml from "./postInputComment.html?raw";
-import { CustomComponent } from "../customComponent.js";
+import { commentPost } from "@/lib/services/posts";
 import {
   getActiveUser,
   getActiveUserAvatar,
 } from "@/lib/utils/handleLocalStorageUser";
-import { commentPost } from "@/lib/services/posts";
-import toastStore from "@/lib/stores/toastStore";
+import { CustomComponent } from "../customComponent.js";
+import PostInputCommentHtml from "./postInputComment.html?raw";
 
 export class PostInputComment extends CustomComponent {
   /**
@@ -151,12 +150,7 @@ export class PostInputComment extends CustomComponent {
       commentData.replyToId = parseInt(replyToId);
     }
 
-    const serverResponse = await commentPost(this.postData.id, commentData);
-    if (serverResponse) {
-      toastStore.addToast("Comment added!", "success");
-    } else {
-      toastStore.addToast("Something went wrong, please try again.", "error");
-    }
+    await commentPost(this.postData.id, commentData);
   }
 }
 

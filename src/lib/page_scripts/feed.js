@@ -2,7 +2,6 @@ import { Post } from "@components/post/post.js";
 import { createFormDataObject } from "@lib/forms/utils";
 import { createPost, getAllPosts } from "../services/posts.js";
 import { postStore } from "../stores/postStore.js";
-import toastStore from "@/lib/stores/toastStore.js";
 
 const postInput = document.getElementById("post-input");
 const postsSection = document.querySelector("#posts");
@@ -34,17 +33,7 @@ async function createNewFeedPost(event) {
 
   postInput.hidePopover();
 
-  const response = await createPost(form);
-
-  if (response) {
-    toastStore.addToast("Post added", "success");
-
-    postStore.setState((state) => ({
-      posts: [response, ...state.posts],
-    }));
-  } else {
-    toastStore.addToast("Post could not be added!", "error");
-  }
+  await createPost(form);
 }
 
 async function initPage() {

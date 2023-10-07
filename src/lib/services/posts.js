@@ -87,6 +87,7 @@ export async function createPost(newPostData) {
     query: {
       ...fullQuery,
     },
+    successMessage: "New post created!",
     errorMessage: "Could not create post! Please try again.",
   });
 }
@@ -109,6 +110,7 @@ export async function updatePost(postId, updatedPostData) {
     query: {
       ...fullQuery,
     },
+    successMessage: "Post updated!",
     errorMessage: "Could not update post! Please try again.",
   });
 }
@@ -122,6 +124,7 @@ export async function deletePost(postId) {
   return makeApiCall({
     endpoint: SINGLE_POST_ENDPOINT + postId,
     method: "DELETE",
+    successMessage: "Post deleted!",
     errorMessage: "Could not delete post! Please try again.",
   });
 }
@@ -154,6 +157,7 @@ export async function commentPost(postId, commentData) {
     endpoint: `${SINGLE_POST_ENDPOINT}${postId}/comment`,
     method: "POST",
     body: commentData,
+    successMessage: "Comment added!",
     errorMessage: "Could not comment on post! Please try again.",
   });
 }

@@ -10,8 +10,14 @@ function handleErrors(
   toastStore.addToast(message, "error");
 }
 
+function handleSuccess(message) {
+  if (message) {
+    toastStore.addToast(message, "success");
+  }
+}
+
 /**
- * Makes a call to the Noroff API, using a generic fetcher function.
+ * Makes a call to the API, using a generic fetcher function.
  *
  * @param {Object} options - The options for the API call.
  * @param {string} options.endpoint - The API endpoint to call.
@@ -19,6 +25,7 @@ function handleErrors(
  * @param {Object} [options.body=null] - The body of the request, for POST, PUT, etc.
  * @param {Object} [options.query={}] - Query parameters to include in the API call.
  * @param {string} [options.errorMessage] - Custom error message for this API call.
+ * @param {string} [options.successMessage] - Custom success message for this API call.
  * @param {*} [options.defaultReturn=[]] - The default value to return if the API call fails.
  *
  * @return {Promise<*>} - A promise that resolves to the API response data or to the defaultReturn value in case of an error.
@@ -30,6 +37,7 @@ export async function makeApiCall({
   query = {},
   needsAuth = true,
   errorMessage,
+  successMessage,
   defaultReturn = [],
 }) {
   try {
@@ -54,6 +62,7 @@ export async function makeApiCall({
       throw new Error(result.message);
     }
 
+    handleSuccess(successMessage);
     return result;
   } catch (error) {
     handleErrors(error, errorMessage);

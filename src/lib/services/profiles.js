@@ -45,6 +45,7 @@ export async function updateProfileBanner(username, bannerUrl) {
     body: {
       banner: bannerUrl,
     },
+    successMessage: "Profile banner updated!",
     errorMessage: "Could not update profile banner! Please try again.",
   });
 }
@@ -53,6 +54,7 @@ export async function followProfile(username) {
   return makeApiCall({
     endpoint: PROFILES_ENDPOINT + "/" + username + "/follow",
     method: "PUT",
+    successMessage: `You are now following ${username}!`,
     errorMessage: `Could not follow ${username}! Please try again.`,
   });
 }
@@ -61,6 +63,7 @@ export async function unFollowProfile(username) {
   return makeApiCall({
     endpoint: PROFILES_ENDPOINT + "/" + username + "/unfollow",
     method: "PUT",
+    successMessage: `You are no longer following ${username}.`,
     errorMessage: `Could not unfollow ${username}! Please try again.`,
   });
 }
