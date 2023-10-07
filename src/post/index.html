@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Social</title>
+    <script type="module" src="../lib/main.js"></script>
+    <script type="module" src="../lib/page_scripts/post.js"></script>
+    <script
+      src="https://kit.fontawesome.com/a6b44b4960.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body class="bg-stone-950 text-gray-50">
+    <app-header></app-header>
+    <post-editor></post-editor>
+    <post-reactions></post-reactions>
+    <confirm-delete-modal></confirm-delete-modal>
+    <toast-wrapper></toast-wrapper>
+
+    <main class="flex w-full justify-center">
+      <section
+        class="m-4 flex max-w-5xl flex-col gap-8 pt-20"
+        id="posts"
+      ></section>
+    </main>
+  </body>
+</html>

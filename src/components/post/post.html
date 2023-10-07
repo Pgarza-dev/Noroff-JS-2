@@ -1,7 +1,9 @@
 <div class="animate-fade rounded-2xl border border-white border-opacity-10 p-8">
   <div data-slot="postHeader"></div>
   <div class="pb-6 pt-6">
-    <h3 class="pb-2 text-2xl font-bold" data-slot="postTitle"></h3>
+    <a href="#" data-slot="postTitleLink" class="hover:underline">
+      <h3 class="pb-2 text-2xl font-bold" data-slot="postTitle"></h3>
+    </a>
     <p data-slot="postBody"></p>
     <div data-slot="postMedia" class="flex justify-center"></div>
   </div>
