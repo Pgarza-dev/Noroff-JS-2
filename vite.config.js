@@ -25,6 +25,7 @@ export default {
         unauthorized: path.resolve(__dirname, "src/unauthorized/index.html"),
         settings: path.resolve(__dirname, "src/settings/index.html"),
         search: path.resolve(__dirname, "src/search/index.html"),
+        post: path.resolve(__dirname, "src/post/index.html"),
       },
     },
   },

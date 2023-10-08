@@ -3,6 +3,9 @@ import { clearErrors, displayErrors } from "@lib/forms/handleErrors";
 import { registerUser } from "@lib/services/auth";
 import { createFormDataObject } from "@lib/forms/utils";
 import { handleFormApiError } from "@lib/forms/handleErrors";
+import { removeActiveUser } from "@/lib/utils/handleLocalStorageUser";
+
+removeActiveUser();
 
 async function handleSignUp(formDataObject) {
   const userData = {
