@@ -1,3 +1,4 @@
+import unauthorizedHtml from "./unauthorized.html?raw";
 import { AUTH_FREE_PATHS } from "@/lib/constants";
 import {
   getAccessToken,
@@ -9,9 +10,7 @@ function checkIfAuthFreePath(path) {
 }
 
 function goToUnauthorized() {
-  setTimeout(() => {
-    window.location.href = "/unauthorized/";
-  }, 500); // 500ms delay to solve unresponsive page error in deployment
+  document.body.innerHTML += unauthorizedHtml;
 }
 
 export function handleAuth() {
