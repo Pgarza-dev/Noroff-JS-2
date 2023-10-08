@@ -11,10 +11,11 @@ async function handleSignUp(formDataObject) {
     password: formDataObject.password,
   };
   const response = await registerUser(userData);
+
   if (response.errors) {
     handleFormApiError(response.errors);
   } else {
-    window.location.href = "/pages/login/index.html";
+    window.location.href = "/login/";
   }
 }
 

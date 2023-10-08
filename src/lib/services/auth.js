@@ -36,6 +36,10 @@ export async function loginUser(userData) {
     errorMessage: "Could not log in! Please try again.",
   });
 
+  if (data.error) {
+    return data;
+  }
+
   if (data) {
     if (data.accessToken) {
       setAccessToken(data.accessToken);
