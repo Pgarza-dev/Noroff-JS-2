@@ -24,6 +24,7 @@ export default {
         signup: path.resolve(__dirname, "src/signup/index.html"),
         unauthorized: path.resolve(__dirname, "src/unauthorized/index.html"),
         settings: path.resolve(__dirname, "src/settings/index.html"),
+        search: path.resolve(__dirname, "src/search/index.html"),
       },
     },
   },
