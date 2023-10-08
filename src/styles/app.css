@@ -25,6 +25,11 @@
     backdrop-filter: blur(4px);
     @apply bg-black bg-opacity-20;
   }
+
+  .h-screen-dvh {
+    height: 100vh;
+    height: 100dvh;
+  }
 }
 
 /* note: radial menu inspired by this article: https://una.im/radial-menu/ */
