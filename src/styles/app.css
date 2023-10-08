@@ -151,14 +151,14 @@
   */
   #post-editor,
   #post-reactions {
-    &:popover-open {
+    /* &:popover-open {
       @starting-style {
         transform: translateY(100px);
         opacity: 0;
       }
       transform: translateY(0);
       opacity: 1;
-    }
+    } */
 
     transform: translateY(100px);
     opacity: 0;
@@ -167,7 +167,7 @@
       transform 350ms,
       opacity 350ms,
       display 350ms;
-    transition-behavior: allow-discrete;
+    /* transition-behavior: allow-discrete; */
   }
 
   .toast-in {

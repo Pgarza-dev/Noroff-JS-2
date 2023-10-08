@@ -1,4 +1,3 @@
-import unauthorizedHtml from "./unauthorized.html?raw";
 import { AUTH_FREE_PATHS } from "@/lib/constants";
 import {
   getAccessToken,
@@ -10,7 +9,8 @@ function checkIfAuthFreePath(path) {
 }
 
 function goToUnauthorized() {
-  document.body.innerHTML += unauthorizedHtml;
+  // document.body.innerHTML += unauthorizedHtml;
+  window.location.href = "/unauthorized/";
 }
 
 export function handleAuth() {
