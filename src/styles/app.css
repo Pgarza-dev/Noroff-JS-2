@@ -47,6 +47,7 @@
   .item {
     display: grid;
     place-content: center;
+    z-index: 50;
   }
 
   .menu-items {
