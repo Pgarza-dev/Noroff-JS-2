@@ -69,6 +69,6 @@ export async function makeApiCall({
     if (!disableError) {
       handleErrors(error, errorMessage);
     }
-    return defaultReturn;
+    return { error } || defaultReturn;
   }
 }

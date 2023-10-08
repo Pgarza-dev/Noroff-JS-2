@@ -36,6 +36,11 @@ export async function fetcher({
 
     const response = await fetch(completeUrl, fetchOptions);
 
+    if (response.status === 401) {
+      const errorJson = await response.json();
+      throw new Error(errorJson.errors[0].message);
+    }
+
     if (!response.ok) {
       throw new Error(`Failed to fetch ${url}, status ${response.status}`);
     }

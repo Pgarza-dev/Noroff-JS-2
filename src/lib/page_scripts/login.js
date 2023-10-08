@@ -10,8 +10,9 @@ async function handleLogin(formDataObject) {
     password: formDataObject.password,
   };
   const response = await loginUser(userData);
-  if (response.errors) {
-    handleFormApiError(response.errors);
+
+  if (response.error) {
+    handleFormApiError([response.error]);
   } else {
     window.location.href = "/";
   }
