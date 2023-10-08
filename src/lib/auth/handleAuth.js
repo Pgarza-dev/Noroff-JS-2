@@ -9,7 +9,9 @@ function checkIfAuthFreePath(path) {
 }
 
 function goToUnauthorized() {
-  window.location.href = "/unauthorized/";
+  setTimeout(() => {
+    window.location.href = "/unauthorized/";
+  }, 500); // 500ms delay to solve unresponsive page error in deployment
 }
 
 export function handleAuth() {
