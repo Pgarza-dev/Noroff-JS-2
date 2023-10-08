@@ -1,8 +1,11 @@
-import { checkLoginForm } from "@lib/forms/validation";
-import { clearErrors, displayErrors } from "../forms/handleErrors";
-import { loginUser } from "@lib/services/auth";
-import { createFormDataObject } from "@lib/forms/utils";
+import { removeActiveUser } from "@/lib/utils/handleLocalStorageUser";
 import { handleFormApiError } from "@lib/forms/handleErrors";
+import { createFormDataObject } from "@lib/forms/utils";
+import { checkLoginForm } from "@lib/forms/validation";
+import { loginUser } from "@lib/services/auth";
+import { clearErrors, displayErrors } from "../forms/handleErrors";
+
+removeActiveUser();
 
 async function handleLogin(formDataObject) {
   const userData = {
