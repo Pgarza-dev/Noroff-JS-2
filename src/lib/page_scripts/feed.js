@@ -1,5 +1,3 @@
-console.log("feed.js loaded");
-
 import { sortPostsHandler } from "@/lib/utils/sortPosts.js";
 import { Post } from "@components/post/post.js";
 import { createFormDataObject } from "@lib/forms/utils";
@@ -15,6 +13,14 @@ const postInput = document.getElementById("post-input");
 const postsSection = document.getElementById("posts");
 const filterPostSelect = document.getElementById("filter-posts-select");
 const sortBySelect = document.getElementById("sort-by-select");
+
+filterPostSelect.addEventListener("change", filterPostsHandler);
+postInput.addEventListener("submit", createNewFeedPost);
+sortBySelect.addEventListener("change", () => {
+  const postsData = postStore.getState((state) => state.posts);
+  const sortedPosts = sortPostsHandler(postsData, sortBySelect);
+  renderFeed(sortedPosts);
+});
 
 initPage();
 
@@ -50,15 +56,6 @@ async function initPage() {
   renderFeed(initialPosts);
   subscribeToPostStore(renderFeed);
 }
-
-filterPostSelect.addEventListener("change", filterPostsHandler);
-postInput.addEventListener("submit", createNewFeedPost);
-
-sortBySelect.addEventListener("change", () => {
-  const postsData = postStore.getState((state) => state.posts);
-  const sortedPosts = sortPostsHandler(postsData, sortBySelect);
-  renderFeed(sortedPosts);
-});
 
 function filterPostsHandler(event) {
   const filterBy = event.target.value;
