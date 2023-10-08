@@ -1,6 +1,7 @@
 import { reactPost } from "@/lib/services/posts.js";
 import { CustomComponent } from "../customComponent.js";
 import reactionBtnHtml from "./postReactionsBtn.html?raw";
+import { getTotalReactionCount } from "@/lib/utils/getTotalReactionCount.js";
 
 /**
  * PostReactionBtn component to manage reactions button.
@@ -38,7 +39,7 @@ export class PostReactionBtn extends CustomComponent {
   initUI() {
     const { reactions } = this.store.getState();
     this.populateData({
-      viewReactionsBtn: this.getTotalReactionCount(reactions),
+      viewReactionsBtn: getTotalReactionCount(reactions),
     });
   }
 
@@ -90,14 +91,8 @@ export class PostReactionBtn extends CustomComponent {
     });
   };
 
-  getTotalReactionCount = (reactions) => {
-    return reactions.reduce((acc, reaction) => {
-      return acc + reaction.count;
-    }, 0);
-  };
-
   updateReactionCount = (reactions) => {
-    const totalReactionCount = this.getTotalReactionCount(reactions);
+    const totalReactionCount = getTotalReactionCount(reactions);
     const viewReactionsBtn = this.getSlot("viewReactionsBtn");
     const incrementClasses = [
       "animate-fade-up",
