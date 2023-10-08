@@ -34,7 +34,7 @@ export class ToastWrapper extends CustomComponent {
         (toast) => toast.id === toastComponent.toast.id,
       );
       if (!stillExists) {
-        toastComponent.style.transform = `translateY(${-100}px)`;
+        toastComponent.style.transform = `translateXY(-50%, ${-100}px)`;
 
         setTimeout(() => {
           this.removeChild(toastComponent);
@@ -51,7 +51,7 @@ export class ToastWrapper extends CustomComponent {
       );
       if (!alreadyExists) {
         const toastComponent = new Toast(toast);
-        toastComponent.style.transform = `translateY(${index * 60}px)`;
+        toastComponent.style.transform = `translateXY(-50%, ${index * 60}px)`;
         this.toasts.push(toastComponent);
         this.appendChild(toastComponent);
       }
