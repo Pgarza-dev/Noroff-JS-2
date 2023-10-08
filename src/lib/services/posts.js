@@ -137,9 +137,8 @@ export async function deletePost(postId) {
  */
 export async function reactPost(postId, reactionType) {
   return makeApiCall({
-    endpoint: `${SINGLE_POST_ENDPOINT}${postId}/react`,
-    method: "POST",
-    body: { reactionType },
+    endpoint: `${SINGLE_POST_ENDPOINT}${postId}/react/${reactionType}`,
+    method: "PUT",
     errorMessage: "Could not react to post! Please try again.",
   });
 }
