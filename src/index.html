@@ -91,17 +91,35 @@
     </dialog>
 
     <main class="flex w-full flex-col items-center justify-center gap-8">
-      <div class="pt-8">
-        <select
-          id="filter-posts-select"
-          class="focus-outline-none w-40 items-center border-b bg-stone-950 pb-2 text-primary-50 outline-none transition-all duration-300 ease-in-out hover:border-b-white"
-          aria-label="Filter Posts"
-        >
-          <option value="following">Following</option>
-          <option value="all-posts" selected aria-selected="All Posts">
-            All Post
-          </option>
-        </select>
+      <div class="flex gap-5 pt-8">
+        <label for="filter-posts-select" class="flex flex-col">
+          Filter Posts
+          <select
+            name="filter-posts-select"
+            id="filter-posts-select"
+            class="focus-outline-none w-40 items-center border-b bg-stone-950 pb-2 text-primary-50 outline-none transition-all duration-300 ease-in-out hover:border-b-white"
+            aria-label="Filter Posts"
+          >
+            <option value="all-posts" selected aria-selected="All Posts">
+              All Post
+            </option>
+            <option value="following">Following</option>
+          </select>
+        </label>
+        <label for="sort-by" class="flex flex-col"
+          >sort by
+
+          <select
+            name="sort-by"
+            id="sort-by-select"
+            class="focus-outline-none w-40 items-center border-b bg-stone-950 pb-2 text-primary-50 outline-none transition-all duration-300 ease-in-out hover:border-b-white"
+          >
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="mostLikes">Most Likes</option>
+            <option value="mostComments">Most Comments</option>
+          </select>
+        </label>
       </div>
       <section class="m-4 flex max-w-3xl flex-col gap-8" id="posts"></section>
       <div class="fixed bottom-6 right-6">

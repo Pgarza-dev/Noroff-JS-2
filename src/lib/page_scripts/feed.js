@@ -1,22 +1,26 @@
 console.log("feed.js loaded");
 
+import { sortPostsHandler } from "@/lib/utils/sortPosts.js";
 import { Post } from "@components/post/post.js";
 import { createFormDataObject } from "@lib/forms/utils";
-import { createPost, getAllPosts } from "../services/posts.js";
+import {
+  createPost,
+  getAllPosts,
+  getFollowersPosts,
+} from "../services/posts.js";
 import { postStore } from "../stores/postStore.js";
-import { getFollowersPosts } from "../services/posts.js";
 import { getUsernameQueryParam } from "../utils/getUsernameQueryParam.js";
 
 const postInput = document.getElementById("post-input");
 const postsSection = document.getElementById("posts");
 const filterPostSelect = document.getElementById("filter-posts-select");
-const allPosts = document.getElementById("oldest-posts-feed");
+const sortBySelect = document.getElementById("sort-by-select");
+
+initPage();
 
 async function initPostStore() {
   const postsData = await getAllPosts();
   postStore.setState(() => ({ posts: postsData }));
-
-  console.log("postStore", postStore.getState());
 }
 
 function subscribeToPostStore(renderFeed) {
@@ -33,45 +37,53 @@ function renderFeed(postsData) {
   });
 }
 
-postInput.addEventListener("submit", createNewFeedPost);
-
 async function createNewFeedPost(event) {
   event.preventDefault();
   const form = createFormDataObject(event.target);
-
   postInput.hidePopover();
-
   await createPost(form);
 }
 
 async function initPage() {
   await initPostStore();
-
   const initialPosts = postStore.getState((state) => state.posts);
   renderFeed(initialPosts);
-
   subscribeToPostStore(renderFeed);
 }
 
-initPage();
-
 filterPostSelect.addEventListener("change", filterPostsHandler);
+postInput.addEventListener("submit", createNewFeedPost);
+
+sortBySelect.addEventListener("change", () => {
+  const postsData = postStore.getState((state) => state.posts);
+  const sortedPosts = sortPostsHandler(postsData, sortBySelect);
+  renderFeed(sortedPosts);
+});
 
 function filterPostsHandler(event) {
-  console.log(event.target.value);
-  if (event.target.value === "following") {
-    friendsOnlyFeedHandler();
-    console.log("filterPostsHandler", event.target.value);
-  } else if (event.target.value === "all-posts") {
-    renderFeed(postStore.getState((state) => state.posts));
-    console.log("filterPostsHandler", event.target.value);
+  const filterBy = event.target.value;
+
+  switch (filterBy) {
+    case "following":
+      friendsOnlyFeedHandler();
+      break;
+    case "all-posts":
+      everyoneFeedHandler();
+      break;
+    default:
+      everyoneFeedHandler();
   }
 }
 
 async function friendsOnlyFeedHandler() {
   const username = getUsernameQueryParam();
   const postsData = await getFollowersPosts(username);
-  console.log(postsData);
+  const sortedPosts = sortPostsHandler(postsData, sortBySelect);
+  postStore.setState(() => ({ posts: sortedPosts }));
+}
 
-  renderFeed(postsData);
+async function everyoneFeedHandler() {
+  const postsData = await getAllPosts();
+  const sortedPosts = sortPostsHandler(postsData, sortBySelect);
+  postStore.setState(() => ({ posts: sortedPosts }));
 }
