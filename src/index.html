@@ -74,26 +74,20 @@
       </form>
     </dialog>
 
-    <main class="flex w-full flex-col items-center justify-center">
-      <div class="pt-10">
+    <main class="flex w-full flex-col items-center justify-center gap-8">
+      <div class="pt-8">
         <select
-          id=""
-          class="flex w-64 items-center justify-center rounded border bg-stone-950 p-3 text-primary-50 focus:outline-none"
+          id="filter-posts-select"
+          class="focus-outline-none w-40 items-center border-b bg-stone-950 pb-2 text-primary-50 outline-none transition-all duration-300 ease-in-out hover:border-b-white"
           aria-label="Filter Posts"
         >
-          <option id="filter-posts" class="" selected aria-readonly="">
-            Filter Posts
+          <option value="following">Following</option>
+          <option value="all-posts" selected aria-selected="All Posts">
+            All Post
           </option>
-          <option id="friends-following-feed" value="1">Following</option>
-          <option id="oldest-posts-feed" value="2">Oldest Posts</option>
-          <option value="3">All Post</option>
         </select>
       </div>
-
-      <section
-        class="m-4 flex w-full max-w-5xl flex-col gap-8 p-4 pt-10"
-        id="posts"
-      ></section>
+      <section class="m-4 flex max-w-3xl flex-col gap-8" id="posts"></section>
       <div class="fixed bottom-6 right-6">
         <button
           type="button"
