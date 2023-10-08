@@ -75,8 +75,8 @@ avatarForm.addEventListener("submit", async (e) => {
   await updateProfilePicture(username, avatar);
 });
 
-bannerForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const { banner } = createFormDataObject(e.target);
+bannerForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const { banner } = createFormDataObject(event.target);
   await updateProfileBanner(username, banner);
 });

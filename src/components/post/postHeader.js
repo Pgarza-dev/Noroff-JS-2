@@ -1,5 +1,9 @@
+import { hideElement, toggleHidden } from "@lib/utils/domUtils";
+
 import postHeader from "./postHeader.html?raw";
 import { CustomComponent } from "../customComponent.js";
+import { formatDateFromNow } from "@lib/utils/dateUtils";
+
 import { getActiveUser } from "@/lib/utils/handleLocalStorageUser";
 
 export class PostHeader extends CustomComponent {
@@ -18,8 +22,13 @@ export class PostHeader extends CustomComponent {
 
     this.populateData({
       author: this.postData.author.name,
-      time: this.formatDateFromNow(this.postData.created),
+      time: formatDateFromNow(this.postData.created),
       authorLink: {
+        type: "attribute",
+        attrName: "href",
+        attrValue: `/user/?username=${this.postData.author.name}`,
+      },
+      authorImgLink: {
         type: "attribute",
         attrName: "href",
         attrValue: `/user/?username=${this.postData.author.name}`,
@@ -30,18 +39,18 @@ export class PostHeader extends CustomComponent {
         attrValue: avatar,
       },
     });
-    this.addEventListeners();
-    this.displayMenuBtnIfAuthorIsLoggedInUser();
+    this.#addEventListeners();
+    this.#displayMenuBtnIfAuthorIsLoggedInUser();
   }
 
-  addEventListeners() {
-    this.onClick("postMenuBtn", this.togglePostMenu);
-    this.onClick("editPostBtn", this.handleEditPost);
-    this.onClick("deletePostBtn", this.handleDeletePost);
-    this.clickedOutside("postMenuDropdown", this.hideMenuOnOutsideClick);
+  #addEventListeners() {
+    this.onClick("postMenuBtn", this.#togglePostMenu);
+    this.onClick("editPostBtn", this.#handleEditPost);
+    this.onClick("deletePostBtn", this.#handleDeletePost);
+    this.clickedOutside("postMenuDropdown", this.#hideMenuOnOutsideClick);
   }
 
-  displayMenuBtnIfAuthorIsLoggedInUser() {
+  #displayMenuBtnIfAuthorIsLoggedInUser() {
     const activeUser = getActiveUser();
 
     if (activeUser && activeUser === this.postData.author.name) {
@@ -49,16 +58,16 @@ export class PostHeader extends CustomComponent {
     }
   }
 
-  togglePostMenu = (event) => {
-    this.toggleHidden(this.getSlot("postMenuDropdown"));
+  #togglePostMenu = (event) => {
+    toggleHidden(this.getSlot("postMenuDropdown"));
     event.stopPropagation();
   };
 
-  hideMenuOnOutsideClick = () => {
-    this.hideElement(this.getSlot("postMenuDropdown"));
+  #hideMenuOnOutsideClick = () => {
+    hideElement(this.getSlot("postMenuDropdown"));
   };
 
-  handleEditPost = () => {
+  #handleEditPost = () => {
     document.querySelector("#post-editor-textarea").value = `${
       this.postData.body || ""
     }`;
@@ -76,7 +85,7 @@ export class PostHeader extends CustomComponent {
     }`;
   };
 
-  handleDeletePost = () => {
+  #handleDeletePost = () => {
     this.dispatchCustomEvent({
       eventName: "deletePostBtnClick",
       detail: {

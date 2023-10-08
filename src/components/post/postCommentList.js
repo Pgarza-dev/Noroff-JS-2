@@ -16,17 +16,17 @@ export class PostCommentList extends CustomComponent {
   }
 
   connectedCallback() {
-    this.initStyles();
+    this.#initStyles();
     this.setAttribute("aria-expanded", "false");
-    this.renderCommentList(this.postData.comments);
-    this.setupStoreSubscriptions();
+    this.#renderCommentList(this.postData.comments);
+    this.#setupStoreSubscriptions();
   }
 
   disconnectedCallback() {
-    this.teardownStoreSubscriptions();
+    this.#teardownStoreSubscriptions();
   }
 
-  initStyles() {
+  #initStyles() {
     this.classList.add(
       "transition-height-inner",
       "peer",
@@ -36,39 +36,39 @@ export class PostCommentList extends CustomComponent {
     );
   }
 
-  setupStoreSubscriptions() {
-    this.unsubscribeComments = this.subscribeToComments();
-    this.unsubscribeCommentsOpen = this.subscribeToCommentsOpen();
+  #setupStoreSubscriptions() {
+    this.unsubscribeComments = this.#subscribeToComments();
+    this.unsubscribeCommentsOpen = this.#subscribeToCommentsOpen();
   }
 
-  teardownStoreSubscriptions() {
+  #teardownStoreSubscriptions() {
     if (this.unsubscribeComments) this.unsubscribeComments();
     if (this.unsubscribeCommentsOpen) this.unsubscribeCommentsOpen();
   }
 
-  subscribeToComments() {
+  #subscribeToComments() {
     return this.store.subscribe((state) => {
-      this.renderCommentList(state);
+      this.#renderCommentList(state);
     }, "comments");
   }
 
-  subscribeToCommentsOpen() {
+  #subscribeToCommentsOpen() {
     return this.store.subscribe((state) => {
-      this.toggleCommentVisibility(state);
+      this.#toggleCommentVisibility(state);
     }, "commentsOpen");
   }
 
-  renderCommentList(comments) {
-    comments.length ? this.renderComments(comments) : this.renderTempComment();
+  #renderCommentList(comments) {
+    comments.length
+      ? this.#renderComments(comments)
+      : this.#renderTempComment();
   }
 
-  toggleCommentVisibility(commentsOpen) {
+  #toggleCommentVisibility(commentsOpen) {
     this.setAttribute("aria-expanded", commentsOpen ? "true" : "false");
-
-    // this.classList.toggle("hidden", !commentsOpen);
   }
 
-  renderTempComment() {
+  #renderTempComment() {
     const tempComment = document.createElement("div");
     tempComment.innerHTML = tempPostCommentHtml;
     this.appendChild(tempComment);
@@ -84,7 +84,7 @@ export class PostCommentList extends CustomComponent {
     });
   }
 
-  renderComments(comments) {
+  #renderComments(comments) {
     this.innerHTML = "";
     comments.forEach((comment) => {
       const commentElement = new PostComment(comment, this.postData.id);

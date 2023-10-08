@@ -13,11 +13,11 @@ export class AccountMenuDropdown extends CustomComponent {
   }
 
   connectedCallback() {
-    this.setProfileLink();
-    this.addEventListeners();
+    this.#setProfileLink();
+    this.#addEventListeners();
   }
 
-  setProfileLink() {
+  #setProfileLink() {
     const profileLink = this.querySelector(
       "#account-menu-dropdown-profile-link",
     );
@@ -25,14 +25,14 @@ export class AccountMenuDropdown extends CustomComponent {
     profileLink.href = `/user/?username=${username}`;
   }
 
-  handleLogout = () => {
+  #handleLogout = () => {
     removeActiveUser();
     window.location.href = "/login/";
   };
 
-  addEventListeners() {
-    this.onClick("logoutBtn", this.handleLogout);
-    this.clickedOutside("accountMenuDropdown", this.hideMenuOnOutsideClick);
+  #addEventListeners() {
+    this.onClick("logoutBtn", this.#handleLogout);
+    this.clickedOutside("accountMenuDropdown", this.#hideMenuOnOutsideClick);
   }
 
   toggleHidden = (event) => {
@@ -40,7 +40,7 @@ export class AccountMenuDropdown extends CustomComponent {
     event.stopPropagation();
   };
 
-  hideMenuOnOutsideClick = () => {
+  #hideMenuOnOutsideClick = () => {
     this.classList.add("hidden");
   };
 }

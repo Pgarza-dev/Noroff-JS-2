@@ -10,13 +10,13 @@ export class PostMedia extends CustomComponent {
   }
 
   connectedCallback() {
-    const mediaElement = this.createPostMedia();
+    const mediaElement = this.#createPostMedia();
     if (mediaElement) {
       this.appendChild(mediaElement);
     }
   }
 
-  createPostMedia() {
+  #createPostMedia() {
     if (this.postData.media) {
       const image = document.createElement("img");
       image.src = this.postData.media;

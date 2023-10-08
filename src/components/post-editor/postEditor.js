@@ -14,10 +14,10 @@ export class PostEditor extends CustomComponent {
   }
 
   addEventListeners() {
-    this.handlePostEditor();
+    this.#handlePostEditor();
   }
 
-  async handlePostEditor() {
+  async #handlePostEditor() {
     const postEditorForm = this.querySelector("#post-editor-form");
 
     postEditorForm?.addEventListener("submit", async (event) => {
