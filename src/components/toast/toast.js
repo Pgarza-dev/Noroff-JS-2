@@ -6,7 +6,7 @@ export class Toast extends CustomComponent {
     super();
     this.toast = toast;
     this.setAttribute("popover", "manual");
-    this.classList.add("toast");
+    this.classList.add("toast", "-translate-x-1/2");
     this.innerHTML = toastHtml;
 
     this.getSlot("toastBody").textContent = this.toast.message || "";
