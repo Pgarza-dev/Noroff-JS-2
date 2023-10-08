@@ -29,131 +29,119 @@
     <post-editor></post-editor>
     <post-reactions></post-reactions>
     <confirm-delete-modal></confirm-delete-modal>
-    <main class="flex w-full justify-center">
-      <div class="max-w-screen-lg">
-        <section>
+    <main class="flex w-full flex-col items-center justify-center">
+      <div class="fixed bottom-6 right-6 z-50">
+        <button
+          id="create-post-button"
+          type="button"
+          popovertarget="new-post-input"
+          class="flex h-16 w-16 max-w-xs items-center justify-center rounded-full border-primary-900 bg-primary-900 px-5 py-1 transition-all duration-500 ease-in-out hover:bg-primary-600 hover:text-primary-950"
+        >
+          <img src="/icons/plus-icon.svg" alt="create new post" />
+        </button>
+      </div>
+      <dialog
+        id="new-post-input"
+        class="dim-background w-full max-w-xl rounded-lg border border-white border-opacity-10 bg-stone-950 p-6 text-white"
+        popover
+      >
+        <form
+          id="new-post-form"
+          class="flex hidden flex-col gap-2 text-black"
+          action=""
+        >
+          <h2 class="text-primary-50">Whats on you mind...</h2>
+          <label for="body ">Title</label>
+          <input
+            required
+            type="text"
+            name="title"
+            id=""
+            class="rounded-md border border-stone-700 bg-black p-2 text-lg font-bold text-white ring-2 ring-transparent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-800"
+          />
+          <textarea
+            required
+            name="body"
+            id=""
+            cols="30"
+            rows="10"
+            class="rounded-md border border-stone-700 bg-black p-2 text-lg text-white ring-2 ring-transparent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-800"
+          ></textarea>
+          <div class="flex gap-5">
+            <button
+              id="new-post-input-submit"
+              type="submit"
+              popovertargetaction="hide"
+              popovertarget="new-post-input"
+              class="btn text-primary-50"
+            >
+              Post
+            </button>
+            <button
+              type="button"
+              popovertargetaction="hide"
+              popovertarget="new-post-input"
+              class="btn ease border-primary-700 bg-primary-700 text-primary-50 hover:bg-primary-500"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </dialog>
+
+      <section>
+        <div
+          class="flex aspect-[21/9] items-center justify-center overflow-hidden"
+        >
+          <img
+            id="banner"
+            src="/images/default_header.jpg"
+            alt="profile-header"
+          />
+        </div>
+        <div class="relative flex w-full flex-col items-center justify-center">
           <div
-            class="flex aspect-[21/9] items-center justify-center overflow-hidden"
+            class="absolute top-0 h-40 w-40 translate-y-[-105%] overflow-hidden rounded-full object-fill"
           >
             <img
-              id="banner"
-              src="/images/default_header.jpg"
-              alt="profile-header"
+              id="avatar"
+              class="h-full w-full object-cover"
+              height="120px"
+              width="120px"
+              src="/images/default_user.png"
+              alt="avatar"
             />
           </div>
-          <div
-            class="relative flex w-full flex-col items-center justify-center"
-          >
-            <div
-              class="absolute top-0 h-40 w-40 translate-y-[-105%] overflow-hidden rounded-full object-fill"
+          <div class="flex flex-col items-center justify-center gap-2">
+            <span id="profile-username" class="text-2xl font-black"
+              >username</span
             >
-              <img
-                id="avatar"
-                class="h-full w-full object-cover"
-                height="120px"
-                width="120px"
-                src="/images/default_user.png"
-                alt="avatar"
-              />
-            </div>
-            <div class="flex flex-col items-center justify-center gap-2">
-              <span id="profile-username" class="text-2xl font-black"
-                >username</span
-              >
+            <div class="flex gap-3">
               <div class="flex gap-3">
-                <div class="flex gap-3">
-                  followers <span id="followers">100</span>
-                </div>
-                <span>|</span>
-                <div class="flex gap-3">
-                  following <span id="following">100</span>
-                </div>
+                followers <span id="followers">100</span>
               </div>
-              <button
-                class="h-10 w-full max-w-lg rounded-lg border-primary-900 bg-primary-900 px-5 py-1 capitalize transition-all duration-500 ease-in-out hover:bg-primary-950 hover:text-primary-50"
-                type="submit"
-                id="follow-btn"
-              >
-                follow
-              </button>
+              <span>|</span>
+              <div class="flex gap-3">
+                following <span id="following">100</span>
+              </div>
             </div>
-          </div>
-        </section>
-        <section class="flex flex-col gap-6">
-          <div class="flex justify-between">
-            <h2 class="py-4 text-2xl font-bold">Posts</h2>
-            <div class="fixed bottom-6 right-6 z-50">
-              <button
-                id="create-post-button"
-                type="button"
-                popovertarget="new-post-input"
-                class="flex h-16 w-16 max-w-xs items-center justify-center rounded-full border-primary-900 bg-primary-900 px-5 py-1 transition-all duration-500 ease-in-out hover:bg-primary-600 hover:text-primary-950"
-              >
-                <img src="/icons/plus-icon.svg" alt="create new post" />
-              </button>
-            </div>
-          </div>
-          <div>
-            <dialog
-              id="new-post-input"
-              class="dim-background w-full max-w-xl rounded-lg border border-white border-opacity-10 bg-stone-950 p-6 text-white"
-              popover
+            <button
+              class="h-10 w-full max-w-lg rounded-lg border-primary-900 bg-primary-900 px-5 py-1 capitalize transition-all duration-500 ease-in-out hover:bg-primary-950 hover:text-primary-50"
+              type="submit"
+              id="follow-btn"
             >
-              <form
-                id="new-post-form"
-                class="flex hidden flex-col gap-2 text-black"
-                action=""
-              >
-                <h2 class="text-primary-50">Whats on you mind...</h2>
-                <label for="body ">Title</label>
-                <input
-                  required
-                  type="text"
-                  name="title"
-                  id=""
-                  class="rounded-md border border-stone-700 bg-black p-2 text-lg font-bold text-white ring-2 ring-transparent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-800"
-                />
-                <textarea
-                  required
-                  name="body"
-                  id=""
-                  cols="30"
-                  rows="10"
-                  class="rounded-md border border-stone-700 bg-black p-2 text-lg text-white ring-2 ring-transparent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-800"
-                ></textarea>
-                <div class="flex gap-5">
-                  <button
-                    id="new-post-input-submit"
-                    type="submit"
-                    popovertargetaction="hide"
-                    popovertarget="new-post-input"
-                    class="btn text-primary-50"
-                  >
-                    Post
-                  </button>
-                  <button
-                    type="button"
-                    popovertargetaction="hide"
-                    popovertarget="new-post-input"
-                    class="btn ease border-primary-700 bg-primary-700 text-primary-50 hover:bg-primary-500"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            </dialog>
-
-            <section
-              id="profile-posts"
-              class="m-4 flex max-w-5xl flex-col gap-8"
-            ></section>
+              follow
+            </button>
           </div>
-          <section
-            id="profile-posts"
-            class="m-4 flex max-w-5xl flex-col gap-8"
-          ></section>
-        </section>
+        </div>
+      </section>
+      <div class="w-full max-w-3xl px-4 pt-4">
+        <h2 class="text-4xl font-bold">Posts</h2>
       </div>
+      <section
+        id="profile-posts"
+        class="m-4 flex max-w-3xl flex-col gap-8"
+      ></section>
     </main>
   </body>
 </html>
