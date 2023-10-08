@@ -16,11 +16,6 @@ export class Header extends CustomComponent {
 
     this.populateData({
       accountMenuDropdown: this.accountMenu,
-      settingsBtn: {
-        type: "attribute",
-        attrName: "href",
-        attrValue: "/settings/",
-      },
     });
 
     this.addEventListeners();
