@@ -6,8 +6,8 @@ This project is a university assignment for Noroff, aimed at creating a new Java
 
 ## Team Members
 
-- Kyrre
-- Pgarza-dev
+- [Pgarza-dev](https://github.com/Pgarza-dev)
+- [Kyrregjerstad](https://github.com/kyrregjerstad)
 
 ## Installation and Setup
 
