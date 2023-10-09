@@ -1,21 +1,14 @@
 import { sortPostsHandler } from "@/lib/utils/sortPosts.js";
 import { Post } from "@components/post/post.js";
-import { createFormDataObject } from "@lib/forms/utils";
-import {
-  createPost,
-  getAllPosts,
-  getFollowersPosts,
-} from "../services/posts.js";
+import { getAllPosts, getFollowersPosts } from "../services/posts.js";
 import { postStore } from "../stores/postStore.js";
 import { getUsernameQueryParam } from "../utils/getUsernameQueryParam.js";
 
-const postInput = document.getElementById("post-input");
 const postsSection = document.getElementById("posts");
 const filterPostSelect = document.getElementById("filter-posts-select");
 const sortBySelect = document.getElementById("sort-by-select");
 
 filterPostSelect.addEventListener("change", filterPostsHandler);
-postInput.addEventListener("submit", createNewFeedPost);
 sortBySelect.addEventListener("change", () => {
   const postsData = postStore.getState((state) => state.posts);
   const sortedPosts = sortPostsHandler(postsData, sortBySelect);
@@ -41,13 +34,6 @@ function renderFeed(postsData) {
   postsData.forEach((postData) => {
     postsSection.appendChild(new Post(postData));
   });
-}
-
-async function createNewFeedPost(event) {
-  event.preventDefault();
-  const form = createFormDataObject(event.target);
-  postInput.hidePopover();
-  await createPost(form);
 }
 
 async function initPage() {

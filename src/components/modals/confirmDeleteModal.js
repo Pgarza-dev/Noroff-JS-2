@@ -54,7 +54,9 @@ export class ConfirmDeleteModal extends CustomComponent {
 
   #handleDeletePostBtnClick(event) {
     this.postId = event.detail.postId;
-    showPopoverElement(this);
+    if (!this.supportsPopover) {
+      showPopoverElement(this);
+    }
   }
 }
 

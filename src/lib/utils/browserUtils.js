@@ -12,4 +12,5 @@ export function hidePopoverElement(element) {
 
 export function showPopoverElement(element) {
   element.classList.remove("popover-fallback--hidden");
+  element.querySelector("dialog").style.display = "block";
 }
