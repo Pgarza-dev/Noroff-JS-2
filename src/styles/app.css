@@ -149,16 +149,16 @@
   experimental chrome popover API and transitions 
   https://developer.chrome.com/blog/introducing-popover-api/
   */
-  #post-editor,
+  /* #post-editor,
   #post-reactions {
-    /* &:popover-open {
+    &:popover-open {
       @starting-style {
         transform: translateY(100px);
         opacity: 0;
       }
       transform: translateY(0);
       opacity: 1;
-    } */
+    }
 
     transform: translateY(100px);
     opacity: 0;
@@ -167,8 +167,8 @@
       transform 350ms,
       opacity 350ms,
       display 350ms;
-    /* transition-behavior: allow-discrete; */
-  }
+    transition-behavior: allow-discrete;
+  } */
 
   .toast-in {
     @apply animate-jump-in animate-duration-300;
@@ -180,5 +180,22 @@
 
   .toast:popover-open {
     @apply absolute inset-auto left-1/2 top-5 bg-transparent transition-all duration-300 ease-in-out;
+  }
+
+  .popover-fallback {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    width: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .popover-fallback--hidden {
+    display: none;
   }
 }

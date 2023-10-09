@@ -1,15 +1,28 @@
 import { SingleReaction } from "@/components/post-reactions/singleReaction.js";
 import { CustomComponent } from "../customComponent.js";
 import postReactions from "./postReactions.html?raw";
+import {
+  addPopoverFallback,
+  checkPopoverSupport,
+  hidePopoverElement,
+  showPopoverElement,
+} from "@/lib/utils/browserUtils.js";
 
 export class PostReactions extends CustomComponent {
   constructor() {
     super();
     this.innerHTML = postReactions;
+    this.supportsPopover = checkPopoverSupport();
   }
 
   connectedCallback() {
     this.#handleViewReactions();
+
+    if (!this.supportsPopover) {
+      addPopoverFallback(this);
+    }
+
+    this.addEventListener();
   }
 
   #populateReactions(reactions) {
@@ -32,12 +45,21 @@ export class PostReactions extends CustomComponent {
     });
   }
 
+  addEventListener() {
+    if (!this.supportsPopover) {
+      this.onClick("closeBtn", () => hidePopoverElement(this));
+    }
+  }
+
   #handleViewReactions() {
     this.onCustomEvent({
       eventName: "viewReactions",
       useDocument: true,
       callback: (event) => {
         this.#populateReactions(event.detail.reactions);
+        if (!this.supportsPopover) {
+          showPopoverElement(this);
+        }
       },
     });
   }

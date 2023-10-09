@@ -1,4 +1,3 @@
-import toastStore from "@/lib/stores/toastStore.js";
 import {
   followProfile,
   getSingleProfile,
@@ -6,12 +5,8 @@ import {
 } from "../services/profiles.js";
 import { getUsernameQueryParam } from "../utils/getUsernameQueryParam.js";
 import { getActiveUser } from "../utils/handleLocalStorageUser.js";
-import { createNewPost, initUserPage } from "../utils/profilePageUtils.js";
+import { initUserPage } from "../utils/profilePageUtils.js";
 
-const newPostInput = document.getElementById("new-post-input");
-
-const createPostButton = document.getElementById("create-post-button");
-const newPostForm = document.getElementById("new-post-form");
 const avatar = document.getElementById("avatar");
 const profileName = document.getElementById("profile-username");
 const banner = document.getElementById("banner");
@@ -19,14 +14,6 @@ const banner = document.getElementById("banner");
 const followers = document.getElementById("followers");
 const following = document.getElementById("following");
 const followUnFollowButton = document.getElementById("follow-btn");
-
-newPostForm.addEventListener("submit", createNewPost);
-
-createPostButton.addEventListener("click", displayInput);
-
-function displayInput() {
-  newPostForm.classList.remove("hidden");
-}
 
 function setUpProfileAvatar(avatarUrl) {
   if (avatarUrl) {
@@ -40,7 +27,10 @@ function setUpProfileBanner(bannerUrl) {
   }
 }
 
-function setUpFollowButton(followers, activeUser) {
+function setUpFollowButton(followers, activeUser, username) {
+  if (activeUser !== username) {
+    followUnFollowButton.style.display = "block";
+  }
   const isFollowing = followers.some(
     (follower) => follower.name === activeUser,
   );
@@ -51,7 +41,7 @@ function setUpFollowButton(followers, activeUser) {
   }
 }
 
-async function settingUpTheProfile() {
+async function setUpUserProfile() {
   const username = getUsernameQueryParam();
   const singleProfileData = await getSingleProfile(username);
   const activeUser = getActiveUser();
@@ -59,7 +49,7 @@ async function settingUpTheProfile() {
   profileName.textContent = singleProfileData.name;
   setUpProfileAvatar(singleProfileData.avatar);
   setUpProfileBanner(singleProfileData.banner);
-  setUpFollowButton(singleProfileData.followers, activeUser);
+  setUpFollowButton(singleProfileData.followers, activeUser, username);
 
   followers.textContent = singleProfileData._count.followers;
   following.textContent = singleProfileData._count.following;
@@ -78,4 +68,4 @@ async function settingUpTheProfile() {
   });
 }
 initUserPage();
-settingUpTheProfile();
+setUpUserProfile();
