@@ -160,13 +160,13 @@
       opacity: 1;
     } */
 
-    transform: translateY(100px);
-    opacity: 0;
+    /* transform: translateY(100px); */
+    /* opacity: 0; */
 
-    transition:
+    /* transition:
       transform 350ms,
       opacity 350ms,
-      display 350ms;
+      display 350ms; */
     /* transition-behavior: allow-discrete; */
   }
 
