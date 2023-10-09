@@ -27,7 +27,10 @@ function setUpProfileBanner(bannerUrl) {
   }
 }
 
-function setUpFollowButton(followers, activeUser) {
+function setUpFollowButton(followers, activeUser, username) {
+  if (activeUser !== username) {
+    followUnFollowButton.style.display = "block";
+  }
   const isFollowing = followers.some(
     (follower) => follower.name === activeUser,
   );
@@ -38,7 +41,7 @@ function setUpFollowButton(followers, activeUser) {
   }
 }
 
-async function settingUpTheProfile() {
+async function setUpUserProfile() {
   const username = getUsernameQueryParam();
   const singleProfileData = await getSingleProfile(username);
   const activeUser = getActiveUser();
@@ -46,7 +49,7 @@ async function settingUpTheProfile() {
   profileName.textContent = singleProfileData.name;
   setUpProfileAvatar(singleProfileData.avatar);
   setUpProfileBanner(singleProfileData.banner);
-  setUpFollowButton(singleProfileData.followers, activeUser);
+  setUpFollowButton(singleProfileData.followers, activeUser, username);
 
   followers.textContent = singleProfileData._count.followers;
   following.textContent = singleProfileData._count.following;
@@ -65,4 +68,4 @@ async function settingUpTheProfile() {
   });
 }
 initUserPage();
-settingUpTheProfile();
+setUpUserProfile();
