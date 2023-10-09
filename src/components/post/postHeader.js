@@ -83,6 +83,10 @@ export class PostHeader extends CustomComponent {
     document.querySelector("#post-editor-media").value = `${
       this.postData.media || ""
     }`;
+
+    this.dispatchCustomEvent({
+      eventName: "editPostBtnClick",
+    });
   };
 
   #handleDeletePost = () => {
