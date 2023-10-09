@@ -8,9 +8,6 @@ import { getUsernameQueryParam } from "../utils/getUsernameQueryParam.js";
 import { getActiveUser } from "../utils/handleLocalStorageUser.js";
 import { createNewPost, initUserPage } from "../utils/profilePageUtils.js";
 
-const newPostInput = document.getElementById("new-post-input");
-
-const createPostButton = document.getElementById("create-post-button");
 const newPostForm = document.getElementById("new-post-form");
 const avatar = document.getElementById("avatar");
 const profileName = document.getElementById("profile-username");
@@ -19,10 +16,6 @@ const banner = document.getElementById("banner");
 const followers = document.getElementById("followers");
 const following = document.getElementById("following");
 const followUnFollowButton = document.getElementById("follow-btn");
-
-newPostForm.addEventListener("submit", createNewPost);
-
-createPostButton.addEventListener("click", displayInput);
 
 function displayInput() {
   newPostForm.classList.remove("hidden");
