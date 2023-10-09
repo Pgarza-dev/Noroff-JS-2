@@ -14,11 +14,14 @@ export class PostInput extends CustomComponent {
     super();
     this.innerHTML = postInputHtml;
     this.supportsPopover = checkPopoverSupport();
-    this.supportsPopover ? null : addPopoverFallback(this);
   }
 
   connectedCallback() {
     this.addEventListeners();
+
+    if (!this.supportsPopover) {
+      addPopoverFallback(this);
+    }
   }
 
   addEventListeners() {
