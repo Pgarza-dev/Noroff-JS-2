@@ -43,6 +43,8 @@ export class PostInput extends CustomComponent {
     const form = createFormDataObject(event.target);
     if (!this.supportsPopover) {
       hidePopoverElement(this);
+    } else {
+      this.getSlot("postInput").hidePopover();
     }
     await createPost(form);
   }

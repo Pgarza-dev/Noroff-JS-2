@@ -1,3 +1,7 @@
+import {
+  addPopoverFallback,
+  checkPopoverSupport,
+} from "@/lib/utils/browserUtils.js";
 import { CustomComponent } from "../customComponent.js";
 import toastHtml from "./toast.html?raw";
 
@@ -5,7 +9,10 @@ export class Toast extends CustomComponent {
   constructor(toast) {
     super();
     this.toast = toast;
-    this.setAttribute("popover", "manual");
+    this.supportsPopover = checkPopoverSupport();
+    this.supportsPopover
+      ? this.setAttribute("popover", "manual")
+      : addPopoverFallback(this);
     this.classList.add("toast", "-translate-x-1/2");
     this.innerHTML = toastHtml;
 
