@@ -1,4 +1,3 @@
-import toastStore from "@/lib/stores/toastStore.js";
 import {
   followProfile,
   getSingleProfile,
@@ -6,9 +5,8 @@ import {
 } from "../services/profiles.js";
 import { getUsernameQueryParam } from "../utils/getUsernameQueryParam.js";
 import { getActiveUser } from "../utils/handleLocalStorageUser.js";
-import { createNewPost, initUserPage } from "../utils/profilePageUtils.js";
+import { initUserPage } from "../utils/profilePageUtils.js";
 
-const newPostForm = document.getElementById("new-post-form");
 const avatar = document.getElementById("avatar");
 const profileName = document.getElementById("profile-username");
 const banner = document.getElementById("banner");
@@ -16,10 +14,6 @@ const banner = document.getElementById("banner");
 const followers = document.getElementById("followers");
 const following = document.getElementById("following");
 const followUnFollowButton = document.getElementById("follow-btn");
-
-function displayInput() {
-  newPostForm.classList.remove("hidden");
-}
 
 function setUpProfileAvatar(avatarUrl) {
   if (avatarUrl) {
