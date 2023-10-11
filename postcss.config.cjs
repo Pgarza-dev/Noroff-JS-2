@@ -2,6 +2,9 @@ module.exports = {
   plugins: {
     "tailwindcss/nesting": "postcss-nesting",
     tailwindcss: {},
-    autoprefixer: {},
+    "postcss-preset-env": {
+      features: { "custom-properties": true },
+      stage: 2,
+    },
   },
 };
