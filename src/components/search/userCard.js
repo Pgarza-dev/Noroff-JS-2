@@ -46,6 +46,7 @@ export class UserCard extends CustomComponent {
   }
 
   followUser() {
+    // todo finish follow user for user card
     console.log("Follow user");
   }
 }

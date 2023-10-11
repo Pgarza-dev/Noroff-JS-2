@@ -21,6 +21,7 @@
   "types": "module",
   "dependencies": {
     "dayjs": "^1.11.9",
-    "motion": "^10.16.4"
+    "motion": "^10.16.4",
+    "postcss-preset-env": "^9.2.0"
   }
 }
