@@ -22,6 +22,7 @@ export class Post extends CustomComponent {
       comments: [...(this.postData.comments || [])],
       reactions: [...(this.postData.reactions || [])],
     });
+    this.classList.add("w-full", "max-w-3xl");
   }
 
   connectedCallback() {

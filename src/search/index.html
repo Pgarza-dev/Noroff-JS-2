@@ -35,12 +35,14 @@
 
     <main class="flex w-full flex-col justify-center">
       <div class="flex w-full flex-col items-center justify-center pt-4">
-        <div class="relative w-full max-w-md">
+        <div
+          class="relative flex w-full max-w-md rounded-full border bg-primary-900 p-2"
+        >
           <input
             type="search"
             id="search-input"
             name="search"
-            class="peer h-10 w-full rounded-full border bg-primary-900 px-3 py-2 text-white focus:outline-none"
+            class="peer h-10 w-full bg-primary-900 px-3 py-2 text-white focus:outline-none"
             placeholder="search (min 2 characters)"
           />
           <label
@@ -48,6 +50,10 @@
             class="peer absolute -top-5 left-0 text-sm text-white transition-all duration-500 placeholder-shown:-top-2 peer-placeholder-shown:text-base peer-placeholder-shown:opacity-0 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-white peer-focus:opacity-100"
             >Search</label
           >
+          <select name="search-by" id="search-by" class="bg-primary-900 p-2">
+            <option value="post">Post</option>
+            <option value="user">User</option>
+          </select>
         </div>
         <div>
           <h3 id="search-results-number" class="pt-4 text-xl"></h3>
