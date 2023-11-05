@@ -1,0 +1,64 @@
+<div
+  class="rounded-md bg-gradient-to-l from-stone-400 via-stone-600 to-stone-400 bg-200% bg-right p-[2px] opacity-60 transition-all duration-700 hover:opacity-100 [&:has(#view-reactions-btn:hover)]:bg-left"
+>
+  <div class="flex items-center overflow-hidden rounded-md bg-stone-950">
+    <button
+      class="h-8 w-8 overflow-hidden rounded-l-md px-2 transition-colors duration-500 hover:bg-primary-900"
+      id="view-reactions-btn"
+      data-slot="viewReactionsBtn"
+      popovertarget="post-reactions"
+    >
+      0
+    </button>
+    <div class="">
+      <svg
+        width="1"
+        height="24"
+        class="stroke-stone-600"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line x1="0.5" y1="0" x2="0.5" y2="24" stroke-width="1" />
+      </svg>
+    </div>
+    <div class="radial-menu" tabindex="0">
+      <button
+        class="menu-toggle h-full w-8 rounded-r-md px-2 transition-colors duration-500 hover:bg-primary-900"
+        id="add-reaction-btn"
+      >
+        <!-- <i class="fa-regular fa-plus"></i> -->
+        <img
+          src="/icons/plus-icon.svg"
+          alt=""
+          class="plus-icon h-8 w-full transition-transform duration-500"
+        />
+      </button>
+      <ul class="menu-items pointer-events-none" data-slot="reactionsMenu">
+        <li class="item pointer-events-auto">
+          <button>
+            <span aria-hidden="true">👍</span>
+          </button>
+        </li>
+        <li class="item pointer-events-auto">
+          <button>
+            <span aria-hidden="true">🔥</span>
+          </button>
+        </li>
+        <li class="item pointer-events-auto">
+          <button>
+            <span aria-hidden="true">🚀</span>
+          </button>
+        </li>
+        <li class="item pointer-events-auto">
+          <button>
+            <span aria-hidden="true">🤠</span>
+          </button>
+        </li>
+        <li class="item pointer-events-auto">
+          <button>
+            <span aria-hidden="true">❤️</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

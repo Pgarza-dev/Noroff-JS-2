@@ -1,0 +1,56 @@
+<dialog
+  id="post-editor"
+  class="dim-background w-full max-w-xl rounded-lg bg-stone-950 p-4 text-white"
+  popover
+>
+  <form action="" class="flex flex-col gap-5" id="post-editor-form">
+    <input
+      type="hidden"
+      name="id"
+      id="post-editor-post-id"
+      class="bg-black text-white"
+    />
+    <label for="title">Title</label>
+    <input
+      id="post-editor-title"
+      type="text"
+      name="title"
+      class="bg-black text-2xl font-bold text-white"
+    />
+    <label for="body">Body</label>
+    <textarea
+      name="body"
+      cols="30"
+      rows="10"
+      class="block w-full rounded-md border border-stone-700 bg-black p-2 text-xl leading-none outline-none ring-2 ring-transparent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-800"
+      id="post-editor-textarea"
+    ></textarea>
+    <label for="media">Media</label>
+    <input
+      id="post-editor-media"
+      type="url"
+      name="media"
+      id=""
+      class="bg-black text-white"
+    />
+    <div class="flex gap-5">
+      <button
+        type="submit"
+        popovertargetaction="hide"
+        popovertarget="post-editor"
+        class="btn"
+      >
+        Update
+      </button>
+      <button
+        type="button"
+        popovertargetaction="hide"
+        popovertarget="post-editor"
+        data-slot="cancelPostBtn"
+        class="btn"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</dialog>

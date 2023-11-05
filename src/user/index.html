@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Social | Profile</title>
+    <script type="module" src="../lib/main.js"></script>
+    <script type="module" src="../lib/page_scripts/user.js"></script>
+    <!-- Hotjar Tracking Code for JS2 social media -->
+    <script>
+      (function (h, o, t, j, a, r) {
+        h.hj =
+          h.hj ||
+          function () {
+            (h.hj.q = h.hj.q || []).push(arguments);
+          };
+        h._hjSettings = { hjid: 3685538, hjsv: 6 };
+        a = o.getElementsByTagName("head")[0];
+        r = o.createElement("script");
+        r.async = 1;
+        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+        a.appendChild(r);
+      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+    </script>
+  </head>
+  <body class="bg-stone-950 text-gray-50">
+    <toast-wrapper></toast-wrapper>
+    <app-header></app-header>
+    <post-editor></post-editor>
+    <post-reactions></post-reactions>
+    <confirm-delete-modal></confirm-delete-modal>
+    <post-input></post-input>
+    <new-post-btn></new-post-btn>
+    <main class="flex w-full flex-col items-center justify-center">
+      <section class="max-w-4xl">
+        <div
+          class="flex aspect-[21/9] items-center justify-center overflow-hidden"
+        >
+          <img
+            id="banner"
+            src="/images/default_header.jpg"
+            alt="profile-header"
+          />
+        </div>
+        <div class="relative flex w-full flex-col items-center justify-center">
+          <div
+            class="absolute top-0 h-40 w-40 translate-y-[-105%] overflow-hidden rounded-full object-fill"
+          >
+            <img
+              id="avatar"
+              class="h-full w-full object-cover"
+              height="120px"
+              width="120px"
+              src="/images/default_user.png"
+              alt="avatar"
+            />
+          </div>
+          <div class="flex flex-col items-center justify-center gap-2">
+            <span id="profile-username" class="text-2xl font-black"
+              >username</span
+            >
+            <div class="flex gap-3">
+              <div class="flex gap-3">
+                followers <span id="followers">100</span>
+              </div>
+              <span>|</span>
+              <div class="flex gap-3">
+                following <span id="following">100</span>
+              </div>
+            </div>
+            <button
+              class="hidden h-10 w-full max-w-lg rounded-lg border-primary-900 bg-primary-900 px-5 py-1 capitalize transition-all duration-500 ease-in-out hover:bg-primary-950 hover:text-primary-50"
+              type="submit"
+              id="follow-btn"
+            >
+              follow
+            </button>
+          </div>
+        </div>
+      </section>
+      <div class="w-full max-w-3xl px-4 pt-4">
+        <h2 class="text-4xl font-bold">Posts</h2>
+      </div>
+      <section
+        id="profile-posts"
+        class="m-4 flex w-full max-w-3xl flex-col gap-8"
+      ></section>
+    </main>
+  </body>
+</html>

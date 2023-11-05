@@ -1,0 +1,35 @@
+<div class="flex justify-between pt-4">
+  <div
+    class="rounded-md bg-gradient-to-r from-stone-400 via-stone-600 to-stone-400 bg-200% bg-left p-[2px] opacity-60 transition-all duration-700 hover:opacity-100 [&:has(#view-comments-btn:hover)]:bg-right"
+  >
+    <div class="flex items-center overflow-hidden rounded-md bg-stone-950">
+      <button
+        id="add-comment-btn"
+        data-slot="addCommentBtn"
+        class="h-full w-8 rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-900"
+      >
+        <img class="h-8" src="/icons/comment-icon.svg" alt="" />
+      </button>
+      <div>
+        <svg
+          width="1"
+          height="24"
+          class="stroke-stone-600"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <line x1="0.5" y1="0" x2="0.5" y2="24" stroke-width="1" />
+        </svg>
+      </div>
+      <button
+        id="view-comments-btn"
+        data-slot="viewCommentsBtn"
+        class="h-8 w-8 rounded-l-sm px-2 transition-colors duration-500 hover:bg-primary-950 data-[state=open]:bg-primary-900"
+        data-state="closed"
+      >
+        17
+      </button>
+    </div>
+  </div>
+
+  <div data-slot="addReactionBtn" class="z-30"></div>
+</div>

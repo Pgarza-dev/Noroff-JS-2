@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Social | Search</title>
+    <script type="module" src="../lib/main.js"></script>
+    <script type="module" src="../lib/page_scripts/search.js"></script>
+    <script
+      src="https://kit.fontawesome.com/a6b44b4960.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Hotjar Tracking Code for JS2 social media -->
+    <script>
+      (function (h, o, t, j, a, r) {
+        h.hj =
+          h.hj ||
+          function () {
+            (h.hj.q = h.hj.q || []).push(arguments);
+          };
+        h._hjSettings = { hjid: 3685538, hjsv: 6 };
+        a = o.getElementsByTagName("head")[0];
+        r = o.createElement("script");
+        r.async = 1;
+        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+        a.appendChild(r);
+      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+    </script>
+  </head>
+  <body class="bg-stone-950 text-gray-50">
+    <app-header></app-header>
+    <post-editor></post-editor>
+    <post-reactions></post-reactions>
+    <confirm-delete-modal></confirm-delete-modal>
+
+    <main class="flex w-full flex-col justify-center">
+      <div class="flex w-full flex-col items-center justify-center pt-4">
+        <div
+          class="relative flex w-full max-w-md rounded-full border bg-primary-900 p-2"
+        >
+          <input
+            type="search"
+            id="search-input"
+            name="search"
+            class="peer h-10 w-full bg-primary-900 px-3 py-2 text-white focus:outline-none"
+            placeholder="search (min 2 characters)"
+          />
+          <label
+            for="email"
+            class="peer absolute -top-5 left-0 text-sm text-white transition-all duration-500 placeholder-shown:-top-2 peer-placeholder-shown:text-base peer-placeholder-shown:opacity-0 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-white peer-focus:opacity-100"
+            >Search</label
+          >
+          <select name="search-by" id="search-by" class="bg-primary-900 p-2">
+            <option value="post">Post</option>
+            <option value="user">User</option>
+          </select>
+        </div>
+        <div>
+          <h3 id="search-results-number" class="pt-4 text-xl"></h3>
+        </div>
+      </div>
+      <section
+        class="flex w-full flex-col items-center justify-center gap-3 pt-4"
+        id="search-results"
+      ></section>
+    </main>
+  </body>
+</html>

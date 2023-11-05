@@ -1,0 +1,201 @@
+@import "./fonts.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family:
+      SF Pro,
+      ui-sans-serif,
+      system-ui,
+      Arial,
+      sans-serif;
+  }
+}
+
+@layer utilities {
+  .mask-image-circle {
+    mask-image: radial-gradient(circle, black 70%, rgba(0, 0, 0, 0.5) 70.01%);
+    @apply aspect-square;
+  }
+
+  .dim-background::backdrop {
+    backdrop-filter: blur(4px);
+    @apply bg-black bg-opacity-20;
+  }
+
+  .h-screen-dvh {
+    height: 100vh;
+    height: 100dvh;
+  }
+}
+
+/* note: radial menu inspired by this article: https://una.im/radial-menu/ */
+@layer components {
+  .btn {
+    @apply h-10 w-full max-w-lg rounded-lg border-primary-900 bg-primary-900 px-5 py-1 capitalize transition-all duration-500 ease-in-out hover:bg-primary-950 hover:text-primary-50;
+  }
+
+  .btn-warning {
+    @apply btn bg-red-700 hover:bg-red-900;
+  }
+
+  .radial-menu,
+  .menu-items,
+  .item {
+    display: grid;
+    place-content: center;
+    z-index: 50;
+  }
+
+  .menu-items {
+    position: absolute;
+    transform: translate(-50%, -25%);
+  }
+
+  .radial-menu > *,
+  .menu-items > *,
+  .item button {
+    grid-area: 1/1;
+  }
+
+  .item {
+    --btn-size: 2.5rem;
+    --extra-space: 1.5rem;
+    --radius: calc(var(--btn-size) + var(--extra-space));
+
+    transform: translateX(calc(cos(var(--angle)) * var(--radius)))
+      translateY(calc(sin(var(--angle) * -1) * var(--radius))) rotate(0deg);
+
+    transition: all 0.3s var(--delay) ease;
+
+    @apply h-[--btn-size] w-[--btn-size] cursor-pointer rounded-full bg-primary-800;
+
+    &:hover {
+      --delay: 0s !important;
+      scale: 1.1;
+      @apply bg-primary-700;
+    }
+  }
+
+  .item:nth-child(1) {
+    --angle: 90deg;
+    --delay: 0s;
+  }
+
+  .item:nth-child(2) {
+    --angle: 135deg;
+    --delay: 0.1s;
+  }
+
+  .item:nth-child(3) {
+    --angle: 180deg;
+    --delay: 0.2s;
+  }
+
+  .item:nth-child(4) {
+    --angle: 225deg;
+    --delay: 0.3s;
+  }
+
+  .item:nth-child(5) {
+    --angle: 270deg;
+    --delay: 0.4s;
+  }
+
+  .radial-menu:focus-within .plus-icon {
+    transform: rotate(-45deg);
+  }
+
+  .radial-menu:not(:focus-within) .item {
+    --radius: 0;
+    --angle: 0;
+    rotate: 45deg;
+    scale: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .post-media {
+    @apply h-full max-h-[500px];
+  }
+
+  .transition-height {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition:
+      grid-template-rows 300ms ease-in-out,
+      opacity 150ms 150ms ease-in-out;
+  }
+
+  .transition-height[aria-expanded="true"] {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  .transition-height:has(.transition-height-inner[aria-expanded="true"]) {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  .transition-height-inner {
+    overflow: hidden;
+  }
+
+  /* 
+  experimental chrome popover API and transitions 
+  https://developer.chrome.com/blog/introducing-popover-api/
+  */
+  /* #post-editor,
+  #post-reactions {
+    &:popover-open {
+      @starting-style {
+        transform: translateY(100px);
+        opacity: 0;
+      }
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    transform: translateY(100px);
+    opacity: 0;
+
+    transition:
+      transform 350ms,
+      opacity 350ms,
+      display 350ms;
+    transition-behavior: allow-discrete;
+  } */
+
+  .toast-in {
+    @apply animate-jump-in animate-duration-300;
+  }
+
+  .toast-out {
+    @apply animate-jump-out animate-duration-300;
+  }
+
+  .toast:popover-open {
+    @apply absolute inset-auto left-1/2 top-5 bg-transparent transition-all duration-300 ease-in-out;
+  }
+
+  .popover-fallback {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    width: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .popover-fallback--hidden {
+    display: none;
+  }
+}

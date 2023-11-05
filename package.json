@@ -1,0 +1,27 @@
+{
+  "name": "vite-js2",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.15",
+    "postcss": "^8.4.29",
+    "postcss-nesting": "^12.0.1",
+    "prettier": "^3.0.3",
+    "prettier-plugin-tailwindcss": "^0.5.4",
+    "tailwindcss": "^3.3.3",
+    "tailwindcss-animated": "^1.0.1",
+    "vite": "^4.4.5"
+  },
+  "types": "module",
+  "dependencies": {
+    "dayjs": "^1.11.9",
+    "motion": "^10.16.4",
+    "postcss-preset-env": "^9.2.0"
+  }
+}

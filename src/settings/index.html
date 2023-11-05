@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Social</title>
+    <script type="module" src="../lib/main.js"></script>
+    <script type="module" src="../lib/page_scripts/settings.js"></script>
+    <!-- Hotjar Tracking Code for JS2 social media -->
+    <script>
+      (function (h, o, t, j, a, r) {
+        h.hj =
+          h.hj ||
+          function () {
+            (h.hj.q = h.hj.q || []).push(arguments);
+          };
+        h._hjSettings = { hjid: 3685538, hjsv: 6 };
+        a = o.getElementsByTagName("head")[0];
+        r = o.createElement("script");
+        r.async = 1;
+        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+        a.appendChild(r);
+      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+    </script>
+  </head>
+  <body class="bg-stone-950 text-gray-50">
+    <app-header></app-header>
+    <main class="flex min-h-screen w-full justify-center">
+      <section class="m-4 flex w-full max-w-xl flex-col gap-8" id="settings">
+        <div class="relative">
+          <div
+            class="mask-image-circle flex aspect-square items-center justify-center overflow-hidden"
+          >
+            <img
+              src=""
+              alt="profile image"
+              id="avatar"
+              class="h-full object-cover"
+            />
+          </div>
+        </div>
+        <form class="w-full" id="avatar-form">
+          <label
+            for="avatar-url"
+            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+            >Avatar Url
+          </label>
+          <div class="mb-6 flex gap-4">
+            <input
+              type="avatar-url"
+              id="avatar-url"
+              width="576"
+              height="576"
+              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              placeholder="https://example.com/image.png"
+              type="url"
+              name="avatar"
+            />
+            <button
+              type="submit"
+              class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
+            >
+              Update
+            </button>
+          </div>
+        </form>
+        <div>
+          <div
+            class="flex aspect-[21/9] items-center justify-center overflow-hidden"
+          >
+            <img height="364" id="banner" src="" alt="" class="object-cover" />
+          </div>
+        </div>
+        <form action="" id="banner-form">
+          <label
+            for="banner-url"
+            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+            >Banner Url</label
+          >
+          <div class="mb-6 flex gap-4">
+            <input
+              type="banner-url"
+              id="banner-url"
+              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              placeholder="https://example.com/image.png"
+              type="url"
+              name="banner"
+            />
+            <button
+              type="submit"
+              class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
+            >
+              Update
+            </button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
